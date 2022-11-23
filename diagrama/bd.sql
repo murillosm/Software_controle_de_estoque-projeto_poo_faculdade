@@ -137,9 +137,7 @@ CREATE TABLE fornecedor
 CREATE TABLE usuario (
                          idusuario integer PRIMARY KEY not null,
                          nome_usuario varchar(200) not null,
-                         cpf_usuario varchar(11) not null,
-                         data_nacimento date,
-                         cargo varchar(100),
+                         cpf varchar(11) not null,
                          senha varchar(20) not null,
                          login varchar(20) not null
 );

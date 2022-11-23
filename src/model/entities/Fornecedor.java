@@ -4,12 +4,12 @@ public class Fornecedor {
 
 	private int idFornecedor;
 
-	private String nomeFantasia;
+	private String nomeFornecedor;
 	private String razaoSocialFornecedor;
 	private String cnpjFornecedor;
 	private String emailFornecedor;
 	private Endereco enderecoFornecedor;
-	private String foneFornecedo;
+	private String foneFornecedo1;
 	private String foneFornecedo2;
 
 	//private Date dataCadastraF;
@@ -28,20 +28,28 @@ public class Fornecedor {
 	public Fornecedor() {
 	}
 
-	public Fornecedor(int idFornecedor, String nomeFantasia, String razaoSocialFornecedor, String cnpjFornecedor,
+	public Fornecedor(int idFornecedor, String nomeFornecedor, String razaoSocialFornecedor, String cnpjFornecedor,
 					  String emailFornecedor, Endereco enderecoFornecedor,
-					  String foneFornecedo, String foneFornecedo2/*, Date dataCadastraF*/) {
+					  String foneFornecedo1, String foneFornecedo2/*, Date dataCadastraF*/) {
 		this.idFornecedor = idFornecedor;
-		this.nomeFantasia = nomeFantasia;
+		this.nomeFornecedor = nomeFornecedor;
 		this.razaoSocialFornecedor = razaoSocialFornecedor;
 		this.cnpjFornecedor = cnpjFornecedor;
 		this.emailFornecedor = emailFornecedor;
 		this.enderecoFornecedor = enderecoFornecedor;
-		this.foneFornecedo = foneFornecedo;
+		this.foneFornecedo1 = foneFornecedo1;
 		this.foneFornecedo2 = foneFornecedo2;
 		//this.dataCadastraF = dataCadastraF;
 	}
 ///////////////////set e get\\\\\\\\\\\\\\\\\\\\\\
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
 
 	public int getIdFornecedor() {
 		return idFornecedor;
@@ -73,20 +81,12 @@ public class Fornecedor {
 		
 	}
 
-	public String getFoneFornecedo() {
-		return foneFornecedo;
+	public String getFoneFornecedo1() {
+		return foneFornecedo1;
 	}
 
-	public void setFoneFornecedo(String foneFornecedo) {
-		this.foneFornecedo = foneFornecedo;
-	}
-
-	public String getEmailFornecedor() {
-		return emailFornecedor;
-	}
-
-	public void setEmailFornecedor(String emailFornecedor) {
-		this.emailFornecedor = emailFornecedor;
+	public void setFoneFornecedo1(String foneFornecedo1) {
+		this.foneFornecedo1 = foneFornecedo1;
 	}
 
 	public String getFoneFornecedo2() {
@@ -95,6 +95,14 @@ public class Fornecedor {
 
 	public void setFoneFornecedo2(String foneFornecedo2) {
 		this.foneFornecedo2 = foneFornecedo2;
+	}
+	
+	public String getEmailFornecedor() {
+		return emailFornecedor;
+	}
+
+	public void setEmailFornecedor(String emailFornecedor) {
+		this.emailFornecedor = emailFornecedor;
 	}
 
 	public Endereco getEnderecoFornecedor() {
@@ -105,12 +113,12 @@ public class Fornecedor {
 		this.enderecoFornecedor = enderecoFornecedor;
 	}
 
-	/*public Date getDataCadastraF() {
-		return dataCadastraF;
+	@Override
+	public String toString() {
+		return "Fornecedor [idFornecedor=" + idFornecedor + ", nomeFornecedor=" + nomeFornecedor
+				+ ", razaoSocialFornecedor=" + razaoSocialFornecedor + ", cnpjFornecedor=" + cnpjFornecedor
+				+ ", emailFornecedor=" + emailFornecedor + ", enderecoFornecedor=" + enderecoFornecedor
+				+ ", foneFornecedo1=" + foneFornecedo1 + ", foneFornecedo2=" + foneFornecedo2 + "]";
 	}
-
-	public void setDataCadastraF(Date dataCadastraF) {
-		this.dataCadastraF = dataCadastraF;
-	}*/
 
 }

@@ -9,7 +9,7 @@ public interface FornecedorDao {
 
     public void insert(Fornecedor obj);
     public void update(Fornecedor obj);
-    public void deleteById(Fornecedor id);
-    public Cliente findById(Fornecedor id);
+    public void deleteById(Integer id);
+    public Fornecedor findById(Integer id);
     public List<Fornecedor> findAll();
 }

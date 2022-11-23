@@ -47,4 +47,21 @@ public class ClientePessoaJuridico extends Cliente {
 		//}
 	}
 
+	@Override
+	public String toString() {
+		return "ClientePessoaJuridico [ "
+				+ "getIdCliente()=" + getIdCliente() 
+				+ ", getNomeCliente()=" + getNomeCliente()
+				+ ", razaoSocialCliente=" + razaoSocialCliente 
+				+ ", cnpjCliente=" + cnpjCliente
+				+ ", getFoneCliente1()=" + getFoneCliente1() 
+				+ ", getEmailCliente()=" + getEmailCliente()
+				+ ", getEnderecoCliente()=" + getEnderecoCliente() 
+				+ ", getFoneCliente2()=" + getFoneCliente2()
+				+ ", hashCode()=" + hashCode() 
+				+ "]";
+	}
+
+
+	
 }

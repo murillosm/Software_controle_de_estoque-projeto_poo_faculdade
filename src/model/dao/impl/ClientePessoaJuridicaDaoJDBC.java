@@ -10,6 +10,7 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.ClientePessoaJuridoDao;
 import model.entities.Cidades;
 import model.entities.ClientePessoaJuridico;
@@ -101,7 +102,19 @@ public class ClientePessoaJuridicaDaoJDBC implements ClientePessoaJuridoDao {
 
 	@Override
 	public void deleteById(Integer id) {
+		PreparedStatement pst = null;
+		try {
+			pst = conn.prepareStatement("DELETE FROM cliente WHERE Idcliente = ?");
 
+			pst.setInt(1, id);
+
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbIntegrityException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+		}
 	}
 
 	@Override

@@ -6,29 +6,28 @@ public class Usuario {
 	private String nomeUser;
 	private String senha;
 	private String loginUser;
-	private String cpfUser;
-	private String emailUser;
-	private int dataNascDia, dataNascMes, dataNacsAno;
+	private String cpf;
 
 //////////////////construtor\\\\\\\\\\\\\\\\\\\\\\\
 
 	public Usuario() {
 	}
 
-	public Usuario(String cpfUser) {
-		this.setCpfUser(cpfUser);
-	}
-
-	public Usuario(int idUsuario, String nomeUser, String senha, String loginUser, String cpfUser, String emailUser, int dataNascDia, int dataNascMes, int dataNacsAno) {
+	public Usuario(int idUsuario, String nomeUser, String senha, String loginUser, String cpf) {
+		super();
 		this.idUsuario = idUsuario;
 		this.nomeUser = nomeUser;
 		this.senha = senha;
 		this.loginUser = loginUser;
-		this.setCpfUser(cpfUser);
-		this.emailUser = emailUser;
-		this.dataNascDia = dataNascDia;
-		this.dataNascMes = dataNascMes;
-		this.dataNacsAno = dataNacsAno;
+		this.cpf = cpf;
+	}
+
+	public Usuario(String nomeUser, String senha, String loginUser, String cpf) {
+		super();
+		this.nomeUser = nomeUser;
+		this.senha = senha;
+		this.loginUser = loginUser;
+		this.cpf = cpf;
 	}
 
 ///////////////////get e set\\\\\\\\\\\\\\\\\\\\\\\
@@ -64,59 +63,39 @@ public class Usuario {
 		this.loginUser = loginUser;
 	}
 
-	public String getCpfUser() {
-		return cpfUser;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpfUser(String cpfUser) {
-		if(cpfUser.length() == 11){
-		      //valido = false;
-			if (cpfUser.substring(0,11).matches("[0-9]*")) {
-				this.cpfUser = cpfUser;
-			}
-		}
+	public void setCpf(String cpf) {
+		//if (cpfUser.length() == 11) {
+			// valido = false;
+		//	if (cpfUser.substring(0, 11).matches("[0-9]*")) {
+				this.cpf = cpf;
+		//	}
+		//}
 
 	}
+	
+	
 
-	public String getEmailUser() {
-		return emailUser;
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nomeUser=" + nomeUser + ", senha=" + senha + ", loginUser="
+				+ loginUser + ", cpf=" + cpf + "]";
 	}
 
-	public void setEmailUser(String emailUser) {
-		this.emailUser = emailUser;
-	}
-
-	public int getDataNascDia() {
-		return dataNascDia;
-	}
-
-	public void setDataNascDia(int dataNascDia) {
-		this.dataNascDia = dataNascDia;
-	}
-
-	public int getDataNascMes() {
-		return dataNascMes;
-	}
-
-	public void setDataNascMes(int dataNascMes) {
-		this.dataNascMes = dataNascMes;
-	}
-
-	public int getDataNacsAno() {
-		return dataNacsAno;
-	}
-
-	public void setDataNacsAno(int dataNacsAno) {
-		this.dataNacsAno = dataNacsAno;
-	}
 
 ////////////////métodos\\\\\\\\\\\\\\\\\\\
 	public void imprimir() {
-		this.setCpfUser(cpfUser);
-		//System.out.println(this.cpfUser);
+		this.setCpf(cpf);
+		// System.out.println(this.cpfUser);
 	}
+
 	public void cpf() {
 	}
+
 	public void login() {
 		// Start of user code for method login
 		// End of user code
@@ -151,6 +130,7 @@ public class Usuario {
 		// Start of user code for method registrarPedido
 		// End of user code
 	}
+
 	public void historicoDeAtividaddes() {
 
 	}

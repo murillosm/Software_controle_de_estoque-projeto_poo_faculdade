@@ -3,6 +3,7 @@ package model.dao;
 import db.DB;
 import model.dao.impl.ClientePessoaFisicaDaoJDBC;
 import model.dao.impl.ClientePessoaJuridicaDaoJDBC;
+import model.dao.impl.FornecedorDaoJDBC;
 
 public class DaoFactory {
 
@@ -14,7 +15,7 @@ public class DaoFactory {
         return new ClientePessoaJuridicaDaoJDBC(DB.getConnection());
     }
 
-    /*public static DepartmentDao createDepartmentDao() {
-        return new DepartmentDaoJDBC(DB.getConnection());
-    }*/
+    public static FornecedorDao createFornecedorDao(){
+        return new FornecedorDaoJDBC(DB.getConnection());
+    }
 }
