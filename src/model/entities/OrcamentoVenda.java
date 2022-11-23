@@ -20,6 +20,9 @@ public class OrcamentoVenda {
 		// End of user code
 	}
 /////////////construtor\\\\\\\\\\\\\\
+	public OrcamentoVenda() {
+	}
+
 	public OrcamentoVenda(float valorTotal, int codVenda, Usuario vendedor, ItemVenda itemVenda) {
 		super();
 		ValorTotal = valorTotal;

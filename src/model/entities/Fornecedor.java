@@ -1,18 +1,19 @@
 package model.entities;
 
-import java.util.Date;
-
 public class Fornecedor {
-	
+
+	private int idFornecedor;
+
+	private String nomeFantasia;
 	private String razaoSocialFornecedor;
 	private String cnpjFornecedor;
+	private String emailFornecedor;
+	private Endereco enderecoFornecedor;
 	private String foneFornecedo;
 	private String foneFornecedo2;
-	private String emailFornecedor;
-	private String site;
-	private int codFornecedor;
-	private Enderecos enderecoFornecedor;
-	Date dataCadastraF = new Date();
+
+	//private Date dataCadastraF;
+
 ////////////////////metodos\\\\\\\\\\\\\\\\\\\\\\	
 	public void consutarFornecedor() {
 		// Start of user code for method consutarFornecedor
@@ -24,20 +25,31 @@ public class Fornecedor {
 		// End of user code
 	}
 ///////////////////construtor\\\\\\\\\\\\\\\\\\\\\\
-	public Fornecedor(String razaoSocialFornecedor, String cnpjFornecedor, String foneFornecedo, String emailFornecedor,
-			String site, int codFornecedor, String foneFornecedo2, Enderecos enderecoFornecedor) {
-		super();
+	public Fornecedor() {
+	}
+
+	public Fornecedor(int idFornecedor, String nomeFantasia, String razaoSocialFornecedor, String cnpjFornecedor,
+					  String emailFornecedor, Endereco enderecoFornecedor,
+					  String foneFornecedo, String foneFornecedo2/*, Date dataCadastraF*/) {
+		this.idFornecedor = idFornecedor;
+		this.nomeFantasia = nomeFantasia;
 		this.razaoSocialFornecedor = razaoSocialFornecedor;
 		this.cnpjFornecedor = cnpjFornecedor;
-		this.foneFornecedo = foneFornecedo;
 		this.emailFornecedor = emailFornecedor;
-		this.site = site;
-		this.codFornecedor = codFornecedor;
-		this.foneFornecedo2 = foneFornecedo2;
 		this.enderecoFornecedor = enderecoFornecedor;
+		this.foneFornecedo = foneFornecedo;
+		this.foneFornecedo2 = foneFornecedo2;
 		//this.dataCadastraF = dataCadastraF;
 	}
-///////////////////set e get\\\\\\\\\\\\\\\\\\\\\\	
+///////////////////set e get\\\\\\\\\\\\\\\\\\\\\\
+
+	public int getIdFornecedor() {
+		return idFornecedor;
+	}
+
+	public void setIdFornecedor(int idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
 	
 	public String getRazaoSocialFornecedor() {
 		return razaoSocialFornecedor;
@@ -77,22 +89,6 @@ public class Fornecedor {
 		this.emailFornecedor = emailFornecedor;
 	}
 
-	public String getSite() {
-		return site;
-	}
-
-	public void setSite(String site) {
-		this.site = site;
-	}
-
-	public int getCodFornecedor() {
-		return codFornecedor;
-	}
-
-	public void setCodFornecedor(int codFornecedor) {
-		this.codFornecedor = codFornecedor;
-	}
-
 	public String getFoneFornecedo2() {
 		return foneFornecedo2;
 	}
@@ -101,15 +97,15 @@ public class Fornecedor {
 		this.foneFornecedo2 = foneFornecedo2;
 	}
 
-	public Enderecos getEnderecoFornecedor() {
+	public Endereco getEnderecoFornecedor() {
 		return enderecoFornecedor;
 	}
 
-	public void setEnderecoFornecedor(Enderecos enderecoFornecedor) {
+	public void setEnderecoFornecedor(Endereco enderecoFornecedor) {
 		this.enderecoFornecedor = enderecoFornecedor;
 	}
 
-/*	public Date getDataCadastraF() {
+	/*public Date getDataCadastraF() {
 		return dataCadastraF;
 	}
 

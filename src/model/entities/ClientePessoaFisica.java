@@ -4,42 +4,33 @@ import java.util.Date;
 
 public class ClientePessoaFisica extends Cliente {
 
-	private String nomeClienteFisica ;
-
 	private String cpfCliente;
-
-	private String sobrenomeCliente;
-
-	private int dataNascDiaC, dataNascMesC, dataNacsAnoC;
+	private Date dataNasc;
 
 //////////////////construtor\\\\\\\\\\\\\\\\\\\\\\\
-	public ClientePessoaFisica(String foneCliente, String emailCliente, Enderecos enderecoCliente, int codCliente,
-			Date cadastraC, String nomeClienteFisica, String cpfCliente, String sobrenomeCliente, int dataNascDiaC,
-			int dataNascMesC, int dataNacsAnoC) {
-		super(foneCliente, emailCliente, enderecoCliente, codCliente);
-		this.nomeClienteFisica = nomeClienteFisica;
-		this.setCpfCliente(cpfCliente);
-		this.sobrenomeCliente = sobrenomeCliente;
-		this.dataNascDiaC = dataNascDiaC;
-		this.dataNascMesC = dataNascMesC;
-		this.dataNacsAnoC = dataNacsAnoC;
+
+	
+	public ClientePessoaFisica(Integer idCliente, String nomeClienteFisica, String foneCliente,
+							   String emailCliente, Endereco enderecoCliente, String cpfCliente, Date dataNasc) {
+		super(idCliente, nomeClienteFisica, foneCliente, emailCliente, cpfCliente, enderecoCliente);
+		this.cpfCliente = cpfCliente;
+		this.dataNasc = dataNasc;
 	}
 	
-///////////////////get e set\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/**
-	 * @return the nomeClienteFisica
-	 */
-	public String getNomeClienteFisica() {
-		return nomeClienteFisica;
+	public ClientePessoaFisica() {
+		super();
 	}
 
-	/**
-	 * @param nomeClienteFisica the nomeClienteFisica to set
-	 */
-	public void setNomeClienteFisica(String nomeClienteFisica) {
-		this.nomeClienteFisica = nomeClienteFisica;
+
+	public ClientePessoaFisica(String nomeCliente, String foneCliente1, String foneCliente2, String emailCliente,
+			Endereco enderecoCliente, String cpfCliente, Date dataNasc) {
+		super(nomeCliente, foneCliente1, foneCliente2, emailCliente, enderecoCliente);
+		this.cpfCliente = cpfCliente;
+		this.dataNasc = dataNasc;
 	}
+
+///////////////////get e set\\\\\\\\\\\\\\\\\\\\\\\
 
 	/**
 	 * @return the cpfCliente
@@ -52,50 +43,36 @@ public class ClientePessoaFisica extends Cliente {
 	 * @param cpfCliente the cpfCliente to set
 	 */
 	public void setCpfCliente(String cpfCliente) {
-		if(cpfCliente.length() == 11){
-		      //valido = false;
-			if (cpfCliente.substring(0,11).matches("[0-9]*")) {
-				this.cpfCliente = cpfCliente;
-			}
-		}
+//		if(cpfCliente.length() == 11){
+//		      //valido = false;
+//			if (cpfCliente.substring(0,11).matches("[0-9]*")) {
+		this.cpfCliente = cpfCliente;
+//			}
+//		}
 	}
 
-	/**
-	 * @return the sobrenomeCliente
-	 */
-	public String getSobrenomeCliente() {
-		return sobrenomeCliente;
+	public Date getDataNasc() {
+		return dataNasc;
 	}
 
-	/**
-	 * @param sobrenomeCliente the sobrenomeCliente to set
-	 */
-	public void setSobrenomeCliente(String sobrenomeCliente) {
-		this.sobrenomeCliente = sobrenomeCliente;
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = dataNasc;
 	}
 
-	public int getDataNascDiaC() {
-		return dataNascDiaC;
+
+	@Override
+	public String toString() {
+		return "ClientePessoaFisica ["
+				+ "getIdCliente()=" + getIdCliente() 
+				+ ", getNomeCliente()=" + getNomeCliente()
+				+ ", cpfCliente=" + cpfCliente 
+				+ ", dataNasc=" + dataNasc 
+				+ ", getFoneCliente1()=" + getFoneCliente1()
+				+ ", getFoneCliente2()=" + getFoneCliente2() 
+				+ ", getEmailCliente()=" + getEmailCliente() 
+				+ ", getEnderecoCliente()=" + getEnderecoCliente()
+				+ "]";
 	}
 
-	public void setDataNascDiaC(int dataNascDiaC) {
-		this.dataNascDiaC = dataNascDiaC;
-	}
-
-	public int getDataNascMesC() {
-		return dataNascMesC;
-	}
-
-	public void setDataNascMesC(int dataNascMesC) {
-		this.dataNascMesC = dataNascMesC;
-	}
-
-	public int getDataNacsAnoC() {
-		return dataNacsAnoC;
-	}
-
-	public void setDataNacsAnoC(int dataNacsAnoC) {
-		this.dataNacsAnoC = dataNacsAnoC;
-	}
-
+	
 }
