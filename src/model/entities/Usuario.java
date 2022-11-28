@@ -6,28 +6,25 @@ public class Usuario {
 	private String nomeUser;
 	private String senha;
 	private String loginUser;
-	private String cpf;
 
 //////////////////construtor\\\\\\\\\\\\\\\\\\\\\\\
 
 	public Usuario() {
 	}
 
-	public Usuario(int idUsuario, String nomeUser, String senha, String loginUser, String cpf) {
+	public Usuario(int idUsuario, String nomeUser, String loginUser, String senha) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nomeUser = nomeUser;
 		this.senha = senha;
 		this.loginUser = loginUser;
-		this.cpf = cpf;
 	}
 
-	public Usuario(String nomeUser, String senha, String loginUser, String cpf) {
+	public Usuario(String nomeUser, String senha, String loginUser) {
 		super();
 		this.nomeUser = nomeUser;
 		this.senha = senha;
 		this.loginUser = loginUser;
-		this.cpf = cpf;
 	}
 
 ///////////////////get e set\\\\\\\\\\\\\\\\\\\\\\\
@@ -63,38 +60,15 @@ public class Usuario {
 		this.loginUser = loginUser;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		//if (cpfUser.length() == 11) {
-			// valido = false;
-		//	if (cpfUser.substring(0, 11).matches("[0-9]*")) {
-				this.cpf = cpf;
-		//	}
-		//}
-
-	}
-	
-	
-
-
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nomeUser=" + nomeUser + ", senha=" + senha + ", loginUser="
-				+ loginUser + ", cpf=" + cpf + "]";
+				+ loginUser + "]";
 	}
 
 
 ////////////////métodos\\\\\\\\\\\\\\\\\\\
-	public void imprimir() {
-		this.setCpf(cpf);
-		// System.out.println(this.cpfUser);
-	}
 
-	public void cpf() {
-	}
 
 	public void login() {
 		// Start of user code for method login

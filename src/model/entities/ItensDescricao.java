@@ -1,28 +1,30 @@
 package model.entities;
 
-public class ItensDescricao
-{
-
-	private String descricaoItem;
-	private String nomeItem;
-	public String marcaItem;
+public class ItensDescricao {
 	private int codItem;
+	private String nomeItem;
+	private String descricaoItem;
+	public String marcaItem;
 
 	public void descreverItem() {
 		// Start of user code for method descreverItem
 		// End of user code
 	}
 //////////////construtor\\\\\\\\\\\\\\\\\
-	public ItensDescricao(String descricaoItem, String nomeItem, String marcaItem, int codItem) {
+
+	public ItensDescricao(int codItem, String nomeItem, String descricaoItem, String marcaItem) {
 		super();
 		this.descricaoItem = descricaoItem;
 		this.nomeItem = nomeItem;
 		this.marcaItem = marcaItem;
 		this.codItem = codItem;
 	}
-	
+
+	public ItensDescricao() {
+		super();
+	}
 ///////////////set e get\\\\\\\\\\\\\\\\\\
-	
+
 	public String getDescricaoItem() {
 		return descricaoItem;
 	}
@@ -54,12 +56,12 @@ public class ItensDescricao
 	public void setCodItem(int codItem) {
 		this.codItem = codItem;
 	}
+
 //////////////////////////////////////////////////////////////
 	@Override
 	public String toString() {
-		return "Itens Descrição [descrição Item=" + descricaoItem + ", nome Item=" + nomeItem + ", marca Item=" + marcaItem
-				+ ", codItem=" + codItem + "]";
+		return "Itens Descrição [descrição Item=" + descricaoItem + ", nome Item=" + nomeItem + ", marca Item="
+				+ marcaItem + ", codItem=" + codItem + "]";
 	}
-	
 
 }
