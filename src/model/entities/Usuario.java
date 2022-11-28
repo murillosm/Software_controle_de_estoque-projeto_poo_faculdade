@@ -12,6 +12,19 @@ public class Usuario {
 	public Usuario() {
 	}
 
+	public Usuario(String loginUser, String senha) {
+		super();
+		this.senha = senha;
+		this.loginUser = loginUser;
+	}
+
+	public Usuario(int idUsuario, String loginUser, String senha) {
+		super();
+		this.idUsuario = idUsuario;
+		this.senha = senha;
+		this.loginUser = loginUser;
+	}
+
 	public Usuario(int idUsuario, String nomeUser, String loginUser, String senha) {
 		super();
 		this.idUsuario = idUsuario;
@@ -66,9 +79,7 @@ public class Usuario {
 				+ loginUser + "]";
 	}
 
-
 ////////////////métodos\\\\\\\\\\\\\\\\\\\
-
 
 	public void login() {
 		// Start of user code for method login

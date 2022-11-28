@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseListener;
-import java.util.Date;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
@@ -21,7 +20,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-public class TabelaClientesF extends JInternalFrame {
+public class TabelaClientesJ extends JInternalFrame {
 	private JTable table;
 
 	/**
@@ -31,7 +30,7 @@ public class TabelaClientesF extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TabelaClientesF frame = new TabelaClientesF();
+					TabelaClientesJ frame = new TabelaClientesJ();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,19 +43,19 @@ public class TabelaClientesF extends JInternalFrame {
 	 * Create the frame.
 	 */
 
-	private static TabelaClientesF tabelaClientesF;
+	private static TabelaClientesJ tabelaClientesF;
 
-	public static TabelaClientesF getInstacia() {
+	public static TabelaClientesJ getInstacia() {
 		if (tabelaClientesF == null) {
-			tabelaClientesF = new TabelaClientesF();
+			tabelaClientesF = new TabelaClientesJ();
 		}
 		return tabelaClientesF;
 	}
 
-	public TabelaClientesF() {
+	public TabelaClientesJ() {
 		setMaximizable(true);
 		setFrameIcon(null);
-		setTitle("Clientes Pessoas Fisicas");
+		setTitle("Clientes Pessoas Juridica");
 
 		setClosable(true);
 		setResizable(true);
@@ -74,16 +73,20 @@ public class TabelaClientesF extends JInternalFrame {
 		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "", "ID", "Nome", "CPF", "Data de Nascimento",
-						"Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade" }) {
-					Class[] columnTypes = new Class[] { Boolean.class, Integer.class, String.class, String.class,
-							Date.class, String.class, String.class, String.class, String.class, String.class,
-							String.class, Object.class, Object.class };
-
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
+				new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"", "ID", "Nome Fantasia", "CNPJ", "Raz\u00E3o Social", "Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Boolean.class, Integer.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Object.class, Object.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		table.getColumnModel().getColumn(2).setPreferredWidth(194);
 		table.getColumnModel().getColumn(4).setPreferredWidth(110);
 		scrollPane.setViewportView(table);
@@ -92,29 +95,35 @@ public class TabelaClientesF extends JInternalFrame {
 		getContentPane().add(panel, BorderLayout.NORTH);
 
 		JButton btnExcluirCliente = new JButton("");
-		btnExcluirCliente.setIcon(new ImageIcon(TabelaClientesF.class.getResource("/view/imagens/icons/lixo.png")));
+		btnExcluirCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lixo.png")));
 
 		JButton btnEditarCliente = new JButton("");
-		btnEditarCliente.setIcon(new ImageIcon(TabelaClientesF.class.getResource("/view/imagens/icons/lapis64.png")));
-
+		btnEditarCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lapis64.png")));
+		
 		JButton btnVisualizarCliente = new JButton("");
-		btnVisualizarCliente.setIcon(new ImageIcon(TabelaClientesF.class.getResource("/view/imagens/icons/olho.png")));
+		btnVisualizarCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/olho.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addComponent(btnExcluirCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnVisualizarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(1673, Short.MAX_VALUE)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
-				.createSequentialGroup().addContainerGap()
-				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnExcluirCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnVisualizarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(1673, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnVisualizarCliente, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnExcluirCliente, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
 						.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
-				.addContainerGap()));
+					.addContainerGap())
+		);
 		panel.setLayout(gl_panel);
 
 	}

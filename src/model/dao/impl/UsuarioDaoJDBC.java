@@ -63,7 +63,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		if (rs.next()) {
 			Usuario usuario = new Usuario();
 			usuario.setIdUsuario(rs.getInt("id_usuario"));
-			usuario.setNomeUser(rs.getString("usuario"));
+			usuario.setNomeUser(rs.getString("nome_usuario"));
 			usuario.setLoginUser(rs.getString("login"));
 			usuario.setSenha(rs.getString("senha"));
 			Usuario usuarioDoBanco = new Usuario(usuario.getIdUsuario(), usuario.getNomeUser(), usuario.getLoginUser(), usuario.getSenha());
@@ -77,14 +77,14 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 	 */
 	@Override
 	public Boolean autenticarUsuarioSenha(Usuario usuario) throws SQLException {
-		String sql = "select * from usuario where login = ? and senha = ?";
+		String sql = "select login, senha from usuario where login = '"+usuario.getLoginUser()+"' and senha = '"+usuario.getSenha()+"'";
 		pst = conn.prepareStatement(sql);
-		pst.setString(1, usuario.getLoginUser());
-		pst.setString(2, usuario.getSenha());
+//		pst.setString(1, usuario.getLoginUser());
+//		pst.setString(2, usuario.getSenha());
 		pst.execute();
-		ResultSet resultado = pst.getResultSet();
-
-		return resultado.next();
+		ResultSet rs = pst.getResultSet();
+		
+		return rs.next();
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		while (rs.next()) {
 			Usuario usuario = new Usuario();
 			usuario.setIdUsuario(rs.getInt("id_usuario"));
-			usuario.setNomeUser(rs.getString("usuario"));
+			usuario.setNomeUser(rs.getString("nome_usuario"));
 			usuario.setLoginUser(rs.getString("login"));
 			usuario.setSenha(rs.getString("senha"));
 			Usuario usuarioDoBanco = new Usuario(usuario.getIdUsuario(), usuario.getNomeUser(), usuario.getLoginUser(), usuario.getSenha());

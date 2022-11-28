@@ -1,26 +1,31 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.SwingConstants;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import Controller.LoginController;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JPasswordField passwordField;
+	private JPasswordField txtSenha;
+	private final LoginController controller;
 
 	/**
 	 * Launch the application.
@@ -42,6 +47,11 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		initComponets();
+		controller = new LoginController(this);	
+	}
+	public void initComponets() {
+		
 		setResizable(false);
 		setAutoRequestFocus(false);
 		setTitle("Tela de Login");
@@ -75,10 +85,10 @@ public class Login extends JFrame {
 		lblSenha.setBounds(128, 250, 118, 36);
 		contentPane.add(lblSenha);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.BOLD, 13));
-		passwordField.setBounds(252, 251, 220, 36);
-		contentPane.add(passwordField);
+		txtSenha = new JPasswordField();
+		txtSenha.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtSenha.setBounds(252, 251, 220, 36);
+		contentPane.add(txtSenha);
 		
 		JLabel lblLogin = new JLabel("LOGIN");
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -88,6 +98,16 @@ public class Login extends JFrame {
 		contentPane.add(lblLogin);
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					controller.entrarNoSistema();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnEntrar.setBounds(252, 321, 89, 23);
 		contentPane.add(btnEntrar);
 		
@@ -105,4 +125,26 @@ public class Login extends JFrame {
 		lblNewLabel.setBounds(0, 0, 699, 445);
 		contentPane.add(lblNewLabel);
 	}
+
+	public void exibeMensagem(String mensagem) {
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
+
+	public JTextField getTxtUsuario() {
+		return txtUsuario;
+	}
+
+	public void setTxtUsuario(JTextField txtUsuario) {
+		this.txtUsuario = txtUsuario;
+	}
+
+	public JPasswordField getTxtSenha() {
+		return txtSenha;
+	}
+
+	public void setTxtSenha(JPasswordField txtSenha) {
+		this.txtSenha = txtSenha;
+	}
+	
+	
 }

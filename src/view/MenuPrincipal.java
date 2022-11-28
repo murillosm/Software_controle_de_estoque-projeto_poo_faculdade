@@ -97,23 +97,28 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		MenuItemCadastroCliente
-				.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/cliente-icon.png")));
+				.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/cliente.png")));
 		MenuItemCadastroCliente.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroCliente);
 
 		JMenuItem MenuItemCadastroFornecedor = new JMenuItem("Cadastro Fornecedor");
 		MenuItemCadastroFornecedor
-				.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/fornecedor.png")));
+				.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/trolley32.png")));
 		MenuItemCadastroFornecedor.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroFornecedor);
 
 		JMenuItem MenuItemCadastroProduto = new JMenuItem("Cadastro Produto");
-		MenuItemCadastroProduto.setIcon(new ImageIcon(
-				MenuPrincipal.class.getResource("/view/imagens/icons/carrinho-de-compras-com-o-produto-dentro.png")));
+		MenuItemCadastroProduto.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/package-box32.png")));
 		MenuItemCadastroProduto.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroProduto);
 
-		JMenu mnNewMenu_1 = new JMenu("New menu");
+		JMenu mnNewMenu_1 = new JMenu("Sair");
+		mnNewMenu_1.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("SAIR");
+		mntmNewMenuItem.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/logout32.png")));
+		mntmNewMenuItem.setFont(new Font("SansSerif", Font.BOLD, 13));
+		mnNewMenu_1.add(mntmNewMenuItem);
 	}
 }

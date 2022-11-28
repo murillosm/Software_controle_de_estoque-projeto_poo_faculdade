@@ -4,6 +4,7 @@ import db.DB;
 import model.dao.impl.ClientePessoaFisicaDaoJDBC;
 import model.dao.impl.ClientePessoaJuridicaDaoJDBC;
 import model.dao.impl.FornecedorDaoJDBC;
+import model.dao.impl.UsuarioDaoJDBC;
 
 public class DaoFactory {
 
@@ -17,5 +18,8 @@ public class DaoFactory {
 
     public static FornecedorDao createFornecedorDao(){
         return new FornecedorDaoJDBC(DB.getConnection());
+    }
+    public static UsuarioDao createUsuarioDao(){
+        return new UsuarioDaoJDBC(DB.getConnection());
     }
 }

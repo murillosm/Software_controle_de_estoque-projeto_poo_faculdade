@@ -219,11 +219,11 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
-				JButton btAdicionar = new JButton("Adicionar");
-				btAdicionar.setFont(new Font("Tahoma", Font.BOLD, 14));
-				btAdicionar.setActionCommand("OK");
-				buttonPane.add(btAdicionar);
-				getRootPane().setDefaultButton(btAdicionar);
+				JButton btSalvar = new JButton("Salvar");
+				btSalvar.setFont(new Font("Tahoma", Font.BOLD, 14));
+				btSalvar.setActionCommand("OK");
+				buttonPane.add(btSalvar);
+				getRootPane().setDefaultButton(btSalvar);
 			}
 			{
 				JButton btCancel = new JButton("Cancel");

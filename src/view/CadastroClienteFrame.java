@@ -74,6 +74,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 	public CadastroClienteFrame() {
 		setMaximizable(true);
 		TabelaClientesF clienteF = new TabelaClientesF();
+		TabelaClientesJ clienteJ = new TabelaClientesJ();
 		TipoPessoa tipo = new TipoPessoa();
 
 		setFrameIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/cliente-icon.png")));
@@ -115,8 +116,10 @@ public class CadastroClienteFrame extends JInternalFrame {
 					if (clienteF.isVisible()) {
 						clienteF.toFront();
 						clienteF.requestFocus();
-						JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);
+						//JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);
 					}else {
+						if (clienteJ.isVisible())
+							clienteJ.dispose();
 						try {
 							desktopPaneClientes.add(clienteF);
 							desktopPaneClientes.moveToFront(clienteF);
@@ -129,7 +132,25 @@ public class CadastroClienteFrame extends JInternalFrame {
 						
 					}
 				}if (tipo.equals("Pessoa Jurídica")) {
-					JOptionPane.showMessageDialog(null, "Ainda não Funciona","AVISO",JOptionPane.WARNING_MESSAGE);
+					if (clienteJ.isVisible()) {
+						clienteJ.toFront();
+						clienteJ.requestFocus();
+						//JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);	
+					}else {
+						if (clienteF.isVisible())
+							clienteF.dispose();
+						try {
+							
+							desktopPaneClientes.add(clienteJ);
+							desktopPaneClientes.moveToFront(clienteJ);
+							clienteJ.setSize(desktopPaneClientes.getWidth(), desktopPaneClientes.getHeight());
+							clienteJ.setLocation(0,0);
+							clienteJ.setVisible(true);
+						} catch (Exception e3) {
+							e3.printStackTrace();
+						}
+						
+					}
 				}
 					
 			}
