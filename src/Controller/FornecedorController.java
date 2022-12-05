@@ -1,16 +1,27 @@
 package Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Controller.helpers.FornecedorHelper;
+import model.dao.ClientePessoaJuridoDao;
+import model.dao.DaoFactory;
+import model.dao.FornecedorDao;
+import model.entities.ClientePessoaJuridico;
+import model.entities.Fornecedor;
 import view.CadastroFornecedorFrame;
 import view.FornecedorViewJDialog;
 import view.TipoPessoa;
 
 public class FornecedorController {
-	private final CadastroFornecedorFrame viewFornecedor;
+	private final CadastroFornecedorFrame view;
+	private final FornecedorHelper helper;
 
 	
 
-	public FornecedorController(CadastroFornecedorFrame viewFornecedor) {
-		this.viewFornecedor = viewFornecedor;
+	public FornecedorController(CadastroFornecedorFrame view) {
+		this.view = view;
+		this.helper = new FornecedorHelper(view);
 	}
 
 	public void tipoCliente() {
@@ -19,40 +30,17 @@ public class FornecedorController {
 		tipo.setVisible(true);
 	}
 
-	public void pesclisar() {
-
+	public void atualizarFornecedor() {
+		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
+		ArrayList<Fornecedor> listFornecedor = (ArrayList<Fornecedor>) fornecedorDao.findAll();
+		//Exibir lista de clientes 
+		helper.preencherTabela(listFornecedor);
+		//view.fireTableDataChanged();
 	}
 	
 	public void novoFornecedor() {
 		FornecedorViewJDialog fornecedor = new FornecedorViewJDialog();
-		
 		fornecedor.setLocationRelativeTo(null);
 		fornecedor.setVisible(true);
 	}
-	
-//	public void visualizarFornecedores() {
-//		desktopPaneClientes = viewCliente.getDesktopPaneClientes();
-//		if (clienteF.isVisible()) {
-//			clienteF.toFront();
-//			clienteF.requestFocus();
-//			// JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em
-//			// uso","AVISO",JOptionPane.WARNING_MESSAGE);
-//		} else {
-//			try {
-//				if (clienteJ.isVisible())
-//					clienteJ.dispose();
-//				
-//				desktopPaneClientes.add(clienteF);
-//				desktopPaneClientes.moveToFront(clienteF);
-//				clienteF.setSize(desktopPaneClientes.getWidth(), desktopPaneClientes.getHeight());
-//				clienteF.setLocation(0, 0);
-//				clienteF.setVisible(true);
-//				TabelaClienteFisicoController tabelaCliente = new TabelaClienteFisicoController(new TabelaClientesF());
-//				tabelaCliente.atualizarClienteF();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//			}
-//
-//		}
-//	}
 }

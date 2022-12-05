@@ -23,6 +23,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TabelaClientesJ extends JInternalFrame {
 	private JTable tbClienteJ;
@@ -64,7 +66,7 @@ public class TabelaClientesJ extends JInternalFrame {
 	}
 	
 	private void iniciar() {
-		this.controller.atualizarClienteJ();
+		//this.controller.atualizarClienteJ();
 	}
 
 	public void initComponents(){
@@ -74,12 +76,11 @@ public class TabelaClientesJ extends JInternalFrame {
 
 		setClosable(true);
 		setResizable(true);
-		setBounds(100, 100, 1903, 539);
+		setBounds(100, 100, 993, 539);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		getContentPane().add(scrollPane);
 
 		tbClienteJ = new JTable();
@@ -115,34 +116,45 @@ public class TabelaClientesJ extends JInternalFrame {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
 
-		JButton btnExcluirCliente = new JButton("");
-		btnExcluirCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lixo.png")));
+		JButton btnExcluir = new JButton("");
+		btnExcluir.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lixo.png")));
 
-		JButton btnEditarCliente = new JButton("");
-		btnEditarCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lapis64.png")));
+		JButton btnEditar = new JButton("");
+		btnEditar.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/lapis64.png")));
 		
-		JButton btnVisualizarCliente = new JButton("");
-		btnVisualizarCliente.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/olho.png")));
+		JButton btnVisualizar = new JButton("");
+		btnVisualizar.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/olho.png")));
+		
+		JButton btnAtualizar = new JButton("");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.atualizarClienteJ();
+			}
+		});
+		btnAtualizar.setIcon(new ImageIcon(TabelaClientesJ.class.getResource("/view/imagens/icons/reload.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnExcluirCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnVisualizarCliente, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(1673, Short.MAX_VALUE))
+					.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 689, Short.MAX_VALUE)
+					.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVisualizarCliente, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnExcluirCliente, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
-						.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnVisualizar, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExcluir, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
+						.addComponent(btnEditar, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);

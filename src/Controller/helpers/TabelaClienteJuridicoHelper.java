@@ -1,6 +1,6 @@
 package Controller.helpers;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -10,19 +10,19 @@ import model.entities.ClientePessoaJuridico;
 import view.TabelaClientesJ;
 
 public class TabelaClienteJuridicoHelper {
-	private final TabelaClientesJ tabelaClientesJ;
+	private final TabelaClientesJ view;
 	
 
 	public TabelaClienteJuridicoHelper(TabelaClientesJ tabelaClientesJ) {
-		this.tabelaClientesJ = tabelaClientesJ;
+		this.view = tabelaClientesJ;
 	}
 
-	public void preencherTabela(List<ClientePessoaJuridico> listClientesJuridicos) {
-		DefaultTableModel tableModel = (DefaultTableModel) tabelaClientesJ.getTbClienteJ().getModel();
+	public void preencherTabela(ArrayList<ClientePessoaJuridico> listClientesJuridicos) {
+		DefaultTableModel tableModel = (DefaultTableModel) view.getTbClienteJ().getModel();
 		tableModel.setNumRows(0);
 		
 		//percorrer lista
-		ClientePessoaFisicaDao fisicaDao = DaoFactory.createPessoaFisicaDao();
+		//ClientePessoaFisicaDao fisicaDao = DaoFactory.createPessoaFisicaDao();
 		for (ClientePessoaJuridico clientePessoaJuridico : listClientesJuridicos) {
 			tableModel.addRow(new Object[] {
 				clientePessoaJuridico.getIdCliente(),

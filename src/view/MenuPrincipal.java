@@ -68,6 +68,7 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(menuBar, BorderLayout.NORTH);
 
 		JMenu menuCadastros = new JMenu("Cadastros");
+		menuCadastros.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/local-na-rede-internet.png")));
 		menuCadastros.setFont(new Font("SansSerif", Font.BOLD, 12));
 		menuBar.add(menuCadastros);
 
@@ -114,7 +115,8 @@ public class MenuPrincipal extends JFrame {
 		MenuItemCadastroProduto.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroProduto);
 
-		JMenu mnNewMenu_1 = new JMenu("Sair");
+		JMenu mnNewMenu_1 = new JMenu("Opções");
+		mnNewMenu_1.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/lista-de-controle.png")));
 		mnNewMenu_1.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuBar.add(mnNewMenu_1);
 		

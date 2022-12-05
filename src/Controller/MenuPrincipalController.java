@@ -14,9 +14,9 @@ public class MenuPrincipalController {
 	public MenuPrincipalController(MenuPrincipal viewMenuPrincipal) {
 		this.viewMenuPrincipal = viewMenuPrincipal;
 	}
-	
+	CadastroClienteFrame clientePane = new CadastroClienteFrame();
+	CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
 	public void CadastroCliente() {
-		CadastroClienteFrame clientePane = new CadastroClienteFrame();
 		desktopPane = MenuPrincipal.getDesktopPane();
 		
 		if (clientePane.isVisible()) {
@@ -26,6 +26,9 @@ public class MenuPrincipalController {
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 			try {
+				if (fornecedorFrame.isVisible()) {
+					fornecedorFrame.dispose();
+				}
 				desktopPane.add(clientePane);
 				desktopPane.moveToFront(clientePane);
 				clientePane.setSize(desktopPane.getWidth(), desktopPane.getHeight());
@@ -38,7 +41,6 @@ public class MenuPrincipalController {
 	}
 	
 	public void CadastroFornecedores() {
-		CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
 		desktopPane = MenuPrincipal.getDesktopPane();
 		
 		if (fornecedorFrame.isVisible()) {
@@ -48,6 +50,9 @@ public class MenuPrincipalController {
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 			try {
+				if (clientePane.isVisible()) {
+					clientePane.dispose();
+				}
 				desktopPane.add(fornecedorFrame);
 				desktopPane.moveToFront(fornecedorFrame);
 				fornecedorFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());

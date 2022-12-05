@@ -5,42 +5,42 @@ public class Fornecedor {
 	private int idFornecedor;
 
 	private String nomeFornecedor;
-	private String razaoSocialFornecedor;
 	private String cnpjFornecedor;
-	private String emailFornecedor;
-	private Endereco enderecoFornecedor;
+	private String razaoSocialFornecedor;
 	private String foneFornecedo1;
 	private String foneFornecedo2;
-
-	//private Date dataCadastraF;
-
-////////////////////metodos\\\\\\\\\\\\\\\\\\\\\\	
-	public void consutarFornecedor() {
-		// Start of user code for method consutarFornecedor
-		// End of user code
-	}
+	private String emailFornecedor;
+	private Endereco enderecoFornecedor;
 	
-	public void atualizarFornecedor() {
-		// Start of user code for method atualizarFornecedor
-		// End of user code
-	}
 ///////////////////construtor\\\\\\\\\\\\\\\\\\\\\\
 	public Fornecedor() {
 	}
 
-	public Fornecedor(int idFornecedor, String nomeFornecedor, String razaoSocialFornecedor, String cnpjFornecedor,
-					  String emailFornecedor, Endereco enderecoFornecedor,
-					  String foneFornecedo1, String foneFornecedo2/*, Date dataCadastraF*/) {
-		this.idFornecedor = idFornecedor;
+	public Fornecedor(String nomeFornecedor, String cnpjFornecedor, String razaoSocialFornecedor, String foneFornecedo1,
+			String foneFornecedo2, String emailFornecedor, Endereco enderecoFornecedor) {
+		super();
 		this.nomeFornecedor = nomeFornecedor;
-		this.razaoSocialFornecedor = razaoSocialFornecedor;
 		this.cnpjFornecedor = cnpjFornecedor;
-		this.emailFornecedor = emailFornecedor;
-		this.enderecoFornecedor = enderecoFornecedor;
+		this.razaoSocialFornecedor = razaoSocialFornecedor;
 		this.foneFornecedo1 = foneFornecedo1;
 		this.foneFornecedo2 = foneFornecedo2;
-		//this.dataCadastraF = dataCadastraF;
+		this.emailFornecedor = emailFornecedor;
+		this.enderecoFornecedor = enderecoFornecedor;
 	}
+
+	public Fornecedor(int idFornecedor, String nomeFornecedor, String cnpjFornecedor, String razaoSocialFornecedor,
+			String foneFornecedo1, String foneFornecedo2, String emailFornecedor, Endereco enderecoFornecedor) {
+		super();
+		this.idFornecedor = idFornecedor;
+		this.nomeFornecedor = nomeFornecedor;
+		this.cnpjFornecedor = cnpjFornecedor;
+		this.razaoSocialFornecedor = razaoSocialFornecedor;
+		this.foneFornecedo1 = foneFornecedo1;
+		this.foneFornecedo2 = foneFornecedo2;
+		this.emailFornecedor = emailFornecedor;
+		this.enderecoFornecedor = enderecoFornecedor;
+	}
+
 ///////////////////set e get\\\\\\\\\\\\\\\\\\\\\\
 
 	public String getNomeFornecedor() {
@@ -72,12 +72,12 @@ public class Fornecedor {
 	}
 
 	public void setCnpjFornecedor(String cnpjFornecedor) {
-		if(cnpjFornecedor.length() == 14){
+		//if(cnpjFornecedor.length() == 14){
 		      //valido = false;
-			if (cnpjFornecedor.substring(0,14).matches("[0-9]*")) {
+			//if (cnpjFornecedor.substring(0,14).matches("[0-9]*")) {
 				this.cnpjFornecedor = cnpjFornecedor;
-			}
-		}
+			//}
+		//}
 		
 	}
 

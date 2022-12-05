@@ -43,6 +43,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JFrame;
 
 public class CadastroClienteFrame extends JInternalFrame {
 

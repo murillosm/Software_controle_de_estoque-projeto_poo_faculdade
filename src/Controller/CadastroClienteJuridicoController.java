@@ -53,7 +53,6 @@ public class CadastroClienteJuridicoController {
 	public void estado() {
 		EstadoDao estadoDao = DaoFactory.createEstadoDao();
 		List<Estados> estados = estadoDao.findAllEstados();
-
 		helper.preencherEstado(estados);
 	}
 

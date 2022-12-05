@@ -115,7 +115,7 @@ CREATE TABLE fornecedor (
 
 CREATE TABLE fornecedor
 (
-    id_fornecedor   integer PRIMARY KEY not null,
+    id_fornecedor   SERIAL  PRIMARY KEY,
     nome_fornecedor varchar(100)        not null,
     cnpj_fornecedor varchar(14)         not null,
     email           varchar(100),

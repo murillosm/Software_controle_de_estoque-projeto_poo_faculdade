@@ -29,24 +29,24 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 	public void insert(Fornecedor obj) {
 		PreparedStatement pst = null;
 		try {
-			pst = conn.prepareStatement("INSERT INTO fornecedor" 
-					+ "(nome_fornecedor, fonefornecedor1, fonefornecedor2,"
-					+ " email, endereco, bairro, numero, cep,"
-					+ " estado_idestado, cidade_idcidade, cnpj_fornecedor, razao_social)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			pst = conn.prepareStatement("INSERT INTO fornecedor(\r\n"
+					+ "	nome_fornecedor, cnpj_fornecedor, email,"
+					+ " razao_social, fonefornecedor1, fonefornecedor2, endereco,"
+					+ " bairro, numero, cep, estado_idestado, cidade_idcidade)\r\n"
+					+ "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			pst.setString(1, obj.getNomeFornecedor());
-			pst.setString(2, obj.getFoneFornecedo1());
-			pst.setString(3, obj.getFoneFornecedo2());
-			pst.setString(4, obj.getEmailFornecedor());
-			pst.setString(5, obj.getEnderecoFornecedor().getEndereco());
-			pst.setString(6, obj.getEnderecoFornecedor().getBairro());
-			pst.setString(7, obj.getEnderecoFornecedor().getNumero());
-			pst.setString(8, obj.getEnderecoFornecedor().getCep());
-			pst.setInt(9, obj.getEnderecoFornecedor().getEstado().getIdEstado());
-			pst.setInt(10, obj.getEnderecoFornecedor().getCidade().getIdCidade());
-			pst.setString(11, obj.getCnpjFornecedor());
-			pst.setString(12, obj.getRazaoSocialFornecedor());
+			pst.setString(2, obj.getCnpjFornecedor());
+			pst.setString(3, obj.getEmailFornecedor());
+			pst.setString(4, obj.getRazaoSocialFornecedor());
+			pst.setString(5, obj.getFoneFornecedo1());
+			pst.setString(6, obj.getFoneFornecedo2());
+			pst.setString(7, obj.getEnderecoFornecedor().getEndereco());
+			pst.setString(8, obj.getEnderecoFornecedor().getBairro());
+			pst.setString(9, obj.getEnderecoFornecedor().getNumero());
+			pst.setString(10, obj.getEnderecoFornecedor().getCep());
+			pst.setInt(11, obj.getEnderecoFornecedor().getEstado().getIdEstado());
+			pst.setInt(12, obj.getEnderecoFornecedor().getCidade().getIdCidade());
 
 			int rowsAffected = pst.executeUpdate();
 

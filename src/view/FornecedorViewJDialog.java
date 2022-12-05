@@ -25,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
 import Controller.CadastroClienteJuridicoController;
+import Controller.CadastroFornecedorController;
 
 public class FornecedorViewJDialog extends JDialog {
 	
@@ -41,6 +42,7 @@ public class FornecedorViewJDialog extends JDialog {
 	private JComboBox cbxEstado;
 	private JComboBox cbxCidade;
 	private final JPanel contentPanel = new JPanel();
+	private CadastroFornecedorController controller;
 
 	/**
 	 * Launch the application.
@@ -59,25 +61,26 @@ public class FornecedorViewJDialog extends JDialog {
 	 * Create the dialog
 	 */
 	
-	private static CadastroClienteFrame telaCadastroCliente;
-	public static CadastroClienteFrame getInstacia(){
-		if (telaCadastroCliente == null) {
-			telaCadastroCliente = new CadastroClienteFrame();
+	private static CadastroFornecedorFrame telaCadastroFornecedor;
+	public static CadastroFornecedorFrame getInstacia(){
+		if (telaCadastroFornecedor == null) {
+			telaCadastroFornecedor = new CadastroFornecedorFrame();
 		}
-		return telaCadastroCliente;
+		return telaCadastroFornecedor;
 	}
 	
 	public FornecedorViewJDialog() {
 		setTitle("Fornecedores");
 		initComponents();
 		formatarCampo();
-		//controller = new CadastroClienteJuridicoController(this);
+		controller = new CadastroFornecedorController(this);
 		iniciar();
 	}
 	
 	private void iniciar() {
-		//this.controller.estado();
-		//this.controller.cidades();
+		this.controller.estado();
+		this.controller.cidades();
+		//this.controller.novoFornecedor();
 	}
 	
 	private void formatarCampo() {
@@ -98,7 +101,6 @@ public class FornecedorViewJDialog extends JDialog {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setAlwaysOnTop(true);
 		setBounds(100, 100, 860, 586);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -170,13 +172,13 @@ public class FornecedorViewJDialog extends JDialog {
 		cbxEstado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					//controller.cidades();
+					controller.cidades();
 				}
 			}
 		});
 		cbxEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//controller.estado();
+				controller.estado();
 			}
 		});
 		cbxEstado.setBounds(101, 51, 120, 22);
@@ -258,7 +260,7 @@ public class FornecedorViewJDialog extends JDialog {
 		panelDadosCliente.add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		JLabel lblFornecedores = new JLabel("Cadastro Cliente Juridico");
+		JLabel lblFornecedores = new JLabel("Cadastro Fornecedores");
 		lblFornecedores.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblFornecedores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFornecedores.setBounds(10, 11, 782, 46);
@@ -273,7 +275,7 @@ public class FornecedorViewJDialog extends JDialog {
 				JButton btSalvar = new JButton("Salvar");
 				btSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						controller.novoFornecedor();
 					}
 				});
 				btSalvar.setFont(new Font("Tahoma", Font.BOLD, 14));

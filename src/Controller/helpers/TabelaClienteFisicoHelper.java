@@ -1,14 +1,12 @@
 package Controller.helpers;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
 import model.dao.ClientePessoaFisicaDao;
 import model.dao.DaoFactory;
 import model.entities.ClientePessoaFisica;
-import model.entities.Estados;
 import view.TabelaClientesF;
 
 public class TabelaClienteFisicoHelper {
@@ -19,12 +17,12 @@ public class TabelaClienteFisicoHelper {
 		this.tabelaClientesF = tabelaClientesF;
 	}
 
-	public void preencherTabela(List<ClientePessoaFisica> listClientesFisicos) {
+	public void preencherTabela(ArrayList<ClientePessoaFisica> listClientesFisicos) {
 		DefaultTableModel tableModel = (DefaultTableModel) tabelaClientesF.getTbClienteF().getModel();
 		tableModel.setNumRows(0);
 		
 		//percorrer lista
-		ClientePessoaFisicaDao fisicaDao = DaoFactory.createPessoaFisicaDao();
+		//ClientePessoaFisicaDao fisicaDao = DaoFactory.createPessoaFisicaDao();
 		for (ClientePessoaFisica clientePessoaFisica : listClientesFisicos) {
 			tableModel.addRow(new Object[] {
 				clientePessoaFisica.getIdCliente(),

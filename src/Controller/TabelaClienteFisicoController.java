@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Controller.helpers.TabelaClienteFisicoHelper;
@@ -21,7 +22,7 @@ public class TabelaClienteFisicoController {
 	
 	public void atualizarClienteF() {
 		ClientePessoaFisicaDao fisicaDao = DaoFactory.createPessoaFisicaDao();
-		List<ClientePessoaFisica> listClientesFisicos = fisicaDao.findAll();
+		ArrayList<ClientePessoaFisica> listClientesFisicos = (ArrayList<ClientePessoaFisica>) fisicaDao.findAll();
 		//Exibir lista de clientes 
 		helperFisico.preencherTabela(listClientesFisicos);
 	}
