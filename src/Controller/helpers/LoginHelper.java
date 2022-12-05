@@ -3,7 +3,7 @@ package Controller.helpers;
 import model.entities.Usuario;
 import view.Login;
 
-public class LoginHelper {
+public class LoginHelper implements Helper{
 
 	private final Login view;
 
@@ -11,6 +11,7 @@ public class LoginHelper {
 		this.view = view;
 	}
 	
+	@Override
 	public Usuario obterModelo() {
 		String nomeUser = view.getTxtUsuario().getText();
 		String senha = view.getTxtSenha().getText();
@@ -27,6 +28,7 @@ public class LoginHelper {
 		view.getTxtSenha().setText(senha);
 	}
 	
+	@Override
 	public void limparTela() {
 		view.getTxtUsuario().setText("");
 		view.getTxtSenha().setText("");

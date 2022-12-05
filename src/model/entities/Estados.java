@@ -82,7 +82,7 @@ public class Estados {
     
 	@Override
 	public String toString() {
-		return "idEstado=" + idEstado + ", nomeEstado=" + nomeEstado ;
+		return  nomeEstado ;
 	}
 
 }

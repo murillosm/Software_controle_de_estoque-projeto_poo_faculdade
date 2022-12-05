@@ -10,6 +10,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Controller.ClienteController;
+import Controller.TabelaClienteFisicoController;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -20,10 +24,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TabelaClientesF extends JInternalFrame {
-	private JTable table;
-
+	private JTable tbClienteF;
+	private TabelaClienteFisicoController controller;
 	/**
 	 * Launch the application.
 	 */
@@ -54,13 +60,19 @@ public class TabelaClientesF extends JInternalFrame {
 	}
 
 	public TabelaClientesF() {
+		initComponents();
+		controller = new TabelaClienteFisicoController(this);
+		iniciar();
+	}
+	
+	private void initComponents() {
 		setMaximizable(true);
 		setFrameIcon(null);
 		setTitle("Clientes Pessoas Fisicas");
 
 		setClosable(true);
 		setResizable(true);
-		setBounds(100, 100, 1903, 539);
+		setBounds(100, 100, 972, 514);
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -68,30 +80,39 @@ public class TabelaClientesF extends JInternalFrame {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		getContentPane().add(scrollPane);
 
-		table = new JTable();
-		table.setFillsViewportHeight(true);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "", "ID", "Nome", "CPF", "Data de Nascimento",
-						"Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade" }) {
-					Class[] columnTypes = new Class[] { Boolean.class, Integer.class, String.class, String.class,
-							Date.class, String.class, String.class, String.class, String.class, String.class,
-							String.class, Object.class, Object.class };
-
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
-		table.getColumnModel().getColumn(2).setPreferredWidth(194);
-		table.getColumnModel().getColumn(4).setPreferredWidth(110);
-		scrollPane.setViewportView(table);
+		tbClienteF = new JTable();
+		tbClienteF.setSurrendersFocusOnKeystroke(true);
+		tbClienteF.setFillsViewportHeight(true);
+		tbClienteF.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tbClienteF.setColumnSelectionAllowed(true);
+		tbClienteF.setCellSelectionEnabled(true);
+		tbClienteF.setModel(
+				new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID", "Nome", "CPF", "Data de Nascimento", "Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tbClienteF.getColumnModel().getColumn(1).setPreferredWidth(194);
+		tbClienteF.getColumnModel().getColumn(3).setPreferredWidth(110);
+		scrollPane.setViewportView(tbClienteF);
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
 
 		JButton btnExcluirCliente = new JButton("");
+		btnExcluirCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnExcluirCliente.setIcon(new ImageIcon(TabelaClientesF.class.getResource("/view/imagens/icons/lixo.png")));
 
 		JButton btnEditarCliente = new JButton("");
@@ -116,6 +137,20 @@ public class TabelaClientesF extends JInternalFrame {
 						.addComponent(btnEditarCliente, GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE))
 				.addContainerGap()));
 		panel.setLayout(gl_panel);
-
+		
 	}
+
+	private void iniciar() {
+		this.controller.atualizarClienteF();
+	}
+
+	public JTable getTbClienteF() {
+		return tbClienteF;
+	}
+
+	public void setTbClienteF(JTable tbClienteF) {
+		this.tbClienteF = tbClienteF;
+	}
+	
+	
 }

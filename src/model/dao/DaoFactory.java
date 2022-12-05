@@ -22,4 +22,13 @@ public class DaoFactory {
     public static UsuarioDao createUsuarioDao(){
         return new UsuarioDaoJDBC(DB.getConnection());
     }
+    
+    public static EstadoDao createEstadoDao() {
+		return new EstadoDao(DB.getConnection());
+	}
+    
+    public static CidadeDao createCidadeDao() {
+		return new CidadeDao(DB.getConnection());
+	}
+    
 }

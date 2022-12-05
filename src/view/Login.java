@@ -103,7 +103,6 @@ public class Login extends JFrame {
 				try {
 					controller.entrarNoSistema();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

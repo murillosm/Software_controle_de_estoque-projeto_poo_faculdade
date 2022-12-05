@@ -4,10 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,18 +24,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
-import Controller.CadastroClienteFisicoController;
 import Controller.CadastroClienteJuridicoController;
 
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.awt.event.ActionEvent;
-import javax.swing.JFormattedTextField;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-
-public class CadastroClienteJuridicoJDialog extends JDialog {
-
+public class FornecedorViewJDialog extends JDialog {
+	
 	private JTextField txtNome;
 	private JFormattedTextField txtCnpj;
 	private JFormattedTextField txtFone1;
@@ -43,23 +41,22 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 	private JComboBox cbxEstado;
 	private JComboBox cbxCidade;
 	private final JPanel contentPanel = new JPanel();
-	private CadastroClienteJuridicoController controller;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CadastroClienteJuridicoJDialog dialog = new CadastroClienteJuridicoJDialog();
+			FornecedorViewJDialog dialog = new FornecedorViewJDialog();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
-	 * Create the dialog.
+	 * Create the dialog
 	 */
 	
 	private static CadastroClienteFrame telaCadastroCliente;
@@ -70,16 +67,17 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 		return telaCadastroCliente;
 	}
 	
-	public CadastroClienteJuridicoJDialog(){
+	public FornecedorViewJDialog() {
+		setTitle("Fornecedores");
 		initComponents();
 		formatarCampo();
-		controller = new CadastroClienteJuridicoController(this);
+		//controller = new CadastroClienteJuridicoController(this);
 		iniciar();
 	}
-
+	
 	private void iniciar() {
-		this.controller.estado();
-		this.controller.cidades();
+		//this.controller.estado();
+		//this.controller.cidades();
 	}
 	
 	private void formatarCampo() {
@@ -96,7 +94,8 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 			JOptionPane.showMessageDialog(null, "Erro ao formatar campo de texto","Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
+
 	public void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setAlwaysOnTop(true);
@@ -171,13 +170,13 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 		cbxEstado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					controller.cidades();
+					//controller.cidades();
 				}
 			}
 		});
 		cbxEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.estado();
+				//controller.estado();
 			}
 		});
 		cbxEstado.setBounds(101, 51, 120, 22);
@@ -259,11 +258,11 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 		panelDadosCliente.add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		JLabel lblClienteJuridico = new JLabel("Cadastro Cliente Juridico");
-		lblClienteJuridico.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblClienteJuridico.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClienteJuridico.setBounds(10, 11, 782, 46);
-		getContentPane().add(lblClienteJuridico);
+		JLabel lblFornecedores = new JLabel("Cadastro Cliente Juridico");
+		lblFornecedores.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblFornecedores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFornecedores.setBounds(10, 11, 782, 46);
+		getContentPane().add(lblFornecedores);
 		
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
@@ -274,7 +273,7 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 				JButton btSalvar = new JButton("Salvar");
 				btSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						controller.novoCliente();
+						
 					}
 				});
 				btSalvar.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -392,7 +391,5 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 	public void setCbxCidade(JComboBox cbxCidade) {
 		this.cbxCidade = cbxCidade;
 	}
-	
-	
 
 }

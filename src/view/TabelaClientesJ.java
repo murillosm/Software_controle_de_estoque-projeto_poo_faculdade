@@ -9,6 +9,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Controller.TabelaClienteFisicoController;
+import Controller.TabelaClienteJuridicoController;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -21,7 +25,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 public class TabelaClientesJ extends JInternalFrame {
-	private JTable table;
+	private JTable tbClienteJ;
+	private TabelaClienteJuridicoController controller;
 
 	/**
 	 * Launch the application.
@@ -51,8 +56,18 @@ public class TabelaClientesJ extends JInternalFrame {
 		}
 		return tabelaClientesF;
 	}
-
+	
 	public TabelaClientesJ() {
+		initComponents();
+		controller = new TabelaClienteJuridicoController(this);
+		iniciar();
+	}
+	
+	private void iniciar() {
+		this.controller.atualizarClienteJ();
+	}
+
+	public void initComponents(){
 		setMaximizable(true);
 		setFrameIcon(null);
 		setTitle("Clientes Pessoas Juridica");
@@ -67,29 +82,35 @@ public class TabelaClientesJ extends JInternalFrame {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		getContentPane().add(scrollPane);
 
-		table = new JTable();
-		table.setFillsViewportHeight(true);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		table.setModel(
+		tbClienteJ = new JTable();
+		tbClienteJ.setFillsViewportHeight(true);
+		tbClienteJ.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tbClienteJ.setColumnSelectionAllowed(true);
+		tbClienteJ.setCellSelectionEnabled(true);
+		tbClienteJ.setModel(
 				new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"", "ID", "Nome Fantasia", "CNPJ", "Raz\u00E3o Social", "Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade"
+				"ID", "Nome Fantasia", "CNPJ", "Raz\u00E3o Social", "Telefone", "Telefone 2", "E-mail", "Endere\u00E7o", "Numero", "Bairro", "Estado", "Cidade"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Boolean.class, Integer.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Object.class, Object.class
+				Integer.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
 		});
-		table.getColumnModel().getColumn(2).setPreferredWidth(194);
-		table.getColumnModel().getColumn(4).setPreferredWidth(110);
-		scrollPane.setViewportView(table);
+		tbClienteJ.getColumnModel().getColumn(1).setPreferredWidth(194);
+		tbClienteJ.getColumnModel().getColumn(3).setPreferredWidth(110);
+		scrollPane.setViewportView(tbClienteJ);
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
@@ -127,4 +148,14 @@ public class TabelaClientesJ extends JInternalFrame {
 		panel.setLayout(gl_panel);
 
 	}
+
+	public JTable getTbClienteJ() {
+		return tbClienteJ;
+	}
+
+	public void setTbClienteJ(JTable tbClienteJ) {
+		this.tbClienteJ = tbClienteJ;
+	}
+	
+	
 }

@@ -46,8 +46,8 @@ public class ClientePessoaFisicaDaoJDBC implements ClientePessoaFisicaDao {
 			pst.setString(8, obj.getEnderecoCliente().getCep());
 			pst.setInt(9, obj.getEnderecoCliente().getEstado().getIdEstado());
 			pst.setInt(10, obj.getEnderecoCliente().getCidade().getIdCidade());
-			pst.setString(11, ((ClientePessoaFisica) obj).getCpfCliente());
-			pst.setDate(12, new java.sql.Date(((ClientePessoaFisica) obj).getDataNasc().getTime()));
+			pst.setString(11, obj.getCpfCliente());
+			pst.setDate(12, new java.sql.Date(obj.getDataNasc().getTime()));
 
 			int rowsAffected = pst.executeUpdate();
 
@@ -89,8 +89,8 @@ public class ClientePessoaFisicaDaoJDBC implements ClientePessoaFisicaDao {
 			pst.setString(8, obj.getEnderecoCliente().getCep());
 			pst.setInt(9, obj.getEnderecoCliente().getEstado().getIdEstado());
 			pst.setInt(10, obj.getEnderecoCliente().getCidade().getIdCidade());
-			pst.setString(11, ((ClientePessoaFisica) obj).getCpfCliente());
-			pst.setDate(12, new java.sql.Date(((ClientePessoaFisica) obj).getDataNasc().getTime()));
+			pst.setString(11, obj.getCpfCliente());
+			pst.setDate(12, new java.sql.Date(obj.getDataNasc().getTime()));
 			pst.setInt(13, obj.getIdCliente());
 
 			pst.executeUpdate();
@@ -134,7 +134,7 @@ public class ClientePessoaFisicaDaoJDBC implements ClientePessoaFisicaDao {
 					+ "ON cliente.estado_idEstado = estado.idestado\r\n"
 					+ "INNER JOIN cidade\r\n"
 					+ "ON cliente.cidade_idCidade = cidade.idcidade\r\n"
-					+ "WHERE idcliente = ?");
+					+ "WHERE idcliente = ? AND cpf IS NOT NULL");
 
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -162,7 +162,7 @@ public class ClientePessoaFisicaDaoJDBC implements ClientePessoaFisicaDao {
 					+ "estado.nome_estado,cidade.nome_cidade,bairro,cep,numero\r\n"
 					+ "FROM cliente INNER JOIN estado\r\n" + "ON cliente.estado_idEstado = estado.idestado\r\n"
 					+ "INNER JOIN cidade\r\n" + "ON cliente.cidade_idCidade = cidade.idcidade\r\n"
-					+ "ORDER BY nome_cliente");
+					+ "WHERE cpf IS NOT NULL ORDER BY nome_cliente");
 
             rs = pst.executeQuery();
 

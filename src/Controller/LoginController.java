@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,7 +18,6 @@ public class LoginController {
 	
 	private final Login view;
 	private LoginHelper helper;
-	private Connection conn;
 
 	public LoginController(Login view) {
 		this.view = view;
@@ -30,11 +30,9 @@ public class LoginController {
 		Usuario usuario = helper.obterModelo();
 		
 		//Conferir se Usuario esta cadastrado no Banco 
-		conn = new DB().getConnection();
 		UsuarioDao usuarioDao = DaoFactory.createUsuarioDao();
 		boolean existe = usuarioDao.autenticarUsuarioSenha(usuario);
 		
-		//Senão mostras que "usuario e senha" e invalido
 		if (existe == true) {
 			MenuPrincipal menuPrincipal = new MenuPrincipal();
 			menuPrincipal.setVisible(true);
@@ -44,11 +42,5 @@ public class LoginController {
 		}else {
 			JOptionPane.showMessageDialog(view, "Usuario ou senha invalida");
 		}
-	}
-	
-	public void fizTarefa() {
-		System.out.println("Busquei informação");
-		
-		this.view.exibeMensagem("Executei");
 	}
 }

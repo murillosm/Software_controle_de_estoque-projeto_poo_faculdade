@@ -72,4 +72,5 @@ public class TipoPessoa extends JDialog {
 		btnPJ.setBounds(170, 48, 150, 23);
 		getContentPane().add(btnPJ);
 	}
+	
 }

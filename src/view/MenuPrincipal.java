@@ -13,6 +13,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.MenuPrincipalController;
+
 import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
 import javax.swing.UIManager;
@@ -20,6 +23,7 @@ import javax.swing.UIManager;
 public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private MenuPrincipalController controller;
 	static JDesktopPane desktopPane;
 
 	/**
@@ -44,6 +48,8 @@ public class MenuPrincipal extends JFrame {
 	public MenuPrincipal() {
 
 		CadastroClienteFrame clientePane = new CadastroClienteFrame();
+		CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
+		this.controller = new MenuPrincipalController(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1045, 663);
@@ -68,16 +74,8 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem MenuItemCadastroCliente = new JMenuItem("Cadastro Cliente");
 		MenuItemCadastroCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if (clientePane.isVisible()) {
-//					clientePane.toFront();
-//					clientePane.requestFocus();
-//					JOptionPane.showMessageDialog(null, "Cadastro de clientes\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);
-//				}else {
-//					desktopPane.add(clientePane);
-//					clientePane.setVisible(true);
-//				}
-
-				if (clientePane.isVisible()) {
+				controller.CadastroCliente();
+				/*if (clientePane.isVisible()) {
 					clientePane.toFront();
 					clientePane.requestFocus();
 					JOptionPane.showMessageDialog(null, "Cadastro de clientes\n já esta em uso", "AVISO",
@@ -92,8 +90,7 @@ public class MenuPrincipal extends JFrame {
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
-
-				}
+				}*/
 			}
 		});
 		MenuItemCadastroCliente
@@ -102,6 +99,11 @@ public class MenuPrincipal extends JFrame {
 		menuCadastros.add(MenuItemCadastroCliente);
 
 		JMenuItem MenuItemCadastroFornecedor = new JMenuItem("Cadastro Fornecedor");
+		MenuItemCadastroFornecedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.CadastroFornecedores();
+			}
+		});
 		MenuItemCadastroFornecedor
 				.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/trolley32.png")));
 		MenuItemCadastroFornecedor.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -120,5 +122,17 @@ public class MenuPrincipal extends JFrame {
 		mntmNewMenuItem.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/logout32.png")));
 		mntmNewMenuItem.setFont(new Font("SansSerif", Font.BOLD, 13));
 		mnNewMenu_1.add(mntmNewMenuItem);
+		
+		
 	}
+
+	public static JDesktopPane getDesktopPane() {
+		return desktopPane;
+	}
+
+	public static void setDesktopPane(JDesktopPane desktopPane) {
+		MenuPrincipal.desktopPane = desktopPane;
+	}
+	
+	
 }

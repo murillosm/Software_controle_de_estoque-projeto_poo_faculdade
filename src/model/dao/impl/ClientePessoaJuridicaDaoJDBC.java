@@ -129,7 +129,7 @@ public class ClientePessoaJuridicaDaoJDBC implements ClientePessoaJuridoDao {
 					+ "ON cliente.estado_idEstado = estado.idestado\r\n"
 					+ "INNER JOIN cidade\r\n"
 					+ "ON cliente.cidade_idCidade = cidade.idcidade\r\n"
-					+ "WHERE idcliente = ?");
+					+ "WHERE idcliente = ? AND WHERE cnpj IS NOT NULL");
 
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -159,7 +159,7 @@ public class ClientePessoaJuridicaDaoJDBC implements ClientePessoaJuridoDao {
 					+ "ON cliente.estado_idEstado = estado.idestado\r\n"
 					+ "INNER JOIN cidade\r\n"
 					+ "ON cliente.cidade_idCidade = cidade.idcidade\r\n"
-					+ "ORDER BY nome_cliente");
+					+ "WHERE cnpj IS NOT NULL ORDER BY nome_cliente");
 
 
 			rs = pst.executeQuery();

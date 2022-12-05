@@ -77,7 +77,7 @@ public class Cidades {
 
 	@Override
 	public String toString() {
-		return "idCidade=" + idCidade + ", nomeCidade=" + nomeCidade + ", " + estado;
+		return this.nomeCidade;
 	}
 
 

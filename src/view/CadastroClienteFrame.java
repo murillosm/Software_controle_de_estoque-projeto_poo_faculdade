@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ComponentEvent;
+import java.lang.ModuleLayer.Controller;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,13 +35,22 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+
+import Controller.ClienteController;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CadastroClienteFrame extends JInternalFrame {
 
-	static JDesktopPane desktopPaneClientes;
+	private static JDesktopPane desktopPaneClientes;
+	private static JComboBox cbxTipoPesquisa;
+	private static CadastroClienteFrame telaCadastroCliente;
+	private JTextField textField;
+	private ClienteController clienteController;
 	
 	/**
 	 * Launch the application.
@@ -61,8 +71,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	private static CadastroClienteFrame telaCadastroCliente;
-	private JTextField textField;
+	
 	public static CadastroClienteFrame getInstacia(){
 		if (telaCadastroCliente == null) {
 			telaCadastroCliente = new CadastroClienteFrame();
@@ -72,12 +81,17 @@ public class CadastroClienteFrame extends JInternalFrame {
 	
 	
 	public CadastroClienteFrame() {
-		setMaximizable(true);
+		initComponents();
+		clienteController = new ClienteController(this);
+	}
+
+	private void initComponents() {
 		TabelaClientesF clienteF = new TabelaClientesF();
 		TabelaClientesJ clienteJ = new TabelaClientesJ();
-		TipoPessoa tipo = new TipoPessoa();
-
-		setFrameIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/cliente-icon.png")));
+		//PaneFisica paneFisica = new PaneFisica();
+		
+		setMaximizable(true);
+		setFrameIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/cliente.png")));
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setClosable(true);
 		setEnabled(false);
@@ -100,63 +114,45 @@ public class CadastroClienteFrame extends JInternalFrame {
 		
 		JLabel label_1 = new JLabel("");
 		
-		JComboBox cbxTipoPesquisa = new JComboBox();
+		cbxTipoPesquisa = new JComboBox();
 		cbxTipoPesquisa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CPF", "CNPJ", "ID"}));
+		//cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CPF", "CNPJ", "ID"}));
+		
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		
 		JComboBox cbxTipoCliente = new JComboBox();
+		cbxTipoCliente.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					//String valorSelecionado = e.getItem().toString();
+					String tipo = cbxTipoCliente.getSelectedItem().toString().trim();
+					if (tipo.equals("Pessoa Fisica")) {
+						cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CPF", "ID"}));
+					}else 
+						if (tipo.equals("Pessoa Jurídica")) {
+							cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CNPJ", "ID"}));
+					}
+				}	
+			}
+		});
 		cbxTipoCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
 				String tipo = cbxTipoCliente.getSelectedItem().toString().trim();
+			
 				if (tipo.equals("Pessoa Fisica")) {
-					if (clienteF.isVisible()) {
-						clienteF.toFront();
-						clienteF.requestFocus();
-						//JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);
-					}else {
-						if (clienteJ.isVisible())
-							clienteJ.dispose();
-						try {
-							desktopPaneClientes.add(clienteF);
-							desktopPaneClientes.moveToFront(clienteF);
-							clienteF.setSize(desktopPaneClientes.getWidth(), desktopPaneClientes.getHeight());
-							clienteF.setLocation(0,0);
-							clienteF.setVisible(true);
-						} catch (Exception e2) {
-							e2.printStackTrace();
-						}
-						
-					}
-				}if (tipo.equals("Pessoa Jurídica")) {
-					if (clienteJ.isVisible()) {
-						clienteJ.toFront();
-						clienteJ.requestFocus();
-						//JOptionPane.showMessageDialog(null, "Pessoa Fisica\n já esta em uso","AVISO",JOptionPane.WARNING_MESSAGE);	
-					}else {
-						if (clienteF.isVisible())
-							clienteF.dispose();
-						try {
-							
-							desktopPaneClientes.add(clienteJ);
-							desktopPaneClientes.moveToFront(clienteJ);
-							clienteJ.setSize(desktopPaneClientes.getWidth(), desktopPaneClientes.getHeight());
-							clienteJ.setLocation(0,0);
-							clienteJ.setVisible(true);
-						} catch (Exception e3) {
-							e3.printStackTrace();
-						}
-						
-					}
-				}
-					
+					clienteController.visualizarClientesFisico();
+				}else 
+					if (tipo.equals("Pessoa Jurídica")) {
+					clienteController.visualizarClientesJuridico();
+				}else if (tipo.equals("Escolha um campo")) {
+					clienteController.escolherTipo();	
+				} 	
 			}
 		});
 		cbxTipoCliente.setFont(new Font("Tahoma", Font.BOLD, 13));
-		cbxTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"Pessoa Fisica", "Pessoa Jurídica"}));
+		cbxTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"Escolha um campo", "Pessoa Fisica", "Pessoa Jurídica"}));
 		
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.setIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/procurar.png")));
@@ -164,8 +160,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 		JButton btnAddCliente = new JButton("");
 		btnAddCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tipo.setLocationRelativeTo(null);
-				tipo.setVisible(true);
+				clienteController.tipoCliente();
 			}
 		});
 		btnAddCliente.setIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/novo-arquivo.png")));
@@ -212,6 +207,58 @@ public class CadastroClienteFrame extends JInternalFrame {
 					.addComponent(btnPesquisar))
 		);
 		panelPesquisaConfg.setLayout(gl_panelPesquisaConfg);
-
+		
 	}
+
+
+	public static JDesktopPane getDesktopPaneClientes() {
+		return desktopPaneClientes;
+	}
+
+
+	public static void setDesktopPaneClientes(JDesktopPane desktopPaneClientes) {
+		CadastroClienteFrame.desktopPaneClientes = desktopPaneClientes;
+	}
+
+
+	public static CadastroClienteFrame getTelaCadastroCliente() {
+		return telaCadastroCliente;
+	}
+
+
+	public static void setTelaCadastroCliente(CadastroClienteFrame telaCadastroCliente) {
+		CadastroClienteFrame.telaCadastroCliente = telaCadastroCliente;
+	}
+
+
+	public JTextField getTextField() {
+		return textField;
+	}
+
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+
+
+	public ClienteController getClienteController() {
+		return clienteController;
+	}
+
+
+	public void setClienteController(ClienteController clienteController) {
+		this.clienteController = clienteController;
+	}
+
+
+	public static JComboBox getCbxTipoPesquisa() {
+		return cbxTipoPesquisa;
+	}
+
+
+	public static void setCbxTipoPesquisaBox(JComboBox cbxTipoPesquisa) {
+		CadastroClienteFrame.cbxTipoPesquisa = cbxTipoPesquisa;
+	}
+	
+	
 }

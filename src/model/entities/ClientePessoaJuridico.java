@@ -14,8 +14,8 @@ public class ClientePessoaJuridico extends Cliente {
 		this.cnpjCliente = cnpjCliente;
 	}
 
-	public ClientePessoaJuridico(String nomeCliente, String foneCliente1, String foneCliente2, String emailCliente,
-			Endereco enderecoCliente, String razaoSocialCliente, String cnpjCliente) {
+	public ClientePessoaJuridico(String nomeCliente, String cnpjCliente, String razaoSocialCliente, String foneCliente1, String foneCliente2, String emailCliente,
+			Endereco enderecoCliente) {
 		super(nomeCliente, foneCliente1, foneCliente2, emailCliente, enderecoCliente);
 		this.razaoSocialCliente = razaoSocialCliente;
 		this.cnpjCliente = cnpjCliente;
