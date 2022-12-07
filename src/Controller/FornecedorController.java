@@ -3,6 +3,8 @@ package Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+
 import Controller.helpers.FornecedorHelper;
 import model.dao.ClientePessoaJuridoDao;
 import model.dao.DaoFactory;
@@ -33,6 +35,16 @@ public class FornecedorController {
 	public void atualizarFornecedor() {
 		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		ArrayList<Fornecedor> listFornecedor = (ArrayList<Fornecedor>) fornecedorDao.findAll();
+		//Exibir lista de clientes 
+		helper.preencherTabela(listFornecedor);
+		//view.fireTableDataChanged();
+	}
+	
+	public void pesquisarNomeForn() {
+		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
+		String nome = view.getTxtPesquisa().getText();
+		ArrayList<Fornecedor> listFornecedor = (ArrayList<Fornecedor>) fornecedorDao.findByNome(nome);
+		//DefaultTableModel tableModel = new DefaultTableModel(fornecedorDao.findByNome(view.getTxtPesquisa().getText()));
 		//Exibir lista de clientes 
 		helper.preencherTabela(listFornecedor);
 		//view.fireTableDataChanged();

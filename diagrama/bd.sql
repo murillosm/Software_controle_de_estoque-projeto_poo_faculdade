@@ -135,11 +135,11 @@ CREATE TABLE fornecedor
 );
 
 CREATE TABLE usuario (
-                         idusuario integer PRIMARY KEY not null,
-                         nome_usuario varchar(200) not null,
-                         cpf varchar(11) not null,
-                         senha varchar(20) not null,
-                         login varchar(20) not null
+    idusuario integer PRIMARY KEY not null,
+    nome_usuario varchar(200) not null,
+    cpf varchar(11) not null,
+    senha varchar(20) not null,
+    login varchar(20) not null
 );
 
 
@@ -168,6 +168,18 @@ CREATE TABLE cadastra_fornecedor
         REFERENCES fornecedor (id_fornecedor)
 );
 
+CREATE TABLE estoque (
+    id_item SERIAL PRIMARY KEY,
+	preco decimal(10,2)  not null,
+    quantidade_item int  not null,
+    nome_item varchar(40)  not null,
+    marca_item varchar(40)  not null,
+	descricao_item TEXT
+	idfornecedor integer,
+	FOREIGN KEY (idfornecedor)
+        REFERENCES fornecedor (id_fornecedor)
+);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,12 +198,12 @@ CREATE TABLE compra (
                             ON DELETE CASCADE
 );
 
-CREATE TABLE marca (
+/*CREATE TABLE marca (
                        id_marca integer PRIMARY KEY not null,
                        nome_marca integer not null
-);
+);*/
 
-CREATE TABLE item (
+/*CREATE TABLE item (
                       id_item integer PRIMARY KEY not null,
                       nome_item varchar(40) not null,
                       modelo varchar(100),
@@ -200,7 +212,7 @@ CREATE TABLE item (
                       FOREIGN KEY (fk_marca_id_marca)
                           REFERENCES marca (id_marca)
                           ON DELETE RESTRICT
-);
+);*/
 
 CREATE TABLE item_compra (
                              id_item_compra integer PRIMARY KEY not null,
@@ -216,14 +228,7 @@ CREATE TABLE item_compra (
                                  ON DELETE CASCADE
 );
 
-CREATE TABLE estoque (
-                         id_item integer PRIMARY KEY not null,
-                         quantidade_item int  not null,
-                         nome_item varchar(40)  not null,
-                         marca_item varchar(40)  not null,
-                         preco_item decimal(10,2)  not null,
-                         descricao_item varchar(300)
-);
+
 
 CREATE TABLE item_vendido (
                               id_item_venda integer PRIMARY KEY not null,

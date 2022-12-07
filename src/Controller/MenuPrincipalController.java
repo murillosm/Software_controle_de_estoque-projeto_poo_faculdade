@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import view.CadastroClienteFrame;
 import view.CadastroFornecedorFrame;
 import view.MenuPrincipal;
+import view.EstoqueFrame;
 
 public class MenuPrincipalController {
 	private final MenuPrincipal viewMenuPrincipal;
@@ -16,6 +17,7 @@ public class MenuPrincipalController {
 	}
 	CadastroClienteFrame clientePane = new CadastroClienteFrame();
 	CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
+	EstoqueFrame produtosFrame = new EstoqueFrame();
 	public void CadastroCliente() {
 		desktopPane = MenuPrincipal.getDesktopPane();
 		
@@ -58,6 +60,27 @@ public class MenuPrincipalController {
 				fornecedorFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
 				fornecedorFrame.setLocation(0, 0);
 				fornecedorFrame.setVisible(true);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void CadastroProdutos() {
+		desktopPane = MenuPrincipal.getDesktopPane();
+		
+		if (produtosFrame.isVisible()) {
+			produtosFrame.toFront();
+			produtosFrame.requestFocus();
+			JOptionPane.showMessageDialog(null, "Cadastro de clientes\n já esta em uso", "AVISO",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+			try {
+				desktopPane.add(produtosFrame);
+				desktopPane.moveToFront(produtosFrame);
+				produtosFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
+				produtosFrame.setLocation(0, 0);
+				produtosFrame.setVisible(true);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

@@ -11,5 +11,7 @@ public interface FornecedorDao {
     public void update(Fornecedor obj);
     public void deleteById(Integer id);
     public Fornecedor findById(Integer id);
+    public List<Fornecedor> findByNome(String nome);
+    public Fornecedor findByCnpj(String cnpj);
     public List<Fornecedor> findAll();
 }

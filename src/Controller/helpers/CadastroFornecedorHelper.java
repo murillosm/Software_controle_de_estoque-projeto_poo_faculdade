@@ -44,8 +44,8 @@ public class CadastroFornecedorHelper implements Helper{
 	
 	@Override
 	public Fornecedor obterModelo(){
-		//String idString = view.getTxtIdCliente().getText();
-		//int id = Integer.parseInt(idString);
+		String idString = view.getTxtIdFornecedor().getText();
+		int id = Integer.parseInt(idString);
 		String nome = view.getTxtNome().getText();
 		String cnpj = view.getTxtCnpj().getText();
 		String razaoSocial = view.getTxtRazao().getText();
@@ -55,7 +55,7 @@ public class CadastroFornecedorHelper implements Helper{
 		Endereco endereco = obterEndereco();
 		
 		//ClientePessoaFisica pf = new ClientePessoaFisica(cpf, true);
-		Fornecedor fornecedor = new Fornecedor(nome, cnpj, razaoSocial, fone1, fone2, email, endereco);
+		Fornecedor fornecedor = new Fornecedor(id, nome, cnpj, razaoSocial, fone1, fone2, email, endereco);
 		return fornecedor;
 	}
 

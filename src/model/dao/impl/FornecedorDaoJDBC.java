@@ -148,6 +148,69 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 			DB.closeResultSet(rs);
 		}
 	}
+	
+	@Override
+	public List<Fornecedor> findByNome(String nome) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT fornecedor.*,"
+					+ "estado.nome_estado, cidade.nome_cidade\r\n"
+					+ "FROM fornecedor "
+					+ "INNER JOIN estado\r\n"
+					+ "ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade\r\n"
+					+ "ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE nome_cliente LIKE ?");
+
+			pst.setString(1, nome + '%');
+			rs = pst.executeQuery();
+			List<Fornecedor> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Fornecedor fornecedor = instantiateFornecedor(rs);
+				list.add(fornecedor);
+				//return fornecedor;
+			}
+			return list;
+			//return null;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public Fornecedor findByCnpj(String cnpj) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT fornecedor.*,"
+					+ "estado.nome_estado, cidade.nome_cidade\r\n"
+					+ "FROM fornecedor "
+					+ "INNER JOIN estado\r\n"
+					+ "ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade\r\n"
+					+ "ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE cnpj_fornecedor LIKE ?");
+
+			pst.setString(1, cnpj + '%');
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				Fornecedor fornecedor = instantiateFornecedor(rs);
+				return fornecedor;
+			}
+			return null;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}	
 
 	@Override
 	public List<Fornecedor> findAll() {
@@ -210,6 +273,6 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 		fornecedor.setEmailFornecedor(rs.getString("Email"));
 		fornecedor.setEnderecoFornecedor(endereco);
 		return fornecedor;
-	}	
+	}
 
 }

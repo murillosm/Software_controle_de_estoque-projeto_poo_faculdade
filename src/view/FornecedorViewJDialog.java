@@ -62,6 +62,7 @@ public class FornecedorViewJDialog extends JDialog {
 	 */
 	
 	private static CadastroFornecedorFrame telaCadastroFornecedor;
+	private JTextField txtIdFornecedor;
 	public static CadastroFornecedorFrame getInstacia(){
 		if (telaCadastroFornecedor == null) {
 			telaCadastroFornecedor = new CadastroFornecedorFrame();
@@ -260,6 +261,19 @@ public class FornecedorViewJDialog extends JDialog {
 		panelDadosCliente.add(txtEmail);
 		txtEmail.setColumns(10);
 		
+		txtIdFornecedor = new JTextField();
+		txtIdFornecedor.setEditable(false);
+		txtIdFornecedor.setText("0");
+		txtIdFornecedor.setBounds(670, 27, 86, 20);
+		panelDadosCliente.add(txtIdFornecedor);
+		txtIdFornecedor.setColumns(10);
+		
+		JLabel lbID = new JLabel("ID");
+		lbID.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbID.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lbID.setBounds(617, 30, 46, 14);
+		panelDadosCliente.add(lbID);
+		
 		JLabel lblFornecedores = new JLabel("Cadastro Fornecedores");
 		lblFornecedores.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblFornecedores.setHorizontalAlignment(SwingConstants.CENTER);
@@ -394,4 +408,13 @@ public class FornecedorViewJDialog extends JDialog {
 		this.cbxCidade = cbxCidade;
 	}
 
+	public JTextField getTxtIdFornecedor() {
+		return txtIdFornecedor;
+	}
+
+	public void setTxtIdFornecedor(JTextField txtIdFornecedor) {
+		this.txtIdFornecedor = txtIdFornecedor;
+	}
+	
+	
 }

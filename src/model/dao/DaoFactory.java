@@ -19,6 +19,7 @@ public class DaoFactory {
     public static FornecedorDao createFornecedorDao(){
         return new FornecedorDaoJDBC(DB.getConnection());
     }
+    
     public static UsuarioDao createUsuarioDao(){
         return new UsuarioDaoJDBC(DB.getConnection());
     }
@@ -29,6 +30,10 @@ public class DaoFactory {
     
     public static CidadeDao createCidadeDao() {
 		return new CidadeDao(DB.getConnection());
+	}
+ 
+    public static EstoqueDao createEstoqueDao() {
+		return new EstoqueDao(DB.getConnection());
 	}
     
 }

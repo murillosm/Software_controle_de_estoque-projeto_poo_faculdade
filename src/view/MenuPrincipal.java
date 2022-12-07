@@ -111,6 +111,11 @@ public class MenuPrincipal extends JFrame {
 		menuCadastros.add(MenuItemCadastroFornecedor);
 
 		JMenuItem MenuItemCadastroProduto = new JMenuItem("Cadastro Produto");
+		MenuItemCadastroProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.CadastroProdutos();
+			}
+		});
 		MenuItemCadastroProduto.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/package-box32.png")));
 		MenuItemCadastroProduto.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroProduto);

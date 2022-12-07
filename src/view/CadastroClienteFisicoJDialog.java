@@ -280,6 +280,7 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 		txtEmail.setColumns(10);
 		
 		txtIdCliente = new JTextField();
+		txtIdCliente.setEditable(false);
 		txtIdCliente.setText("0");
 		txtIdCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtIdCliente.setBounds(111, 11, 81, 31);

@@ -3,7 +3,6 @@ package model.entities;
 public class Fornecedor {
 
 	private int idFornecedor;
-
 	private String nomeFornecedor;
 	private String cnpjFornecedor;
 	private String razaoSocialFornecedor;
@@ -28,8 +27,8 @@ public class Fornecedor {
 		this.enderecoFornecedor = enderecoFornecedor;
 	}
 
-	public Fornecedor(int idFornecedor, String nomeFornecedor, String cnpjFornecedor, String razaoSocialFornecedor,
-			String foneFornecedo1, String foneFornecedo2, String emailFornecedor, Endereco enderecoFornecedor) {
+	public Fornecedor(int idFornecedor, String nomeFornecedor, String cnpjFornecedor, String razaoSocialFornecedor, String foneFornecedo1,
+			String foneFornecedo2, String emailFornecedor, Endereco enderecoFornecedor) {
 		super();
 		this.idFornecedor = idFornecedor;
 		this.nomeFornecedor = nomeFornecedor;
@@ -112,13 +111,36 @@ public class Fornecedor {
 	public void setEnderecoFornecedor(Endereco enderecoFornecedor) {
 		this.enderecoFornecedor = enderecoFornecedor;
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idFornecedor;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fornecedor other = (Fornecedor) obj;
+		if (idFornecedor != other.idFornecedor)
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
-		return "Fornecedor [idFornecedor=" + idFornecedor + ", nomeFornecedor=" + nomeFornecedor
-				+ ", razaoSocialFornecedor=" + razaoSocialFornecedor + ", cnpjFornecedor=" + cnpjFornecedor
-				+ ", emailFornecedor=" + emailFornecedor + ", enderecoFornecedor=" + enderecoFornecedor
-				+ ", foneFornecedo1=" + foneFornecedo1 + ", foneFornecedo2=" + foneFornecedo2 + "]";
+		return nomeFornecedor;
 	}
+	
+	
 
 }

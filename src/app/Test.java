@@ -44,15 +44,15 @@ public class Test {
 			System.out.println(cliente);
 		}*/
 		
-		List<ClientePessoaJuridico> list = clienteDao2.findAll();
+		/*List<ClientePessoaJuridico> list = clienteDao2.findAll();
 		for (ClientePessoaJuridico cliente : list) {
 			System.out.println(cliente);
-		}
+		}*/
 		
-//		List<Fornecedor> list = fornecedorDao.findAll();
-//		for (Fornecedor fornecedor : list) {
-//			System.out.println(fornecedor);
-//		}
+		List<Fornecedor> list = fornecedorDao.findAll();
+		for (Fornecedor fornecedor : list) {
+			System.out.println(fornecedor);
+		}
 
 	}
 
