@@ -26,6 +26,11 @@ import javax.swing.text.MaskFormatter;
 
 import Controller.CadastroClienteJuridicoController;
 import Controller.CadastroFornecedorController;
+import javax.swing.JTextArea;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class FornecedorViewJDialog extends JDialog {
 	
@@ -35,7 +40,7 @@ public class FornecedorViewJDialog extends JDialog {
 	private JFormattedTextField txtFone2;
 	private JTextField txtRazao;
 	private JTextField txtEmail;
-	private JTextField txtEndereco;
+	private JTextArea txtEndereco;
 	private JTextField txtNumero;
 	private JFormattedTextField txtCep;
 	private JTextField txtBairro;
@@ -108,7 +113,6 @@ public class FornecedorViewJDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JPanel panelEndereco = new JPanel();
-		panelEndereco.setLayout(null);
 		panelEndereco.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Endere\u00E7o", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelEndereco.setBounds(10, 291, 782, 158);
 		getContentPane().add(panelEndereco);
@@ -116,60 +120,38 @@ public class FornecedorViewJDialog extends JDialog {
 		JLabel lblEndereco = new JLabel("*Endereco:");
 		lblEndereco.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEndereco.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEndereco.setBounds(10, 29, 81, 14);
-		panelEndereco.add(lblEndereco);
 		
 		JLabel lblbairro = new JLabel("*Bairro:");
 		lblbairro.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblbairro.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblbairro.setBounds(453, 54, 57, 14);
-		panelEndereco.add(lblbairro);
 		
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNumero.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNumero.setBounds(10, 79, 81, 14);
-		panelEndereco.add(lblNumero);
 		
 		JLabel lblCep = new JLabel("CEP:");
 		lblCep.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCep.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCep.setBounds(57, 104, 34, 14);
-		panelEndereco.add(lblCep);
-		
-		txtEndereco = new JTextField();
-		txtEndereco.setColumns(10);
-		txtEndereco.setBounds(101, 27, 610, 20);
-		panelEndereco.add(txtEndereco);
 		
 		txtNumero = new JTextField();
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(101, 77, 101, 20);
-		panelEndereco.add(txtNumero);
 		
 		txtCep = new JFormattedTextField();
 		txtCep.setColumns(10);
-		txtCep.setBounds(101, 102, 170, 20);
-		panelEndereco.add(txtCep);
 		
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEstado.setBounds(10, 54, 81, 14);
-		panelEndereco.add(lblEstado);
 		
 		txtBairro = new JTextField();
 		txtBairro.setColumns(10);
-		txtBairro.setBounds(520, 52, 191, 20);
-		panelEndereco.add(txtBairro);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCidade.setBounds(220, 52, 57, 14);
-		panelEndereco.add(lblCidade);
 		
 		cbxEstado = new JComboBox();
+		cbxEstado.setMaximumRowCount(16);
 		cbxEstado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -179,15 +161,95 @@ public class FornecedorViewJDialog extends JDialog {
 		});
 		cbxEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.estado();
+				//controller.estado();
 			}
 		});
-		cbxEstado.setBounds(101, 51, 120, 22);
-		panelEndereco.add(cbxEstado);
 		
 		cbxCidade = new JComboBox();
-		cbxCidade.setBounds(287, 51, 153, 22);
-		panelEndereco.add(cbxCidade);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GroupLayout gl_panelEndereco = new GroupLayout(panelEndereco);
+		gl_panelEndereco.setHorizontalGroup(
+			gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEndereco.createSequentialGroup()
+					.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblEndereco, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(scrollPane))
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblEstado, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+								.addComponent(cbxEstado, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panelEndereco.createSequentialGroup()
+									.addGap(141)
+									.addComponent(lblCidade, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)))
+							.addGap(10)
+							.addComponent(cbxCidade, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+							.addGap(5)
+							.addComponent(lblbairro, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(txtBairro, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(txtNumero, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(51)
+							.addComponent(lblCep, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(txtCep, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(41, Short.MAX_VALUE))
+		);
+		gl_panelEndereco.setVerticalGroup(
+			gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEndereco.createSequentialGroup()
+					.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(19)
+							.addComponent(lblEndereco, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblEstado, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(cbxEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblCidade, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(cbxCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblbairro, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(1)
+							.addComponent(txtBairro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtNumero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(gl_panelEndereco.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEndereco.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblCep, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtCep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(14))
+		);
+		
+		txtEndereco = new JTextArea();
+		scrollPane.setViewportView(txtEndereco);
+		txtEndereco.setColumns(10);
+		panelEndereco.setLayout(gl_panelEndereco);
 		
 		JPanel panelDadosCliente = new JPanel();
 		panelDadosCliente.setBorder(new TitledBorder(null, "Dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -360,11 +422,11 @@ public class FornecedorViewJDialog extends JDialog {
 		this.txtEmail = txtEmail;
 	}
 
-	public JTextField getTxtEndereco() {
+	public JTextArea getTxtEndereco() {
 		return txtEndereco;
 	}
 
-	public void setTxtEndereco(JTextField txtEndereco) {
+	public void setTxtEndereco(JTextArea txtEndereco) {
 		this.txtEndereco = txtEndereco;
 	}
 

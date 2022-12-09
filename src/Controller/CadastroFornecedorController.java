@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 import Controller.helpers.CadastroClienteJuridicoHelper;
@@ -56,7 +57,11 @@ public class CadastroFornecedorController {
 	public void estado() {
 		EstadoDao estadoDao = DaoFactory.createEstadoDao();
 		List<Estados> estados = estadoDao.findAllEstados();
-		helper.preencherEstado(estados);
+		//helper.preencherEstado(estados);
+		//DefaultComboBoxModel cbxEstadoModel = (DefaultComboBoxModel) view.getCbxEstado().getModel();
+		for (Estados estado : estados) {
+			view.getCbxEstado().addItem(estado);
+		}
 	}
 
 	public void cidades() {

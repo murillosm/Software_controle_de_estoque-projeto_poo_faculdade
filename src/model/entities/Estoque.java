@@ -12,6 +12,8 @@ public class Estoque {
 	private String marcaItem;
 	private String descricaoItem;
 	private Fornecedor forn = new Fornecedor();
+	
+	private String pesquisa; 
 
 //////////////construtor\\\\\\\\\\\\\\\\\
 	public Estoque() {
@@ -96,6 +98,15 @@ public class Estoque {
 
 	public void setForn(Fornecedor forn) {
 		this.forn = forn;
+	}
+	
+
+	public String getPesquisa() {
+		return pesquisa;
+	}
+
+	public void setPesquisa(String pesquisa) {
+		this.pesquisa = pesquisa;
 	}
 
 	@Override

@@ -6,11 +6,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-import model.dao.DaoFactory;
-import model.dao.FornecedorDao;
-import model.entities.Cidades;
-import model.entities.Endereco;
-import model.entities.Estados;
 import model.entities.Estoque;
 import model.entities.Fornecedor;
 import view.EstoqueFrame;
@@ -38,13 +33,14 @@ public class EstoqueHelper implements Helper{
 					estoque.getMarcaItem(),
 					estoque.getDescricaoItem(),
 					estoque.getPrecoItem(),
-					estoque.getForn().getIdFornecedor()});
+					estoque.getForn().getIdFornecedor(),
+					estoque.getForn().getNomeFornecedor()});
 		}
 	}
 
 	@Override
 	public void limparTela() {
-		//view.getTxtId().setText("");
+		view.getTxtId().setText("0");
 		view.getTxtNomeItem().setText("");
 		view.getTxtMarca().setText("");
 		view.getTxtDescricao().setText("");
@@ -69,6 +65,16 @@ public class EstoqueHelper implements Helper{
 		Estoque estoque = new Estoque(id, valor, qtd, nomeItem, marca, descricao, fornecedor);
 		return estoque;
 	}
+	
+	public void dadosJText(Estoque model) {
+		view.getTxtId().setText(String.valueOf(model.getIdItem()));
+		view.getTxtNomeItem().setText(model.getNomeItem());
+		view.getTxtDescricao().setText(model.getDescricaoItem());
+		view.getTxtQtd().setText(String.valueOf(model.getQuantidade()));
+		view.getTxtValor().setText(String.valueOf(model.getPrecoItem()));
+		view.getTxtMarca().setText(model.getMarcaItem());
+		view.getCbxFornecedor().setSelectedItem(model.getForn());
+	}
 
 
 	
@@ -81,6 +87,21 @@ public class EstoqueHelper implements Helper{
 	
 	public Fornecedor obterFornecedor() {
 		return (Fornecedor) view.getCbxFornecedor().getSelectedItem();
+	}
+	
+	public void abilitarDesabilitar() {
+		view.getTxtId().setEnabled(false);
+		view.getTxtDescricao().setEnabled(false);
+		view.getTxtQtd().setEnabled(false);
+		view.getTxtNomeItem().setEnabled(false);
+		view.getTxtValor().setEnabled(false);
+		view.getCbxFornecedor().setEnabled(false);
+		view.getTxtMarca().setEnabled(false);
+		view.getBtSalvar().setEnabled(false);
+		view.getBtCancelar().setEnabled(false);
+		view.getBtNovo().setEnabled(true);
+		view.getBtnExcluir().setEnabled(false);
+		view.getBtnEditar().setEnabled(false);
 	}
 
 }

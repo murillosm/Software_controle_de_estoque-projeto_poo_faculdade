@@ -42,29 +42,6 @@ public class FornecedorHelper implements Helper {
 					fornecedor.getEnderecoFornecedor().getCidade().getNomeCidade() });
 		}
 	}
-	
-	public void preencher(Fornecedor fornecedor) {
-		DefaultTableModel tableModel = (DefaultTableModel) view.getTbFornecedor().getModel();
-		tableModel.setNumRows(0);
-
-		// percorrer lista
-		//FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
-		//for (Fornecedor fornecedor : listFornecedor) {
-			tableModel.addRow(new Object[] {
-					fornecedor.getIdFornecedor(),
-					fornecedor.getNomeFornecedor(),
-					fornecedor.getCnpjFornecedor(),
-					fornecedor.getRazaoSocialFornecedor(),
-					fornecedor.getFoneFornecedo1(),
-					fornecedor.getFoneFornecedo2(),
-					fornecedor.getEmailFornecedor(),
-					fornecedor.getEnderecoFornecedor().getEndereco(),
-					fornecedor.getEnderecoFornecedor().getNumero(),
-					fornecedor.getEnderecoFornecedor().getBairro(),
-					fornecedor.getEnderecoFornecedor().getEstado().getNomeEstado(),
-					fornecedor.getEnderecoFornecedor().getCidade().getNomeCidade() });
-		//}
-	}
 
 	@Override
 	public Object obterModelo() {

@@ -31,6 +31,9 @@ public class MenuPrincipalController {
 				if (fornecedorFrame.isVisible()) {
 					fornecedorFrame.dispose();
 				}
+				if (produtosFrame.isVisible()) {
+					produtosFrame.dispose();
+				}
 				desktopPane.add(clientePane);
 				desktopPane.moveToFront(clientePane);
 				clientePane.setSize(desktopPane.getWidth(), desktopPane.getHeight());
@@ -55,6 +58,9 @@ public class MenuPrincipalController {
 				if (clientePane.isVisible()) {
 					clientePane.dispose();
 				}
+				if (produtosFrame.isVisible()) {
+					produtosFrame.dispose();
+				}
 				desktopPane.add(fornecedorFrame);
 				desktopPane.moveToFront(fornecedorFrame);
 				fornecedorFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
@@ -76,6 +82,12 @@ public class MenuPrincipalController {
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 			try {
+				if (fornecedorFrame.isVisible()) {
+					fornecedorFrame.dispose();
+				}
+				if (clientePane.isVisible()) {
+					clientePane.dispose();
+				}
 				desktopPane.add(produtosFrame);
 				desktopPane.moveToFront(produtosFrame);
 				produtosFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());

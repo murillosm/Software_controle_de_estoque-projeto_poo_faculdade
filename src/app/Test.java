@@ -7,6 +7,7 @@ import java.util.List;
 import model.dao.ClientePessoaFisicaDao;
 import model.dao.ClientePessoaJuridoDao;
 import model.dao.DaoFactory;
+import model.dao.EstadoDao;
 import model.dao.FornecedorDao;
 import model.entities.Cidades;
 import model.entities.ClientePessoaFisica;
@@ -22,6 +23,7 @@ public class Test {
 		ClientePessoaFisicaDao clienteDao = DaoFactory.createPessoaFisicaDao();
 		ClientePessoaJuridoDao clienteDao2 = DaoFactory.createPessoaJuridicaDao();
 		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
+		EstadoDao estadoDao = DaoFactory.createEstadoDao();
 		
 //		Estados estado = new Estados(9);
 //		Cidades cidade = new Cidades(894);
@@ -49,10 +51,16 @@ public class Test {
 			System.out.println(cliente);
 		}*/
 		
-		List<Fornecedor> list = fornecedorDao.findAll();
-		for (Fornecedor fornecedor : list) {
-			System.out.println(fornecedor);
+//		List<Fornecedor> list = fornecedorDao.findAll();
+//		for (Fornecedor fornecedor : list) {
+//			System.out.println(fornecedor);
+//		}
+		
+		List<Estados> list = estadoDao.findAllEstados();
+		for (Estados estados : list) {
+			System.out.println(estados);
 		}
+
 
 	}
 

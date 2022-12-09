@@ -121,6 +121,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 		
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.BOLD, 13));
 		textField.setColumns(10);
 		
 		JComboBox cbxTipoCliente = new JComboBox();
@@ -173,7 +174,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 					.addComponent(btnAddCliente, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -196,16 +197,19 @@ public class CadastroClienteFrame extends JInternalFrame {
 					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblCadastrosClientes)
 						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-					.addGap(7)
-					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-					.addGap(13)
-					.addComponent(btnAddCliente))
-				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-					.addGap(44)
-					.addComponent(btnPesquisar))
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addGap(7)
+							.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnAddCliente))
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(Alignment.LEADING, gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
+									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+									.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnPesquisar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
 		);
 		panelPesquisaConfg.setLayout(gl_panelPesquisaConfg);
 		

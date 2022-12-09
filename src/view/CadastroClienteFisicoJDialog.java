@@ -4,10 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,21 +26,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
 import Controller.CadastroClienteFisicoController;
-import Controller.LoginController;
-import model.dao.CidadeDao;
-import model.dao.DaoFactory;
-import model.entities.Cidades;
-import model.entities.Estados;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
-import java.text.ParseException;
-import java.util.List;
-import java.awt.event.ItemEvent;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DropMode;
-import javax.swing.JFormattedTextField;
 
 public class CadastroClienteFisicoJDialog extends JDialog {
 
@@ -80,6 +72,7 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 	}
 
 	public CadastroClienteFisicoJDialog() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroClienteFisicoJDialog.class.getResource("/view/imagens/icons/novo-arquivo.png")));
 		initComponents();
 		formatarCampo();
 		controller = new CadastroClienteFisicoController(this);
@@ -191,7 +184,7 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 		});
 		cbxEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.estado();
+				//controller.estado();
 			}
 		});
 

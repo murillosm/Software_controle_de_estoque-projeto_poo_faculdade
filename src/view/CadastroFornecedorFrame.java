@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -28,9 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.FornecedorController;
 import Controller.helpers.FornecedorHelper;
-import model.dao.DaoFactory;
 import model.dao.FornecedorDao;
-import model.entities.Fornecedor;
 
 public class CadastroFornecedorFrame extends JInternalFrame {
 	private static JComboBox cbxTipoPesquisa;

@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Toolkit;
 
 public class CadastroClienteJuridicoJDialog extends JDialog {
 
@@ -71,6 +72,7 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 	}
 	
 	public CadastroClienteJuridicoJDialog(){
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroClienteJuridicoJDialog.class.getResource("/view/imagens/icons/novo-arquivo.png")));
 		initComponents();
 		formatarCampo();
 		controller = new CadastroClienteJuridicoController(this);
@@ -168,6 +170,7 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 		panelEndereco.add(lblCidade);
 		
 		cbxEstado = new JComboBox();
+		cbxEstado.setMaximumRowCount(16);
 		cbxEstado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -177,13 +180,14 @@ public class CadastroClienteJuridicoJDialog extends JDialog {
 		});
 		cbxEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.estado();
+				//controller.estado();
 			}
 		});
 		cbxEstado.setBounds(101, 51, 120, 22);
 		panelEndereco.add(cbxEstado);
 		
 		cbxCidade = new JComboBox();
+		cbxCidade.setMaximumRowCount(16);
 		cbxCidade.setBounds(287, 51, 153, 22);
 		panelEndereco.add(cbxCidade);
 		
