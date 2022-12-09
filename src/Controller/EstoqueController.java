@@ -66,7 +66,7 @@ public class EstoqueController {
 			break;
 			
 			case 1:
-				JOptionPane.showConfirmDialog(null, "Nenhum Exclução foi feita.","AVISO.", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Nenhum Exclução foi feita.","AVISO.", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		}
 	}
@@ -81,24 +81,6 @@ public class EstoqueController {
 		helper.preencherTabela(listEstoques);
 	}
 	
-	public void preecherEstoquePesquisaNome() {
-		ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllNome(view.getTxtPesquisa().getText());
-		//Exibir lista de clientes 
-		helper.preencherTabela(listEstoques);
-	}
-	
-	public void preecherEstoquePesquisaId(int id) {
-		ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllId(id);
-		//Exibir lista de clientes 
-		helper.preencherTabela(listEstoques);
-	}
-	
-	public void preecherEstoquePesquisaMarca() {
-		ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllNome(view.getTxtPesquisa().getText());
-		//Exibir lista de clientes 
-		helper.preencherTabela(listEstoques);
-	}
-
 	public void boxFornecedor() {
 		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		ArrayList<Fornecedor> fornecedores = (ArrayList<Fornecedor>) fornecedorDao.findAll();
@@ -108,20 +90,65 @@ public class EstoqueController {
 	public void buscarItemNome() {
 		try {
 			Estoque model = estoqueDao.findByNome(view.getTxtPesquisa().getText());
-			helper.dadosJText(model);	
+			ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllNome(view.getTxtPesquisa().getText());
+			helper.dadosJText(model);
+			helper.preencherTabela(listEstoques);
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, "O item buscado não existe ou foi escrito incorretamente \nVerifique se o valor digitado esta escrito corretamente",null,JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
-	public void clickLinhaTabela() {
-		String nomeItem =""+ view.getTbEstoque().getValueAt(view.getTbEstoque().getSelectedRow(), 0);
-		int id = Integer.parseInt(nomeItem);
-		Estoque estoque = estoqueDao.findById(id);
-		helper.dadosJText(estoque);
+	public void buscarItemID() {
+		try {
+			String idString = view.getTxtPesquisa().getText();
+			int id = Integer.parseInt(idString);
+			Estoque model = estoqueDao.findById(id);
+			ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllId(id);
+			helper.dadosJText(model);
+			helper.preencherTabela(listEstoques);
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null, "O item buscado não existe ou foi escrito incorretamente \nVerifique se o valor digitado esta escrito corretamente",null,JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
-	public void abilitarDesabilitar() {
-		helper.abilitarDesabilitar();
+	public void buscarItemMarca() {
+		try {
+			Estoque model = estoqueDao.findByMarca(view.getTxtPesquisa().getText());
+			ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllMarca(view.getTxtPesquisa().getText());
+			helper.dadosJText(model);
+			helper.preencherTabela(listEstoques);
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null, "O item buscado não existe ou foi escrito incorretamente \nVerifique se o valor digitado esta escrito corretamente",null,JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	public void buscarItemForn() {
+		try {
+			//Estoque model = estoqueDao.findByMarca(view.getTxtPesquisa().getText());
+			ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAllFornecedor(view.getTxtPesquisa().getText());
+			helper.dadosJText(new Estoque());
+			helper.preencherTabela(listEstoques);
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null, "O item buscado não existe ou foi escrito incorretamente \nVerifique se o valor digitado esta escrito corretamente",null,JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	
+	public void clickLinhaTabela() {
+		try {
+			String nomeItem =""+ view.getTbEstoque().getValueAt(view.getTbEstoque().getSelectedRow(), 0);
+			int id = Integer.parseInt(nomeItem);
+			Estoque estoque = estoqueDao.findById(id);
+			helper.dadosJText(estoque);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao escolher linha tente novamente!");
+		}
+	}
+	
+	public void habilitar() {
+		helper.habilitar();
+	}
+	public void desabilitar() {
+		helper.desabilitar();
 	}
 }

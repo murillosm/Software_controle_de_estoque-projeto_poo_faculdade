@@ -76,6 +76,7 @@ public class EstoqueFrame extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public EstoqueFrame() {
+		setFrameIcon(new ImageIcon(EstoqueFrame.class.getResource("/view/imagens/icons/package-box32.png")));
 		initComponents();
 		controller = new EstoqueController(this);
 		iniciar();
@@ -152,18 +153,11 @@ public class EstoqueFrame extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				controller.limparJText();
 				cbxFornecedor.setEditable(true);
-				txtId.setEnabled(false);
-				txtDescricao.setEnabled(true);
-				txtQtd.setEnabled(true);
-				txtNomeItem.setEnabled(true);
-				txtValor.setEnabled(true);
-				cbxFornecedor.setEnabled(true);
-				txtMarca.setEnabled(true);
+				controller.habilitar();
 				btSalvar.setEnabled(true);
-				btCancelar.setEnabled(true);
-				btNovo.setEnabled(false);
-				btnExcluir.setEnabled(!true);
-				btnEditar.setEnabled(!true);
+				btnExcluir.setEnabled(false);
+				btnEditar.setEnabled(false);
+				btnAlterar.setEnabled(false);
 			}
 		});
 		btNovo.setIcon(new ImageIcon(EstoqueFrame.class.getResource("/view/imagens/icons/novo-arquivo.png")));
@@ -178,26 +172,14 @@ public class EstoqueFrame extends JInternalFrame {
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.novoEstoque();
-				controller.abilitarDesabilitar();
+				controller.desabilitar();
 			}
 		});
 
 		btCancelar = new JButton("Cancelar");
 		btCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.abilitarDesabilitar();
-//				txtId.setEnabled(false);
-//				txtDescricao.setEnabled(false);
-//				txtQtd.setEnabled(false);
-//				txtNomeItem.setEnabled(false);
-//				txtValor.setEnabled(false);
-//				cbxFornecedor.setEnabled(false);
-//				txtMarca.setEnabled(false);
-//				btSalvar.setEnabled(false);
-//				btCancelar.setEnabled(false);
-//				btNovo.setEnabled(true);
-//				btnExcluir.setEnabled(false);
-//				btnEditar.setEnabled(false);
+				controller.desabilitar();
 			}
 		});
 		btCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -208,19 +190,8 @@ public class EstoqueFrame extends JInternalFrame {
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.editarEstoque();
-				txtId.setEnabled(!true);
-				txtDescricao.setEnabled(!true);
-				txtQtd.setEnabled(!true);
-				txtNomeItem.setEnabled(!true);
-				txtValor.setEnabled(!true);
-				cbxFornecedor.setEnabled(!true);
-				txtMarca.setEnabled(!true);
-				btSalvar.setEnabled(!true);
-				btCancelar.setEnabled(!true);
-				btNovo.setEnabled(!false);
-				btnExcluir.setEnabled(!true);
-				btnEditar.setEnabled(!true);
-				btnAlterar.setEnabled(!false);
+				controller.desabilitar();
+				btnAlterar.setEnabled(true);
 			}
 		});
 		btnAlterar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -370,34 +341,24 @@ public class EstoqueFrame extends JInternalFrame {
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cbxFornecedor.setEditable(false);
-				txtId.setEnabled(false);
-				txtDescricao.setEnabled(true);
-				txtQtd.setEnabled(true);
-				txtNomeItem.setEnabled(true);
-				txtValor.setEnabled(true);
-				cbxFornecedor.setEnabled(!false);
-				txtMarca.setEnabled(true);
-				btSalvar.setEnabled(false);
-				btCancelar.setEnabled(true);
-				btNovo.setEnabled(false);
+				controller.habilitar();
 				btnExcluir.setEnabled(true);
 				btnEditar.setEnabled(true);
 				String tipo = cbxTipoPesquisa.getSelectedItem().toString().trim();
 				try {
 					if (tipo.equals("Nome")) {
 						controller.buscarItemNome();
-						controller.preecherEstoquePesquisaNome();
+						//controller.preecherEstoquePesquisaNome();
 					}
 					if (tipo.equals("Marca")) {
-						
+						controller.buscarItemMarca();
 					}
-//					if (tipo.equals("Fornecedor")) {
-//
-//					}
+					if (tipo.equals("Fornecedor")) {
+						controller.buscarItemForn();
+					}
 					if (tipo.equals("codigo")) {
-						String idString = txtPesquisa.getText();
-						int id = Integer.parseInt(idString);
-						controller.preecherEstoquePesquisaId(id);
+						
+						controller.buscarItemID();
 					}
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null,
@@ -430,18 +391,9 @@ public class EstoqueFrame extends JInternalFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cbxFornecedor.setEditable(true);
-				txtId.setEnabled(false);
-				txtDescricao.setEnabled(true);
-				txtQtd.setEnabled(true);
-				txtNomeItem.setEnabled(true);
-				txtValor.setEnabled(true);
-				cbxFornecedor.setEnabled(true);
-				txtMarca.setEnabled(true);
-				btSalvar.setEnabled(false);
-				btCancelar.setEnabled(true);
-				btNovo.setEnabled(false);
-				btnExcluir.setEnabled(!true);
-				btnEditar.setEnabled(!true);
+				controller.habilitar();
+				btnExcluir.setEnabled(false);
+				btnEditar.setEnabled(false);
 				btnAlterar.setEnabled(true);
 			}
 		});
@@ -451,6 +403,7 @@ public class EstoqueFrame extends JInternalFrame {
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.limparJText();
+				controller.desabilitar();
 			}
 		});
 		btnLimpar.setIcon(new ImageIcon(EstoqueFrame.class.getResource("/view/imagens/icons/broom.png")));
@@ -505,9 +458,10 @@ public class EstoqueFrame extends JInternalFrame {
 		tbEstoque.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//String nomeItem =""+ tbEstoque.getValueAt(tbEstoque.getSelectedRow(), 2);
 				controller.clickLinhaTabela();
-				//JOptionPane.showMessageDialog(rootPane, nomeItem);
+				controller.habilitar();
+				btnExcluir.setEnabled(true);
+				btnEditar.setEnabled(true);
 			}
 		});
 		tbEstoque.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Quantidade", "Nome Item",

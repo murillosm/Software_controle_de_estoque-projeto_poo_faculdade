@@ -46,6 +46,7 @@ public class EstoqueHelper implements Helper{
 		view.getTxtDescricao().setText("");
 		view.getTxtValor().setText("");
 		view.getTxtQtd().setText("");
+		view.getTxtPesquisa().setText("");
 	}
 	
 	@Override
@@ -89,7 +90,7 @@ public class EstoqueHelper implements Helper{
 		return (Fornecedor) view.getCbxFornecedor().getSelectedItem();
 	}
 	
-	public void abilitarDesabilitar() {
+	public void desabilitar() {
 		view.getTxtId().setEnabled(false);
 		view.getTxtDescricao().setEnabled(false);
 		view.getTxtQtd().setEnabled(false);
@@ -104,4 +105,16 @@ public class EstoqueHelper implements Helper{
 		view.getBtnEditar().setEnabled(false);
 	}
 
+	public void habilitar() {
+		view.getTxtId().setEnabled(false);
+		view.getTxtDescricao().setEnabled(true);
+		view.getTxtQtd().setEnabled(true);
+		view.getTxtNomeItem().setEnabled(true);
+		view.getTxtValor().setEnabled(true);
+		view.getCbxFornecedor().setEnabled(true);
+		view.getTxtMarca().setEnabled(true);
+		view.getBtSalvar().setEnabled(false);
+		view.getBtCancelar().setEnabled(true);
+		view.getBtNovo().setEnabled(false);
+	}
 }

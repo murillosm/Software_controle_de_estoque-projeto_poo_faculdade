@@ -101,9 +101,8 @@ public class EstoqueDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-//			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-//					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE estoque.id_item = ?");
-			pst = conn.prepareStatement("SELECT * FROM public.estoque WHERE id_item = ?");
+			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE estoque.id_item = ?");
 
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -128,61 +127,9 @@ public class EstoqueDao {
 		try {
 			//pst = conn.prepareStatement("SELECT * FROM public.estoque WHERE nome_item LIKE '%" + model + "%'");
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item LIKE '%" + model + "%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item ILIKE '%" + model + "%'");
 
 			//pst.setString(1, nome + '%');
-			rs = pst.executeQuery();
-			//List<Estoque> list = new ArrayList<>();
-
-			if(rs.next()) {
-				Estoque estoque = instantiateEstoque(rs);
-				//list.add(estoque);
-				return estoque;
-			}
-			//return list;
-			return null;
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closePreparedStatement(pst);
-			DB.closeResultSet(rs);
-		}
-	}
-	
-	public Estoque findByNomeTabela(String nome) {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			//pst = conn.prepareStatement("SELECT * FROM public.estoque WHERE nome_item LIKE '%" + model + "%'");
-			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item = '" + nome + "'");
-
-			//pst.setString(1, nome + '%');
-			rs = pst.executeQuery();
-			//List<Estoque> list = new ArrayList<>();
-
-			if(rs.next()) {
-				Estoque estoque = instantiateEstoque(rs);
-				//list.add(estoque);
-				return estoque;
-			}
-			//return list;
-			return null;
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closePreparedStatement(pst);
-			DB.closeResultSet(rs);
-		}
-	}
-	
-	public Estoque findByFornecedor(int idFornecedor) {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			pst = conn.prepareStatement("SELECT * FROM public.estoque WHERE idfornecedor = ?");
-
-			pst.setInt(1, idFornecedor);
 			rs = pst.executeQuery();
 			//List<Estoque> list = new ArrayList<>();
 
@@ -205,7 +152,8 @@ public class EstoqueDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			pst = conn.prepareStatement("SELECT * FROM public.estoque WHERE nome_item LIKE '%" + marca + "%'");
+			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE estoque.marca_item iLIKE '"+marca+"%'");
 
 			rs = pst.executeQuery();
 			//List<Estoque> list = new ArrayList<>();
@@ -254,7 +202,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item LIKE '%"+ model +"%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item ILIKE '%"+ model +"%'");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
@@ -272,12 +220,12 @@ public class EstoqueDao {
 		}
 	}
 	
-	public List<Estoque> findAllMarca(String model) {
+	public List<Estoque> findAllMarca(String model) {	
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE marca_item LIKE '%"+ model +"%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE estoque.marca_item iLIKE '"+model+"%'");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
@@ -300,7 +248,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE id_item LIKE '"+ id +"%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE id_item >= "+ id);
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
@@ -323,7 +271,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item LIKE '%"+ model +"%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE fornecedor.nome_fornecedor ILIKE '"+ model +"%'");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
