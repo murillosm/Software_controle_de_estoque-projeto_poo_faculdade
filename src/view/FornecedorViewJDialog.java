@@ -86,6 +86,8 @@ public class FornecedorViewJDialog extends JDialog {
 	}
 	
 	public FornecedorViewJDialog() {
+		setModal(true);
+		setAutoRequestFocus(false);
 		setTitle("Fornecedores");
 		initComponents();
 		formatarCampo();
@@ -397,11 +399,9 @@ public class FornecedorViewJDialog extends JDialog {
 			}
 			{
 				btCancel = new JButton("Cancel");
-				btCancel.setEnabled(false);
 				btCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						controller.desabilitar();
-						dispose();
 					}
 				});
 				btCancel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -432,6 +432,16 @@ public class FornecedorViewJDialog extends JDialog {
 			btVer = new JButton("Vizualizar");
 			btVer.setFont(new Font("Tahoma", Font.BOLD, 13));
 			buttonPane.add(btVer);
+			
+			JButton btFechar = new JButton("Fechar");
+			btFechar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			btFechar.setFont(new Font("Tahoma", Font.BOLD, 14));
+			btFechar.setActionCommand("Cancel");
+			buttonPane.add(btFechar);
 			btVer.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					controller.habilitar();
