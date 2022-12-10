@@ -6,8 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -27,22 +26,19 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Controller.CadastroFornecedorController;
 import Controller.FornecedorController;
 import Controller.helpers.FornecedorHelper;
 import model.dao.FornecedorDao;
-import javax.swing.JFrame;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CadastroFornecedorFrame extends JInternalFrame {
 	private static JComboBox cbxTipoPesquisa;
 	private static CadastroFornecedorFrame telaCadastroCliente;
-	private static JTextField txtPesquisa;
-	private static FornecedorController controller;
-	private static JButton btnAddFornecedor;
-	private static JTable tbFornecedor;
-	private JButton btnVisualizar;
+	private JTextField txtPesquisa;
+	private FornecedorController controller;
+	private JButton btnAddFornecedor;
+	private JTable tbFornecedor;
 	FornecedorDao fornecedorDao;
 	FornecedorHelper helper;
 	private JTextField txtID;
@@ -75,27 +71,20 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 	}
 
 	public CadastroFornecedorFrame() {
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameClosing(InternalFrameEvent e) {
-				int op = JOptionPane.showInternalConfirmDialog(null, "Quer mesmo fechar essa janela?", "Fechar Janela",
-		                JOptionPane.YES_NO_OPTION);
-
-		        if (op == JOptionPane.YES_OPTION) {
-		            dispose();
-		        }
-			}
-		});
-		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
 		setEnabled(false);
 		initComponents();
 		controller = new FornecedorController(this);
 		iniciar();
 		helper = new FornecedorHelper(this);
+//		try {
+//			fornecedorDao = DaoFactory.createFornecedorDao();
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 	}
 
 	public void iniciar() {
-		//this.controller.preencherFornecedor();
+		this.controller.preencherFornecedor();
 	}
 
 	public void initComponents() {
@@ -117,6 +106,7 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 				controller.clickLinhaTabela();
 			}
 		});
+		tbFornecedor.setFillsViewportHeight(true);
 		tbFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tbFornecedor.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -130,6 +120,12 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
 		tbFornecedor.getColumnModel().getColumn(1).setPreferredWidth(194);
@@ -147,7 +143,7 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 
 		cbxTipoPesquisa = new JComboBox();
 		cbxTipoPesquisa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CNPJ", "ID" }));
+		cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"ID", "Nome", "CNPJ" }));
 
 		txtPesquisa = new JTextField();
 		txtPesquisa.setColumns(10);
@@ -155,16 +151,16 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 		JButton btnPesquisar = new JButton("");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String tipo = cbxTipoPesquisa.getSelectedItem().toString().trim();
+				String tipo = (String) cbxTipoPesquisa.getSelectedItem();
 				try {
-					if (tipo.equals("Nome")) {
-						controller.buscarNome();
-					}
-					if (tipo.equals("CNPJ")) {
-						controller.buscarCnpj();
-					}
 					if (tipo.equals("ID")) {
 						controller.buscarID();
+					}else
+						if (tipo.equals("Nome")) {
+						controller.buscarNome(); 
+					}else
+						if (tipo.equals("CNPJ")) {
+						controller.buscarCnpj();
 					}
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null,
@@ -173,7 +169,8 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 				}
 			}
 		});
-		btnPesquisar.setIcon(new ImageIcon(CadastroFornecedorFrame.class.getResource("/view/imagens/icons/procurar.png")));
+		btnPesquisar
+				.setIcon(new ImageIcon(CadastroFornecedorFrame.class.getResource("/view/imagens/icons/procurar.png")));
 
 		btnAddFornecedor = new JButton("");
 		btnAddFornecedor.addActionListener(new ActionListener() {
@@ -192,12 +189,7 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 		});
 		btnExcluir.setIcon(new ImageIcon(CadastroFornecedorFrame.class.getResource("/view/imagens/icons/lixo.png")));
 
-		btnVisualizar = new JButton("");
-		btnVisualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//controller.visualizar();
-			}
-		});
+		JButton btnVisualizar = new JButton("");
 		btnVisualizar.setIcon(new ImageIcon(CadastroFornecedorFrame.class.getResource("/view/imagens/icons/olho.png")));
 
 		JButton btnAtualizar = new JButton("");
@@ -208,83 +200,71 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 		});
 		btnAtualizar
 				.setIcon(new ImageIcon(CadastroFornecedorFrame.class.getResource("/view/imagens/icons/reload.png")));
-
-		JLabel lbID = new JLabel("ID:");
-		lbID.setFont(new Font("Tahoma", Font.BOLD, 13));
-
+		
+		JLabel ldID = new JLabel("ID:");
+		ldID.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
 		txtID = new JTextField();
 		txtID.setColumns(10);
 		GroupLayout gl_panelPesquisaConfg = new GroupLayout(panelPesquisaConfg);
-		gl_panelPesquisaConfg
-				.setHorizontalGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panelPesquisaConfg.createSequentialGroup().addGap(313)
-												.addComponent(lblCadastrosFornecedores, GroupLayout.PREFERRED_SIZE, 317,
-														GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_panelPesquisaConfg
-												.createSequentialGroup().addGroup(gl_panelPesquisaConfg
-														.createParallelGroup(Alignment.TRAILING)
-														.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 64,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(btnAddFornecedor, 0, 0, Short.MAX_VALUE))
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-														.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-																.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE,
-																		64, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE,
-																		64, GroupLayout.PREFERRED_SIZE)
-																.addGap(80).addComponent(lbID)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addComponent(txtID, GroupLayout.PREFERRED_SIZE,
-																		GroupLayout.DEFAULT_SIZE,
-																		GroupLayout.PREFERRED_SIZE))
-														.addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 628,
-																GroupLayout.PREFERRED_SIZE))))
-								.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panelPesquisaConfg.createSequentialGroup().addGap(874)
-												.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 322,
-														GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnPesquisar,
-														GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_panelPesquisaConfg.createSequentialGroup().addGap(194)
-												.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 64,
-														GroupLayout.PREFERRED_SIZE)))));
-		gl_panelPesquisaConfg
-				.setVerticalGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup().addGap(11)
-								.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-										.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 27,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblCadastrosFornecedores))
-								.addGap(7)
-								.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnPesquisar)
-										.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
-												.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 27,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														txtPesquisa, GroupLayout.PREFERRED_SIZE, 27,
-														GroupLayout.PREFERRED_SIZE)))
-								.addGap(18)
-								.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 63,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnAddFornecedor, GroupLayout.PREFERRED_SIZE, 63,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lbID, GroupLayout.PREFERRED_SIZE, 26,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtID, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 63,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 63,
-												GroupLayout.PREFERRED_SIZE))
-								.addContainerGap()));
+		gl_panelPesquisaConfg.setHorizontalGroup(
+			gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addGap(313)
+							.addComponent(lblCadastrosFornecedores, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.TRAILING)
+								.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAddFornecedor, 0, 0, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+									.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(ldID)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 628, GroupLayout.PREFERRED_SIZE))))
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addGap(874)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+							.addGap(194)
+							.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))
+		);
+		gl_panelPesquisaConfg.setVerticalGroup(
+			gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
+					.addGap(11)
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCadastrosFornecedores))
+					.addGap(7)
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnPesquisar)
+						.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
+							.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
+					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAddFornecedor, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
+							.addComponent(ldID)
+							.addComponent(txtID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
 		panelPesquisaConfg.setLayout(gl_panelPesquisaConfg);
 
 	}
@@ -333,14 +313,6 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 		CadastroFornecedorFrame.cbxTipoPesquisa = cbxTipoPesquisa;
 	}
 
-	public JButton getBtnVisualizar() {
-		return btnVisualizar;
-	}
-
-	public void setBtnVisualizar(JButton btnVisualizar) {
-		this.btnVisualizar = btnVisualizar;
-	}
-
 	public JTextField getTxtID() {
 		return txtID;
 	}
@@ -348,5 +320,6 @@ public class CadastroFornecedorFrame extends JInternalFrame {
 	public void setTxtID(JTextField txtID) {
 		this.txtID = txtID;
 	}
-
+	
+	
 }

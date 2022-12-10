@@ -303,7 +303,7 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 					+ "FROM fornecedor \r\n"
 					+ "INNER JOIN estado ON fornecedor.estado_idEstado = estado.idestado\r\n"
 					+ "INNER JOIN cidade ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
-					+ "WHERE fornecedor.cnpj_fornecedor LIKE '" + cnpj + "%'\r\n"
+					+ "WHERE fornecedor.cnpj_fornecedor LIKE '%" + cnpj + "%'\r\n"
 					+ "ORDER BY fornecedor.id_fornecedor");
 
 			rs = pst.executeQuery();

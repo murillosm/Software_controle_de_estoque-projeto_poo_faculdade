@@ -388,6 +388,7 @@ public class FornecedorViewJDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						controller.habilitar();
 						btSalvar.setEnabled(true);
+						btAlterar.setEnabled(!true);
 					}
 				});
 				btnNovo.setFont(new Font("Tahoma", Font.BOLD, 13));
