@@ -73,26 +73,25 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 	public void update(Fornecedor obj) {
 		PreparedStatement pst = null;
 		try {
-			pst = conn.prepareStatement("UPDATE fornecedor " 
-					+ "SET nome_fornecedor = ?, fonefornecedor1 = ?, fonefornecedor2 = ?,"
-					+ " email = ?, endereco = ?, bairro, numero = ?, cep = ?,"
-					+ " estado_idestado = ?, cidade_idcidade = ?,"
-					+ " cnpj_fornecedor = ?, razao_social = ?" 
-					+ "WHERE id_fornecedor = ?");
+			pst = conn.prepareStatement("UPDATE public.fornecedor\r\n"
+					+ "	SET nome_fornecedor=?, cnpj_fornecedor=?, email=?,\r\n"
+					+ "	razao_social=?, fonefornecedor1=?, fonefornecedor2=?, endereco=?,\r\n"
+					+ "	bairro=?, numero=?, cep=?, estado_idestado=?, cidade_idcidade=?" 
+					+ "WHERE id_fornecedor ="+obj.getIdFornecedor());
 
 			pst.setString(1, obj.getNomeFornecedor());
-			pst.setString(2, obj.getFoneFornecedo1());
-			pst.setString(3, obj.getFoneFornecedo2());
-			pst.setString(4, obj.getEmailFornecedor());
-			pst.setString(5, obj.getEnderecoFornecedor().getEndereco());
-			pst.setString(6, obj.getEnderecoFornecedor().getBairro());
-			pst.setString(7, obj.getEnderecoFornecedor().getNumero());
-			pst.setString(8, obj.getEnderecoFornecedor().getCep());
-			pst.setInt(9, obj.getEnderecoFornecedor().getEstado().getIdEstado());
-			pst.setInt(10, obj.getEnderecoFornecedor().getCidade().getIdCidade());
-			pst.setString(11, obj.getCnpjFornecedor());
-			pst.setString(12, obj.getRazaoSocialFornecedor());
-			pst.setInt(13, obj.getIdFornecedor());
+			pst.setString(2, obj.getCnpjFornecedor());
+			pst.setString(3, obj.getEmailFornecedor());
+			pst.setString(4, obj.getRazaoSocialFornecedor());
+			pst.setString(5, obj.getFoneFornecedo1());
+			pst.setString(6, obj.getFoneFornecedo2());
+			pst.setString(7, obj.getEnderecoFornecedor().getEndereco());
+			pst.setString(8, obj.getEnderecoFornecedor().getBairro());
+			pst.setString(9, obj.getEnderecoFornecedor().getNumero());
+			pst.setString(10, obj.getEnderecoFornecedor().getCep());
+			pst.setInt(11, obj.getEnderecoFornecedor().getEstado().getIdEstado());
+			pst.setInt(12, obj.getEnderecoFornecedor().getCidade().getIdCidade());
+			//pst.setInt(13, obj.getIdFornecedor());
 
 			pst.executeUpdate();
 		} catch (SQLException e) {
@@ -124,14 +123,11 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			pst = conn.prepareStatement("SELECT fornecedor.*,"
-					+ "estado.nome_estado, cidade.nome_cidade\r\n"
-					+ "FROM fornecedor "
-					+ "INNER JOIN estado\r\n"
-					+ "ON fornecedor.estado_idEstado = estado.idestado\r\n"
-					+ "INNER JOIN cidade\r\n"
-					+ "ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
-					+ "WHERE id_fornecedor = ?");
+			pst = conn.prepareStatement("SELECT fornecedor.*, estado.nome_estado, cidade.nome_cidade \r\n"
+					+ "FROM fornecedor \r\n"
+					+ "INNER JOIN estado ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE fornecedor.id_fornecedor = ?");
 
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
@@ -225,6 +221,90 @@ public class FornecedorDaoJDBC implements FornecedorDao{
 					+ "INNER JOIN cidade\r\n"
 					+ "ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
 					+ "ORDER BY nome_fornecedor");
+
+			rs = pst.executeQuery();
+			List<Fornecedor> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Fornecedor fornecedor = instantiateFornecedor(rs);
+				list.add(fornecedor);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	@Override
+	public List<Fornecedor> findAllNome(String model) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT fornecedor.*, estado.nome_estado, cidade.nome_cidade \r\n"
+					+ "FROM fornecedor \r\n"
+					+ "INNER JOIN estado ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE fornecedor.nome_fornecedor LIKE '%" + model + "%'\r\n"
+					+ "ORDER BY fornecedor.nome_fornecedor");
+
+			rs = pst.executeQuery();
+			List<Fornecedor> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Fornecedor fornecedor = instantiateFornecedor(rs);
+				list.add(fornecedor);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	@Override
+	public List<Fornecedor> findAllID(int id) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT fornecedor.*, estado.nome_estado, cidade.nome_cidade \r\n"
+					+ "FROM fornecedor \r\n"
+					+ "INNER JOIN estado ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE fornecedor.id_fornecedor >= " + id + "\r\n"
+					+ "ORDER BY fornecedor.id_fornecedor");
+
+			rs = pst.executeQuery();
+			List<Fornecedor> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Fornecedor fornecedor = instantiateFornecedor(rs);
+				list.add(fornecedor);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	@Override
+	public List<Fornecedor> findAllCnpj(String cnpj) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT fornecedor.*, estado.nome_estado, cidade.nome_cidade \r\n"
+					+ "FROM fornecedor \r\n"
+					+ "INNER JOIN estado ON fornecedor.estado_idEstado = estado.idestado\r\n"
+					+ "INNER JOIN cidade ON fornecedor.cidade_idCidade = cidade.idcidade\r\n"
+					+ "WHERE fornecedor.cnpj_fornecedor LIKE '" + cnpj + "%'\r\n"
+					+ "ORDER BY fornecedor.id_fornecedor");
 
 			rs = pst.executeQuery();
 			List<Fornecedor> list = new ArrayList<>();

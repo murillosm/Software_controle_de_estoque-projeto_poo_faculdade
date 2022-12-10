@@ -14,4 +14,7 @@ public interface FornecedorDao {
     public List<Fornecedor> findByNome(String nome);
     public Fornecedor findByCnpj(String cnpj);
     public List<Fornecedor> findAll();
+	public List<Fornecedor> findAllNome(String model);
+	public List<Fornecedor> findAllID(int model);
+	public List<Fornecedor> findAllCnpj(String cnpj);
 }

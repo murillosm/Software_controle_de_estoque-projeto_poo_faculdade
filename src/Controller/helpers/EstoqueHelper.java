@@ -23,8 +23,6 @@ public class EstoqueHelper implements Helper{
 		DefaultTableModel tableModel = (DefaultTableModel) view.getTbEstoque().getModel();
 		tableModel.setNumRows(0);
 
-		// percorrer lista
-		//FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		for (Estoque estoque : listEstoque) {
 			tableModel.addRow(new Object[] {
 					estoque.getIdItem(),

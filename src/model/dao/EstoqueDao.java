@@ -178,7 +178,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor ORDER BY estoque.nome_item");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
@@ -202,7 +202,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item ILIKE '%"+ model +"%'");
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE nome_item ILIKE '%"+ model +"%' ORDER BY estoque.nome_item");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();
@@ -248,7 +248,7 @@ public class EstoqueDao {
 		ResultSet rs = null;
 		try {
 			pst = conn.prepareStatement("SELECT estoque.* ,fornecedor.nome_fornecedor FROM estoque INNER JOIN fornecedor\r\n"
-					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE id_item >= "+ id);
+					+ "ON estoque.idfornecedor = fornecedor.id_fornecedor WHERE id_item >= "+ id + "ORDER BY estoque.id_item");
 
 			rs = pst.executeQuery();
 			List<Estoque> list = new ArrayList<>();

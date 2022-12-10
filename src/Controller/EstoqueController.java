@@ -76,8 +76,7 @@ public class EstoqueController {
 	}
 	
 	public void preecherEstoque() {
-		ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAll();
-		//Exibir lista de clientes 
+		ArrayList<Estoque> listEstoques =  (ArrayList<Estoque>) estoqueDao.findAll(); 
 		helper.preencherTabela(listEstoques);
 	}
 	

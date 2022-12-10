@@ -26,6 +26,8 @@ import javax.swing.text.MaskFormatter;
 
 import Controller.CadastroClienteJuridicoController;
 import Controller.CadastroFornecedorController;
+import Controller.FornecedorController;
+
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -46,8 +48,15 @@ public class FornecedorViewJDialog extends JDialog {
 	private JTextField txtBairro;
 	private JComboBox cbxEstado;
 	private JComboBox cbxCidade;
+	private JButton btVer;
+	private JButton btnNovo;
+	private JButton btSalvar;
+	private JButton btCancel;
+	private JButton btAlterar;
 	private final JPanel contentPanel = new JPanel();
 	private CadastroFornecedorController controller;
+	private FornecedorController fornController;
+	private CadastroFornecedorFrame frame;
 
 	/**
 	 * Launch the application.
@@ -68,6 +77,7 @@ public class FornecedorViewJDialog extends JDialog {
 	
 	private static CadastroFornecedorFrame telaCadastroFornecedor;
 	private JTextField txtIdFornecedor;
+	private JTextField txtIdPesquisa;
 	public static CadastroFornecedorFrame getInstacia(){
 		if (telaCadastroFornecedor == null) {
 			telaCadastroFornecedor = new CadastroFornecedorFrame();
@@ -80,6 +90,8 @@ public class FornecedorViewJDialog extends JDialog {
 		initComponents();
 		formatarCampo();
 		controller = new CadastroFornecedorController(this);
+		//frame = new CadastroFornecedorFrame();
+		//fornController = new FornecedorController(frame);
 		iniciar();
 	}
 	
@@ -134,9 +146,11 @@ public class FornecedorViewJDialog extends JDialog {
 		lblCep.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		txtNumero = new JTextField();
+		txtNumero.setEnabled(false);
 		txtNumero.setColumns(10);
 		
 		txtCep = new JFormattedTextField();
+		txtCep.setEnabled(false);
 		txtCep.setColumns(10);
 		
 		JLabel lblEstado = new JLabel("Estado:");
@@ -144,6 +158,7 @@ public class FornecedorViewJDialog extends JDialog {
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		txtBairro = new JTextField();
+		txtBairro.setEnabled(false);
 		txtBairro.setColumns(10);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
@@ -151,6 +166,7 @@ public class FornecedorViewJDialog extends JDialog {
 		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		cbxEstado = new JComboBox();
+		cbxEstado.setEnabled(false);
 		cbxEstado.setMaximumRowCount(16);
 		cbxEstado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -166,6 +182,7 @@ public class FornecedorViewJDialog extends JDialog {
 		});
 		
 		cbxCidade = new JComboBox();
+		cbxCidade.setEnabled(false);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panelEndereco = new GroupLayout(panelEndereco);
@@ -247,93 +264,101 @@ public class FornecedorViewJDialog extends JDialog {
 		);
 		
 		txtEndereco = new JTextArea();
+		txtEndereco.setEnabled(false);
 		scrollPane.setViewportView(txtEndereco);
 		txtEndereco.setColumns(10);
 		panelEndereco.setLayout(gl_panelEndereco);
 		
 		JPanel panelDadosCliente = new JPanel();
 		panelDadosCliente.setBorder(new TitledBorder(null, "Dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelDadosCliente.setBounds(10, 106, 782, 158);
+		panelDadosCliente.setBounds(10, 106, 782, 180);
 		getContentPane().add(panelDadosCliente);
 		panelDadosCliente.setLayout(null);
 		
 		JLabel lblNomeFantasia = new JLabel("*Nome Fantasia:");
-		lblNomeFantasia.setBounds(10, 29, 106, 14);
+		lblNomeFantasia.setBounds(10, 51, 106, 14);
 		panelDadosCliente.add(lblNomeFantasia);
 		lblNomeFantasia.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNomeFantasia.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JLabel lblCnpj = new JLabel("*CNPJ:");
-		lblCnpj.setBounds(35, 54, 81, 14);
+		lblCnpj.setBounds(35, 76, 81, 14);
 		panelDadosCliente.add(lblCnpj);
 		lblCnpj.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCnpj.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JLabel lblFone1 = new JLabel("*Telefone:");
-		lblFone1.setBounds(10, 104, 81, 14);
+		lblFone1.setBounds(10, 126, 81, 14);
 		panelDadosCliente.add(lblFone1);
 		lblFone1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblFone1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JLabel lblFone2 = new JLabel("Telefone 2:");
-		lblFone2.setBounds(311, 104, 81, 14);
+		lblFone2.setBounds(311, 126, 81, 14);
 		panelDadosCliente.add(lblFone2);
 		lblFone2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblFone2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(126, 27, 400, 20);
+		txtNome.setEnabled(false);
+		txtNome.setBounds(126, 49, 400, 20);
 		panelDadosCliente.add(txtNome);
 		txtNome.setColumns(10);
 		
 		txtCnpj = new JFormattedTextField();
-		txtCnpj.setBounds(126, 52, 248, 20);
+		txtCnpj.setEnabled(false);
+		txtCnpj.setBounds(126, 74, 248, 20);
 		panelDadosCliente.add(txtCnpj);
 		txtCnpj.setColumns(10);
 		
 		txtFone1 = new JFormattedTextField();
-		txtFone1.setBounds(101, 102, 200, 20);
+		txtFone1.setEnabled(false);
+		txtFone1.setBounds(101, 124, 200, 20);
 		panelDadosCliente.add(txtFone1);
 		txtFone1.setColumns(10);
 		
 		txtFone2 = new JFormattedTextField();
-		txtFone2.setBounds(402, 102, 200, 20);
+		txtFone2.setEnabled(false);
+		txtFone2.setBounds(402, 124, 200, 20);
 		panelDadosCliente.add(txtFone2);
 		txtFone2.setColumns(10);
 		
 		JLabel lblRazaoSocial = new JLabel("*Razão Social:");
-		lblRazaoSocial.setBounds(10, 79, 106, 14);
+		lblRazaoSocial.setBounds(10, 101, 106, 14);
 		panelDadosCliente.add(lblRazaoSocial);
 		lblRazaoSocial.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblRazaoSocial.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		txtRazao = new JTextField();
-		txtRazao.setBounds(126, 77, 476, 20);
+		txtRazao.setEnabled(false);
+		txtRazao.setBounds(126, 99, 476, 20);
 		panelDadosCliente.add(txtRazao);
 		txtRazao.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(10, 129, 81, 14);
+		lblEmail.setBounds(10, 151, 81, 14);
 		panelDadosCliente.add(lblEmail);
 		lblEmail.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(101, 127, 400, 20);
+		txtEmail.setEnabled(false);
+		txtEmail.setBounds(101, 149, 400, 20);
 		panelDadosCliente.add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		txtIdFornecedor = new JTextField();
+		txtIdFornecedor.setEnabled(false);
 		txtIdFornecedor.setEditable(false);
 		txtIdFornecedor.setText("0");
-		txtIdFornecedor.setBounds(670, 27, 86, 20);
+		txtIdFornecedor.setBounds(66, 18, 86, 20);
 		panelDadosCliente.add(txtIdFornecedor);
 		txtIdFornecedor.setColumns(10);
 		
 		JLabel lbID = new JLabel("ID");
 		lbID.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbID.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbID.setBounds(617, 30, 46, 14);
+		lbID.setBounds(10, 20, 46, 14);
 		panelDadosCliente.add(lbID);
 		
 		JLabel lblFornecedores = new JLabel("Cadastro Fornecedores");
@@ -348,21 +373,34 @@ public class FornecedorViewJDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
-				JButton btSalvar = new JButton("Salvar");
+				btSalvar = new JButton("Salvar");
+				btSalvar.setEnabled(false);
 				btSalvar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						controller.novoFornecedor();
 					}
 				});
+				
+				btnNovo = new JButton("Novo");
+				btnNovo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controller.habilitar();
+						btSalvar.setEnabled(true);
+					}
+				});
+				btnNovo.setFont(new Font("Tahoma", Font.BOLD, 13));
+				buttonPane.add(btnNovo);
 				btSalvar.setFont(new Font("Tahoma", Font.BOLD, 14));
 				btSalvar.setActionCommand("OK");
 				buttonPane.add(btSalvar);
 				getRootPane().setDefaultButton(btSalvar);
 			}
 			{
-				JButton btCancel = new JButton("Cancel");
+				btCancel = new JButton("Cancel");
+				btCancel.setEnabled(false);
 				btCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						controller.desabilitar();
 						dispose();
 					}
 				});
@@ -370,6 +408,36 @@ public class FornecedorViewJDialog extends JDialog {
 				btCancel.setActionCommand("Cancel");
 				buttonPane.add(btCancel);
 			}
+			
+			btAlterar = new JButton("Alterar");
+			btAlterar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					controller.atualizarFornecedor();
+				}
+			});
+			btAlterar.setFont(new Font("Tahoma", Font.BOLD, 14));
+			btAlterar.setActionCommand("OK");
+			buttonPane.add(btAlterar);
+			
+			JLabel lbID_1 = new JLabel("ID");
+			lbID_1.setHorizontalAlignment(SwingConstants.RIGHT);
+			lbID_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+			buttonPane.add(lbID_1);
+			
+			txtIdPesquisa = new JTextField();
+			txtIdPesquisa.setText("0");
+			txtIdPesquisa.setColumns(10);
+			buttonPane.add(txtIdPesquisa);
+			
+			btVer = new JButton("Vizualizar");
+			btVer.setFont(new Font("Tahoma", Font.BOLD, 13));
+			buttonPane.add(btVer);
+			btVer.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					controller.habilitar();
+					controller.visualizarFornecedor();
+				}
+			});
 		}
 		
 	}
@@ -477,6 +545,63 @@ public class FornecedorViewJDialog extends JDialog {
 	public void setTxtIdFornecedor(JTextField txtIdFornecedor) {
 		this.txtIdFornecedor = txtIdFornecedor;
 	}
+
+	public JButton getBtVer() {
+		return btVer;
+	}
+
+	public void setBtVer(JButton btVer) {
+		this.btVer = btVer;
+	}
+
+	public CadastroFornecedorFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(CadastroFornecedorFrame frame) {
+		this.frame = frame;
+	}
+
+	public JTextField getTxtIdPesquisa() {
+		return txtIdPesquisa;
+	}
+
+	public void setTxtIdPesquisa(JTextField txtIdPesquisa) {
+		this.txtIdPesquisa = txtIdPesquisa;
+	}
+
+	public JButton getBtnNovo() {
+		return btnNovo;
+	}
+
+	public void setBtnNovo(JButton btnNovo) {
+		this.btnNovo = btnNovo;
+	}
+
+	public JButton getBtSalvar() {
+		return btSalvar;
+	}
+
+	public void setBtSalvar(JButton btSalvar) {
+		this.btSalvar = btSalvar;
+	}
+
+	public JButton getBtCancel() {
+		return btCancel;
+	}
+
+	public void setBtCancel(JButton btCancel) {
+		this.btCancel = btCancel;
+	}
+
+	public JButton getBtAlterar() {
+		return btAlterar;
+	}
+
+	public void setBtAlterar(JButton btAlterar) {
+		this.btAlterar = btAlterar;
+	}
+	
 	
 	
 }

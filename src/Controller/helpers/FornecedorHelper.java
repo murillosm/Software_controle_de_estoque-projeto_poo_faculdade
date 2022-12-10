@@ -24,8 +24,6 @@ public class FornecedorHelper implements Helper {
 		DefaultTableModel tableModel = (DefaultTableModel) view.getTbFornecedor().getModel();
 		tableModel.setNumRows(0);
 
-		// percorrer lista
-		//FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		for (Fornecedor fornecedor : listFornecedor) {
 			tableModel.addRow(new Object[] {
 					fornecedor.getIdFornecedor(),
@@ -37,11 +35,16 @@ public class FornecedorHelper implements Helper {
 					fornecedor.getEmailFornecedor(),
 					fornecedor.getEnderecoFornecedor().getEndereco(),
 					fornecedor.getEnderecoFornecedor().getNumero(),
+					fornecedor.getEnderecoFornecedor().getCep(),
 					fornecedor.getEnderecoFornecedor().getBairro(),
 					fornecedor.getEnderecoFornecedor().getEstado().getNomeEstado(),
 					fornecedor.getEnderecoFornecedor().getCidade().getNomeCidade() });
 		}
 	}
+	
+	public void dadosJText(Fornecedor model) {	
+		view.getTxtID().setText(String.valueOf(model.getIdFornecedor()));
+	}	
 
 	@Override
 	public Object obterModelo() {
