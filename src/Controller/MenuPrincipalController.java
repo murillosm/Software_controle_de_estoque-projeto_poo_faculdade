@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import view.CadastroClienteFrame;
 import view.CadastroFornecedorFrame;
 import view.MenuPrincipal;
+import view.VendasFrame;
 import view.EstoqueFrame;
 
 public class MenuPrincipalController {
@@ -18,6 +19,9 @@ public class MenuPrincipalController {
 	CadastroClienteFrame clientePane = new CadastroClienteFrame();
 	CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
 	EstoqueFrame produtosFrame = new EstoqueFrame();
+	VendasFrame vendasFrame = new VendasFrame();
+	
+	
 	public void CadastroCliente() {
 		desktopPane = MenuPrincipal.getDesktopPane();
 		
@@ -93,6 +97,26 @@ public class MenuPrincipalController {
 				produtosFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
 				produtosFrame.setLocation(0, 0);
 				produtosFrame.setVisible(true);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void formVendas() {
+		desktopPane = MenuPrincipal.getDesktopPane();
+		if (vendasFrame.isVisible()) {
+			vendasFrame.toFront();
+			vendasFrame.requestFocus();
+			JOptionPane.showMessageDialog(null, "formulario de vendas\n já esta em uso", "AVISO",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+			try {
+				desktopPane.add(vendasFrame);
+				desktopPane.moveToFront(vendasFrame);
+				vendasFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
+				vendasFrame.setLocation(0, 0);
+				vendasFrame.setVisible(true);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

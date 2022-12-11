@@ -192,11 +192,6 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 		panelEndereco.add(cbxEstado);
 
 		cbxCidade = new JComboBox();
-//		cbxCidade.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				controller.cidades();
-//			}
-//		});
 		cbxCidade.setBounds(287, 51, 153, 22);
 		panelEndereco.add(cbxCidade);
 

@@ -180,6 +180,40 @@ CREATE TABLE estoque (
         REFERENCES fornecedor (id_fornecedor)
 );
 
+
+CREATE TABLE venda (
+    id_venda SERIAL PRIMARY KEY ,
+    valor_venda decimal(10,2) not null,
+    data_venda date not null,
+    idusuario integer,
+    idcliente integer,
+    FOREIGN KEY (idusuario)
+        REFERENCES usuario (idusuario),
+    FOREIGN KEY (idcliente)
+        REFERENCES cliente (idcliente)
+);
+
+CREATE TABLE item_vendido (
+    id_venda SERIAL PRIMARY KEY,
+    quantidade integer not null,
+    id_item integer,
+    FOREIGN KEY (id_item)
+        REFERENCES estoque (id_item)
+);
+
+CREATE TABLE item_vendido2(
+    id_venda integer not null,
+	id_item integer not null,
+    quantidade integer not null,
+	CONSTRAINT pk_item_vendido PRIMARY KEY (id_venda, id_item),
+    FOREIGN KEY (id_item)
+        REFERENCES estoque (id_item)
+		ON DELETE CASCADE,
+	FOREIGN KEY (id_venda)
+        REFERENCES venda (id_venda)
+		ON DELETE CASCADE
+);
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,16 +264,6 @@ CREATE TABLE item_compra (
 
 
 
-CREATE TABLE item_vendido (
-                              id_item_venda integer PRIMARY KEY not null,
-                              quantidade int not null,
-                              preco_unitario_venda decimal(10,2),
-                              fk_venda_codigo_venda integer,
-                              FOREIGN KEY (fk_venda_codigo_venda)
-                                  REFERENCES venda (codigo_venda)
-                                  ON DELETE CASCADE
-);
-
 CREATE TABLE reduz (
                        fk_estoque_id_item integer,
                        fk_id_item_venda integer,
@@ -259,18 +283,4 @@ CREATE TABLE parcela (
                          FOREIGN KEY (fk_venda_codigo_venda)
                              REFERENCES venda (codigo_venda)
                              ON DELETE RESTRICT
-);
-
-CREATE TABLE venda (
-                       codigo_venda integer PRIMARY KEY not null,
-                       valor_total_venda decimal(10,2) not null,
-                       data_venda date not null,
-                       fk_usuario_idusuario integer,
-                       fk_cliente_idcliente integer,
-                       FOREIGN KEY (fk_usuario_idusuario)
-                           REFERENCES usuario (idusuario)
-                           ON DELETE CASCADE,
-                       FOREIGN KEY (fk_cliente_idcliente)
-                           REFERENCES cliente (idcliente)
-                           ON DELETE CASCADE
 );

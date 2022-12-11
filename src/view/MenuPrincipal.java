@@ -25,6 +25,7 @@ public class MenuPrincipal extends JFrame {
 	private JPanel contentPane;
 	private MenuPrincipalController controller;
 	static JDesktopPane desktopPane;
+	MenuPrincipal menuPrincipal;
 
 	/**
 	 * Launch the application.
@@ -76,22 +77,6 @@ public class MenuPrincipal extends JFrame {
 		MenuItemCadastroCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.CadastroCliente();
-				/*if (clientePane.isVisible()) {
-					clientePane.toFront();
-					clientePane.requestFocus();
-					JOptionPane.showMessageDialog(null, "Cadastro de clientes\n já esta em uso", "AVISO",
-							JOptionPane.WARNING_MESSAGE);
-				} else {
-					try {
-						desktopPane.add(clientePane);
-						desktopPane.moveToFront(clientePane);
-						clientePane.setSize(desktopPane.getWidth(), desktopPane.getHeight());
-						clientePane.setLocation(0, 0);
-						clientePane.setVisible(true);
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-				}*/
 			}
 		});
 		MenuItemCadastroCliente
@@ -119,16 +104,40 @@ public class MenuPrincipal extends JFrame {
 		MenuItemCadastroProduto.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/package-box32.png")));
 		MenuItemCadastroProduto.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCadastros.add(MenuItemCadastroProduto);
-
-		JMenu mnNewMenu_1 = new JMenu("Opções");
-		mnNewMenu_1.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/lista-de-controle.png")));
-		mnNewMenu_1.setFont(new Font("SansSerif", Font.BOLD, 13));
-		menuBar.add(mnNewMenu_1);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("SAIR");
-		mntmNewMenuItem.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/logout32.png")));
-		mntmNewMenuItem.setFont(new Font("SansSerif", Font.BOLD, 13));
-		mnNewMenu_1.add(mntmNewMenuItem);
+		JMenu menuCaixa = new JMenu("Caixa");
+		menuCaixa.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/caixa-registradora32.png")));
+		menuCaixa.setFont(new Font("SansSerif", Font.BOLD, 13));
+		menuBar.add(menuCaixa);
+		
+		JMenuItem menuVendas = new JMenuItem("Vendas");
+		menuVendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.formVendas();
+			}
+		});
+		menuVendas.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/cart32.png")));
+		menuVendas.setFont(new Font("SansSerif", Font.BOLD, 13));
+		menuCaixa.add(menuVendas);
+
+		JMenu menuOpcoes = new JMenu("Opções");
+		menuOpcoes.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/lista-de-controle.png")));
+		menuOpcoes.setFont(new Font("SansSerif", Font.BOLD, 13));
+		menuBar.add(menuOpcoes);
+		
+		JMenuItem menuSair = new JMenuItem("SAIR");
+		menuSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login login = new Login();
+				login.setVisible(true);
+				if (login.isVisible()) {
+					dispose();
+				}
+			}
+		});
+		menuSair.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/logout32.png")));
+		menuSair.setFont(new Font("SansSerif", Font.BOLD, 13));
+		menuOpcoes.add(menuSair);
 		
 		
 	}
@@ -140,6 +149,4 @@ public class MenuPrincipal extends JFrame {
 	public static void setDesktopPane(JDesktopPane desktopPane) {
 		MenuPrincipal.desktopPane = desktopPane;
 	}
-	
-	
 }
