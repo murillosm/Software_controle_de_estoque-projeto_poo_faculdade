@@ -11,5 +11,6 @@ public interface ClientePessoaJuridoDao {
     public void deleteById(Integer id);
     public ClientePessoaJuridico findById(Integer id);
     public List<ClientePessoaJuridico> findAll();
-   //List<ClientePessoaJuridico> findByDepartment(Endereco enderecoCliente);
+	public List<ClientePessoaJuridico> findAllCliente(String nome);
+
 }

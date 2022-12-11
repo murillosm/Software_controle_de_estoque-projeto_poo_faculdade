@@ -36,4 +36,7 @@ public class DaoFactory {
 		return new EstoqueDao(DB.getConnection());
 	}
     
+    public static VendasDao createVendasDao() {
+		return new VendasDao(DB.getConnection());
+	}
 }

@@ -183,9 +183,43 @@ public class ClientePessoaFisicaDaoJDBC implements ClientePessoaFisicaDao {
             DB.closeResultSet(rs);
         }
 	}
+	
+	@Override
+	public List<ClientePessoaFisica> findAllCliente(String nome) {
+		PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+        	pst = conn.prepareStatement("SELECT idcliente, nome_cliente, cpf FROM cliente "
+        			+ "WHERE cliente.nome_cliente ILIKE '"+nome+"%' AND cpf IS NOT NULL ORDER BY nome_cliente");
+
+            rs = pst.executeQuery();
+            List<ClientePessoaFisica> list = new ArrayList<>();
+
+            while (rs.next()) {
+            	ClientePessoaFisica cliente = instantiateClientePesquisa(rs);
+                list.add(cliente);
+            }
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(pst);
+            DB.closeResultSet(rs);
+        }
+	}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+	private ClientePessoaFisica instantiateClientePesquisa(ResultSet rs) throws SQLException {
+		ClientePessoaFisica cliente = new ClientePessoaFisica();
+		cliente.setIdCliente(rs.getInt("Idcliente"));
+		cliente.setNomeCliente(rs.getString("nome_cliente"));
+		cliente.setCpfCliente(rs.getString("cpf"));
+		return cliente;
+	}
+	
 	private ClientePessoaFisica instantiateCliente(ResultSet rs) throws SQLException {
 
 		Estados estado = new Estados();

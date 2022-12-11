@@ -12,4 +12,5 @@ public interface ClientePessoaFisicaDao {
     public ClientePessoaFisica findById(Integer id);
     public List<ClientePessoaFisica> findAll();
     //List<ClientePessoaFisica> findByDepartment(Endereco enderecoCliente);
+    public List<ClientePessoaFisica> findAllCliente(String nome);
 }

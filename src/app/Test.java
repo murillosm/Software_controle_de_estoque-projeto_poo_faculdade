@@ -56,10 +56,16 @@ public class Test {
 //			System.out.println(fornecedor);
 //		}
 		
-		List<Estados> list = estadoDao.findAllEstados();
-		for (Estados estados : list) {
-			System.out.println(estados);
-		}
+//		List<Estados> list = estadoDao.findAllEstados();
+//		for (Estados estados : list) {
+//			System.out.println(estados);
+//		}
+		
+//		String nome = "la";
+//		List<ClientePessoaFisica> list = clienteDao.findAllCliente(nome);
+//		for (ClientePessoaFisica cliente : list) {
+//			System.out.println(cliente);
+//		}
 
 
 	}

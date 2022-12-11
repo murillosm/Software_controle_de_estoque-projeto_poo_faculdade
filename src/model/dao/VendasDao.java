@@ -11,16 +11,13 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
-import model.entities.Cidades;
-import model.entities.Endereco;
-import model.entities.Estados;
 import model.entities.Estoque;
 import model.entities.Fornecedor;
 
-public class EstoqueDao {
+public class VendasDao {
 	private Connection conn;
 
-	public EstoqueDao(Connection conn) {
+	public VendasDao(Connection conn) {
 		this.conn = conn;
 	}
 
@@ -289,29 +286,6 @@ public class EstoqueDao {
 		}
 	}
 	
-	
-	public List<Estoque> findAllNomeVendas(String model) {
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			pst = conn.prepareStatement("SELECT id_item, nome_item, quantidade_item,  marca_item, preco FROM public.estoque\r\n"
-					+ "WHERE nome_item ILIKE '%"+ model + "%' ORDER BY estoque.nome_item");
-
-			rs = pst.executeQuery();
-			List<Estoque> list = new ArrayList<>();
-
-			while (rs.next()) {
-				Estoque estoque = instantiateEstoque(rs);
-				list.add(estoque);
-			}
-			return list;
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closePreparedStatement(pst);
-			DB.closeResultSet(rs);
-		}
-	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
 	private Estoque instantiateEstoque(ResultSet rs) throws SQLException {
@@ -328,17 +302,6 @@ public class EstoqueDao {
 		estoque.setMarcaItem(rs.getString("marca_item"));
 		estoque.setDescricaoItem(rs.getString("descricao_item"));
 		estoque.setForn(fornecedor);
-		return estoque;
-	}
-	
-private Estoque instantiateEstoquePesquisa(ResultSet rs) throws SQLException {
-		
-		Estoque estoque = new Estoque();
-		estoque.setIdItem(rs.getInt("id_item"));
-		estoque.setPrecoItem(rs.getDouble("preco"));
-		estoque.setNomeItem(rs.getString("nome_item"));
-		estoque.setQuantidade(rs.getInt("quantidade_item"));
-		estoque.setMarcaItem(rs.getString("marca_item"));
 		return estoque;
 	}
 }

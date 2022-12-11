@@ -72,51 +72,34 @@ public class Usuario {
 	public void setLoginUser(String loginUser) {
 		this.loginUser = loginUser;
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idUsuario;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (idUsuario != other.idUsuario)
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", nomeUser=" + nomeUser + ", senha=" + senha + ", loginUser="
-				+ loginUser + "]";
+		return "ID: " + idUsuario + " * Nome: " + nomeUser;
 	}
 
-////////////////métodos\\\\\\\\\\\\\\\\\\\
-
-	public void login() {
-		// Start of user code for method login
-		// End of user code
-	}
-
-	public void cadastroCliente() {
-		// Start of user code for method cadastroCliente
-		// End of user code
-	}
-
-	public void registrarFornecedor() {
-		// Start of user code for method registrarFornecedor
-		// End of user code
-	}
-
-	public void fazerPedido() {
-		// Start of user code for method fazerPedido
-		// End of user code
-	}
-
-	public void efetuarVenda() {
-		// Start of user code for method efetuarVenda
-		// End of user code
-	}
-
-	public void registrarVenda() {
-		// Start of user code for method registrarVenda
-		// End of user code
-	}
-
-	public void registrarPedido() {
-		// Start of user code for method registrarPedido
-		// End of user code
-	}
-
-	public void historicoDeAtividaddes() {
-
-	}
 }

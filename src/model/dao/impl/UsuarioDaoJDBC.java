@@ -96,7 +96,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		while (rs.next()) {
 			Usuario usuario = new Usuario();
-			usuario.setIdUsuario(rs.getInt("id_usuario"));
+			usuario.setIdUsuario(rs.getInt("idusuario"));
 			usuario.setNomeUser(rs.getString("nome_usuario"));
 			usuario.setLoginUser(rs.getString("login"));
 			usuario.setSenha(rs.getString("senha"));

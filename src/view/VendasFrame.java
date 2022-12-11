@@ -1,31 +1,34 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.text.MaskFormatter;
-
-import java.awt.GridLayout;
-import java.text.ParseException;
-import java.awt.GridBagLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.FlowLayout;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
+import Controller.VendasController;
 
 public class VendasFrame extends JInternalFrame {
 	private JTextField txtPesquisaNome;
@@ -33,15 +36,17 @@ public class VendasFrame extends JInternalFrame {
 	private JTextField txtQuatidade;
 	private JTextField txtValorItem;
 	private JTextField txtValorTotal;
-	private JTable tablePesquisa;
+	private JTable tbPesquisaCliente;
 	private JTable tableVenda;
 	private JFormattedTextField txtData;
-	private JComboBox comboBox;
+	private JComboBox cbxUsuario;
+	private JComboBox cbxTipoCliente;
 	private JButton btnBuscaCliente;
 	private JButton btnBuscaProduto;
 	private JButton btnAdd;
 	private JButton btnCancelarVenda;
 	private JButton btnFinalizarVenda;
+	private VendasController controller;
 
 	/**
 	 * Launch the application.
@@ -65,6 +70,7 @@ public class VendasFrame extends JInternalFrame {
 	public VendasFrame() {
 		initComponents();
 		formatarCampo();
+		controller = new VendasController(this);
 		iniciar();
 	}
 	
@@ -78,6 +84,11 @@ public class VendasFrame extends JInternalFrame {
 	}
 	
 	public void iniciar() {
+		try {
+			this.controller.boxUsuario();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void initComponents() {
@@ -123,9 +134,14 @@ public class VendasFrame extends JInternalFrame {
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-		comboBox = new JComboBox();
+		cbxUsuario = new JComboBox();
 		
 		btnBuscaCliente = new JButton("Busca");
+		btnBuscaCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.buscarItemNome();
+			}
+		});
 		btnBuscaCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JLabel lblNewLabel = new JLabel("Produto:");
@@ -165,73 +181,101 @@ public class VendasFrame extends JInternalFrame {
 		tableVenda = new JTable();
 		scrollPane_1.setViewportView(tableVenda);
 		
-		tablePesquisa = new JTable();
-		scrollPane.setViewportView(tablePesquisa);
+		tbPesquisaCliente = new JTable();
+		tbPesquisaCliente.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID", "Nome Clientes", "Documentos"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tbPesquisaCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+		tbPesquisaCliente.getColumnModel().getColumn(0).setMinWidth(100);
+		tbPesquisaCliente.getColumnModel().getColumn(0).setMaxWidth(100);
+		tbPesquisaCliente.getColumnModel().getColumn(1).setPreferredWidth(400);
+		tbPesquisaCliente.getColumnModel().getColumn(1).setMinWidth(400);
+		tbPesquisaCliente.getColumnModel().getColumn(2).setPreferredWidth(200);
+		tbPesquisaCliente.getColumnModel().getColumn(2).setMinWidth(200);
+		scrollPane.setViewportView(tbPesquisaCliente);
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		cbxTipoCliente = new JComboBox();
+		cbxTipoCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
+		cbxTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"Pessoa Fisica", "Pessoa Juridida"}));
+		
+		JLabel lblTipoCliente = new JLabel("Tipo de Cliente");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblQuatidade)
-					.addGap(600))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(10)
-					.addComponent(lblItemDaVenda, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblValorTotal, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtValorTotal, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(567))
-				.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-				.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lbTabelaPesquisa))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(txtQuatidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblValorU)
-								.addComponent(txtValorItem, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAdd)
-					.addContainerGap(478, Short.MAX_VALUE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(lblQuatidade))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(10)
-							.addComponent(lblNomeCliente, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblItemDaVenda, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblValorTotal, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtValorTotal, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lbTabelaPesquisa))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(txtQuatidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblValorU)
+										.addComponent(txtValorItem, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAdd))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(txtPesquisaNome))
-								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(10)
 									.addComponent(lblUsuario)
-									.addGap(4)
-									.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnBuscaCliente)))
-					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-							.addGroup(gl_panel.createSequentialGroup()
-								.addComponent(txtPesquisaProduto, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnBuscaProduto))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cbxUsuario, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addContainerGap()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblTipoCliente)
+										.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(txtPesquisaNome, GroupLayout.PREFERRED_SIZE, 215, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnBuscaCliente))
+										.addComponent(lblNomeCliente, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))))
+							.addGap(71)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtData, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(291, Short.MAX_VALUE))
+								.addComponent(lblNewLabel)
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(txtPesquisaProduto, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnBuscaProduto))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtData, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+						.addComponent(scrollPane_1))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -243,11 +287,16 @@ public class VendasFrame extends JInternalFrame {
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(2)
 									.addComponent(lblUsuario))
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(11)
-							.addComponent(lblNomeCliente)
-							.addGap(9)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cbxUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTipoCliente)
+								.addComponent(lblNomeCliente))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPesquisaNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnBuscaCliente)))
 						.addGroup(gl_panel.createSequentialGroup()
@@ -323,12 +372,12 @@ public class VendasFrame extends JInternalFrame {
 		this.txtValorTotal = txtValorTotal;
 	}
 
-	public JTable getTablePesquisa() {
-		return tablePesquisa;
+	public JTable getTbPesquisaCliente() {
+		return tbPesquisaCliente;
 	}
 
-	public void setTablePesquisa(JTable tablePesquisa) {
-		this.tablePesquisa = tablePesquisa;
+	public void setTbPesquisaCliente(JTable tbPesquisaCliente) {
+		this.tbPesquisaCliente = tbPesquisaCliente;
 	}
 
 	public JTable getTableVenda() {
@@ -346,13 +395,13 @@ public class VendasFrame extends JInternalFrame {
 	public void setTxtData(JFormattedTextField txtData) {
 		this.txtData = txtData;
 	}
-
-	public JComboBox getComboBox() {
-		return comboBox;
+	
+	public JComboBox getCbxUsuario() {
+		return cbxUsuario;
 	}
 
-	public void setComboBox(JComboBox comboBox) {
-		this.comboBox = comboBox;
+	public void setCbxUsuario(JComboBox cbxUsuario) {
+		this.cbxUsuario = cbxUsuario;
 	}
 
 	public JButton getBtnBuscaCliente() {
@@ -393,6 +442,14 @@ public class VendasFrame extends JInternalFrame {
 
 	public void setBtnFinalizarVenda(JButton btnFinalizarVenda) {
 		this.btnFinalizarVenda = btnFinalizarVenda;
+	}
+
+	public JComboBox getCbxTipoCliente() {
+		return cbxTipoCliente;
+	}
+
+	public void setCbxTipoCliente(JComboBox cbxTipoCliente) {
+		this.cbxTipoCliente = cbxTipoCliente;
 	}
 	
 	

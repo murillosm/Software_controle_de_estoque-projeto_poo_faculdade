@@ -13,6 +13,7 @@ import db.DbException;
 import db.DbIntegrityException;
 import model.dao.ClientePessoaJuridoDao;
 import model.entities.Cidades;
+import model.entities.ClientePessoaFisica;
 import model.entities.ClientePessoaJuridico;
 import model.entities.Endereco;
 import model.entities.Estados;
@@ -177,8 +178,42 @@ public class ClientePessoaJuridicaDaoJDBC implements ClientePessoaJuridoDao {
 			DB.closeResultSet(rs);
 		}
 	}
+	
+	@Override
+	public List<ClientePessoaJuridico> findAllCliente(String nome) {
+		PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+        	pst = conn.prepareStatement("SELECT idcliente, nome_cliente, cnpj FROM cliente "
+        			+ "WHERE cliente.nome_cliente ILIKE '"+nome+"%' AND cnpj IS NOT NULL ORDER BY nome_cliente");
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            rs = pst.executeQuery();
+            List<ClientePessoaJuridico> list = new ArrayList<>();
+
+            while (rs.next()) {
+            	ClientePessoaJuridico cliente = instantiateClientePesquisa(rs);
+                list.add(cliente);
+            }
+            return list;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(pst);
+            DB.closeResultSet(rs);
+        }
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private ClientePessoaJuridico instantiateClientePesquisa(ResultSet rs) throws SQLException {
+		ClientePessoaJuridico cliente = new ClientePessoaJuridico();
+		cliente.setIdCliente(rs.getInt("Idcliente"));
+		cliente.setNomeCliente(rs.getString("nome_cliente"));
+		cliente.setCnpjCliente(rs.getString("cnpj"));
+		return cliente;
+	}
+	
 	private ClientePessoaJuridico instantiateCliente(ResultSet rs) throws SQLException {
 
 		Estados estado = new Estados();
