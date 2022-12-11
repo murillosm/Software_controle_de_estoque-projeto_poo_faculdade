@@ -8,12 +8,14 @@ import model.dao.ClientePessoaFisicaDao;
 import model.dao.ClientePessoaJuridoDao;
 import model.dao.DaoFactory;
 import model.dao.EstadoDao;
+import model.dao.EstoqueDao;
 import model.dao.FornecedorDao;
 import model.entities.Cidades;
 import model.entities.ClientePessoaFisica;
 import model.entities.ClientePessoaJuridico;
 import model.entities.Endereco;
 import model.entities.Estados;
+import model.entities.Estoque;
 import model.entities.Fornecedor;
 
 public class Test {
@@ -24,6 +26,7 @@ public class Test {
 		ClientePessoaJuridoDao clienteDao2 = DaoFactory.createPessoaJuridicaDao();
 		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		EstadoDao estadoDao = DaoFactory.createEstadoDao();
+		EstoqueDao estoqueDao = DaoFactory.createEstoqueDao();
 		
 //		Estados estado = new Estados(9);
 //		Cidades cidade = new Cidades(894);
@@ -66,6 +69,12 @@ public class Test {
 //		for (ClientePessoaFisica cliente : list) {
 //			System.out.println(cliente);
 //		}
+		
+		String nome = "i";
+		List<Estoque> list = estoqueDao.findAllItemVendas(nome);
+		for (Estoque estoque : list) {
+			System.out.println(estoque);
+		}
 
 
 	}

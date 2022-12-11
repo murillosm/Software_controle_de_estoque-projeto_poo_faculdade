@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,16 +14,16 @@ public class Venda {
 	private Estoque produto;
 	private double valor;
 	private int qtd;
-	private String dataString;
+	private Date data;
 
-	private Date data = new Date();
+	//private Date data = new Date();
 	private List<Estoque> item = new ArrayList<Estoque>();
 
 ///////////////construtor\\\\\\\\\\\\\\\\
 	public Venda() {
 	}
 
-	public Venda(int id, Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String dataString) {
+	public Venda(int id, Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String data) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -29,17 +31,28 @@ public class Venda {
 		this.produto = produto;
 		this.valor = valor;
 		this.qtd = qtd;
-		this.dataString = dataString;
+		//this.dataString = dataString;
+		try {
+			this.data = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public Venda(Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String dataString) {
+	public Venda(Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String data) {
 		super();
 		this.usuario = usuario;
 		this.cliente = cliente;
 		this.produto = produto;
 		this.valor = valor;
 		this.qtd = qtd;
-		this.dataString = dataString;
+		try {
+			this.data = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 ////////////////get e set\\\\\\\\\\\\\\\
 
@@ -91,16 +104,12 @@ public class Venda {
 		this.qtd = qtd;
 	}
 
-	public String getDataString() {
-		return dataString;
-	}
-
-	public void setDataString(String dataString) {
-		this.dataString = dataString;
-	}
-
 	public Date getData() {
 		return data;
+	}
+	
+	public String getDataFormatada() {
+		return new SimpleDateFormat("dd/MM/yyyy").format(data);
 	}
 
 	public void setData(Date data) {
@@ -140,7 +149,7 @@ public class Venda {
 	@Override
 	public String toString() {
 		return "Venda [id=" + id + ", usuario=" + usuario + ", cliente=" + cliente + ", produto=" + produto + ", valor="
-				+ valor + ", qtd=" + qtd + ", dataString=" + dataString + ", data=" + data + ", item=" + item + "]";
+				+ valor + ", qtd=" + qtd + ", dataString=" + data + ", data=" + data + ", item=" + item + "]";
 	}
 	
 	

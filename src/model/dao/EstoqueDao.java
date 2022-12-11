@@ -290,7 +290,7 @@ public class EstoqueDao {
 	}
 	
 	
-	public List<Estoque> findAllNomeVendas(String model) {
+	public List<Estoque> findAllItemVendas(String model) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
@@ -301,7 +301,7 @@ public class EstoqueDao {
 			List<Estoque> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Estoque estoque = instantiateEstoque(rs);
+				Estoque estoque = instantiateEstoquePesquisa(rs);
 				list.add(estoque);
 			}
 			return list;
