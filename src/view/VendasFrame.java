@@ -267,7 +267,8 @@ public class VendasFrame extends JInternalFrame {
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.novoItem();
+				controller.baixaEstoque();
+				//controller.novoItem();
 				total = total + Float.parseFloat(txtValorTotal.getText()) * Integer.parseInt(txtQuatidade.getText());
 				txtValorTotal.setText(String.valueOf(total));
 				

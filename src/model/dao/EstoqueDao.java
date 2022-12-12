@@ -120,6 +120,59 @@ public class EstoqueDao {
 		}
 	}
 	
+	
+	public int conferirQuantidade(int id, int qtd) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT quantidade_item FROM estoque WHERE estoque.id_item = ?");
+
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				Estoque estoque = new Estoque();
+				estoque.setQuantidade(rs.getInt("quantidade_item"));
+				if (estoque.getQuantidade() > qtd) {
+					return estoque.getQuantidade();
+				}
+//				try {
+//					if (estoque.getQuantidade() > qtd) {
+//						return estoque.getQuantidade();
+//					}
+//				} catch (Exception e) {
+//					JOptionPane.showMessageDialog(null, "A quantidade do produto esta indisponivel no estoque!\n A quantidade maxima e de apenas "+ estoque.getQuantidade());
+//				}
+			}
+			return 0;
+			//return null;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	public void updateQuantidade(int id, int qtd) {
+		PreparedStatement pst = null;
+		try {
+			pst = conn.prepareStatement("UPDATE public.estoque\r\n"
+					+ "	SET quantidade_item = quantidade_item -" + qtd +" WHERE id_item = "+id);
+
+//			pst.setInt(1, obj.getQuantidade());
+//			pst.setInt(2, obj.getIdItem());
+
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(pst);
+			// DB.closeConnection();
+		}
+
+	}
+	
 	//Estoque model;
 	public Estoque findByNome(String model) {
 		PreparedStatement pst = null;

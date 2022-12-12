@@ -57,10 +57,10 @@ public class Test {
 			System.out.println(cliente);
 		}*/
 		
-		List<Venda> list = vendasDao.ListItem(1);
-		for (Venda venda : list) {
-			System.out.println(venda);
-		}
+//		List<Venda> list = vendasDao.ListItem(1);
+//		for (Venda venda : list) {
+//			System.out.println(venda);
+//		}
 		
 //		List<Estados> list = estadoDao.findAllEstados();
 //		for (Estados estados : list) {
@@ -73,14 +73,20 @@ public class Test {
 //			System.out.println(cliente);
 //		}
 		
-//		String nome = "i";
-//		List<Estoque> list = estoqueDao.findAllItemVendas(nome);
-//		for (Estoque estoque : list) {
-//			System.out.println(estoque);
+//		int list = estoqueDao.conferirQuantidade(6,2);
+//		int venda = 2;
+//		
+//		if (list>venda) {
+//			estoqueDao.updateQuantidade(6,2);
 //		}
+//		//for (Estoque estoque : list) {
+//		System.out.println(list);
+//		//}
 		
-		
-		//System.out.println(vendasDao.findBy());
+		List<Venda> list = vendasDao.findAllId();
+		for (Venda cliente : list) {
+			System.out.println(cliente);
+		}
 	}
 
 }

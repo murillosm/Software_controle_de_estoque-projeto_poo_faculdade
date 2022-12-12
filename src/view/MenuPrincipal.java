@@ -119,6 +119,16 @@ public class MenuPrincipal extends JFrame {
 		menuVendas.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/cart32.png")));
 		menuVendas.setFont(new Font("SansSerif", Font.BOLD, 13));
 		menuCaixa.add(menuVendas);
+		
+		JMenuItem menuRelatorio = new JMenuItem("Relatorio Venda");
+		menuRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.formRelatorios();
+			}
+		});
+		menuRelatorio.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/clipboard.png")));
+		menuRelatorio.setFont(new Font("SansSerif", Font.BOLD, 13));
+		menuCaixa.add(menuRelatorio);
 
 		JMenu menuOpcoes = new JMenu("Opções");
 		menuOpcoes.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/view/imagens/icons/lista-de-controle.png")));

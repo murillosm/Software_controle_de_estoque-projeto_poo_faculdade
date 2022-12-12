@@ -54,7 +54,7 @@ public class VendasController {
 			venda = helper.obterItems();
 			vendasDao.insertItemVenda(venda);
 			ListaItem();
-			//helper.limparTela();
+			helper.limparTela();
 			JOptionPane.showMessageDialog(null, "Item Cadastrado com sucesso!");
 		} catch (RuntimeException e) {
 			JOptionPane.showMessageDialog(null, "Alguns campos estão vazios", null, JOptionPane.ERROR_MESSAGE);
@@ -156,6 +156,24 @@ public class VendasController {
 			JOptionPane.showMessageDialog(null, "Venda deletada com sucesso!");
 		} catch (RuntimeException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao deletar o venda!");
+		}
+	}
+	
+	public void baixaEstoque() {
+		
+		String idProdutoString = view.getTxtIDProduto().getText();
+		int id = Integer.parseInt(idProdutoString);
+		
+		String qString = view.getTxtQuatidade().getText();
+		int qtd = Integer.parseInt(qString);
+		
+		int list = estoqueDao.conferirQuantidade(id,qtd);
+
+		if (list>qtd) {
+			estoqueDao.updateQuantidade(id,qtd);
+			novoItem();
+		}else {
+			JOptionPane.showMessageDialog(null, "A quantidade do produto esta indisponivel no estoque!\n A quantidade maxima e de apenas "+ list);
 		}
 	}
 	

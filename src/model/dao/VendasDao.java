@@ -12,6 +12,7 @@ import db.DB;
 import db.DbException;
 import db.DbIntegrityException;
 import model.entities.Estoque;
+import model.entities.Usuario;
 import model.entities.Venda;
 
 public class VendasDao {
@@ -205,6 +206,42 @@ public class VendasDao {
 		} finally {
 			DB.closePreparedStatement(pst);
 		}
+	}
+	
+	public List<Venda> findAllVendas() {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = conn.prepareStatement("SELECT id_venda, valor_venda, data_venda, idusuario, idcliente\r\n"
+					+ "	FROM public.venda");
+
+			rs = pst.executeQuery();
+			List<Venda> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Venda venda = instantiateVenda(rs);
+				list.add(venda);
+			}
+			return list;
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closePreparedStatement(pst);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	private Venda instantiateVenda(ResultSet rs) throws SQLException {
+		Usuario usuario = new Usuario();
+		usuario.setIdUsuario(rs.getInt("idusuario"));
+
+		Venda venda = new Venda();
+		venda.setIdVenda(rs.getInt("id_venda"));
+		venda.setValor(rs.getDouble("valor_venda"));
+		venda.setData(rs.getDate("data_venda"));
+		venda.setCliente(rs.getInt("idcliente"));
+		venda.setUsuario(usuario);
+		return venda;
 	}
 }
 	

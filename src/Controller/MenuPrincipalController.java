@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import view.CadastroClienteFrame;
 import view.CadastroFornecedorFrame;
 import view.MenuPrincipal;
+import view.RelatorioVenda;
 import view.VendasFrame;
 import view.EstoqueFrame;
 
@@ -20,6 +21,7 @@ public class MenuPrincipalController {
 	CadastroFornecedorFrame fornecedorFrame = new CadastroFornecedorFrame();
 	EstoqueFrame produtosFrame = new EstoqueFrame();
 	VendasFrame vendasFrame = new VendasFrame();
+	RelatorioVenda relatorioVenda = new RelatorioVenda();
 	
 	
 	public void CadastroCliente() {
@@ -119,6 +121,28 @@ public class MenuPrincipalController {
 				vendasFrame.setVisible(true);
 				vendasFrame.repaint();
 				vendasFrame.validate();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void formRelatorios() {
+		desktopPane = MenuPrincipal.getDesktopPane();
+		if (relatorioVenda.isVisible()) {
+			relatorioVenda.toFront();
+			relatorioVenda.requestFocus();
+			JOptionPane.showMessageDialog(null, "Relatorio de Vendas \n já esta em uso", "AVISO",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+			try {
+				desktopPane.add(relatorioVenda);
+				desktopPane.moveToFront(relatorioVenda);
+				relatorioVenda.setSize(desktopPane.getWidth(), desktopPane.getHeight());
+				relatorioVenda.setLocation(0, 0);
+				relatorioVenda.setVisible(true);
+				relatorioVenda.repaint();
+				relatorioVenda.validate();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
