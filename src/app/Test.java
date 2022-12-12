@@ -10,6 +10,7 @@ import model.dao.DaoFactory;
 import model.dao.EstadoDao;
 import model.dao.EstoqueDao;
 import model.dao.FornecedorDao;
+import model.dao.VendasDao;
 import model.entities.Cidades;
 import model.entities.ClientePessoaFisica;
 import model.entities.ClientePessoaJuridico;
@@ -17,6 +18,7 @@ import model.entities.Endereco;
 import model.entities.Estados;
 import model.entities.Estoque;
 import model.entities.Fornecedor;
+import model.entities.Venda;
 
 public class Test {
 
@@ -27,6 +29,7 @@ public class Test {
 		FornecedorDao fornecedorDao = DaoFactory.createFornecedorDao();
 		EstadoDao estadoDao = DaoFactory.createEstadoDao();
 		EstoqueDao estoqueDao = DaoFactory.createEstoqueDao();
+		VendasDao vendasDao = DaoFactory.createVendasDao();
 		
 //		Estados estado = new Estados(9);
 //		Cidades cidade = new Cidades(894);
@@ -54,10 +57,10 @@ public class Test {
 			System.out.println(cliente);
 		}*/
 		
-//		List<Fornecedor> list = fornecedorDao.findAll();
-//		for (Fornecedor fornecedor : list) {
-//			System.out.println(fornecedor);
-//		}
+		List<Venda> list = vendasDao.ListItem(1);
+		for (Venda venda : list) {
+			System.out.println(venda);
+		}
 		
 //		List<Estados> list = estadoDao.findAllEstados();
 //		for (Estados estados : list) {
@@ -70,13 +73,14 @@ public class Test {
 //			System.out.println(cliente);
 //		}
 		
-		String nome = "i";
-		List<Estoque> list = estoqueDao.findAllItemVendas(nome);
-		for (Estoque estoque : list) {
-			System.out.println(estoque);
-		}
-
-
+//		String nome = "i";
+//		List<Estoque> list = estoqueDao.findAllItemVendas(nome);
+//		for (Estoque estoque : list) {
+//			System.out.println(estoque);
+//		}
+		
+		
+		//System.out.println(vendasDao.findBy());
 	}
 
 }

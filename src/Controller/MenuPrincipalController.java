@@ -117,6 +117,8 @@ public class MenuPrincipalController {
 				vendasFrame.setSize(desktopPane.getWidth(), desktopPane.getHeight());
 				vendasFrame.setLocation(0, 0);
 				vendasFrame.setVisible(true);
+				vendasFrame.repaint();
+				vendasFrame.validate();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

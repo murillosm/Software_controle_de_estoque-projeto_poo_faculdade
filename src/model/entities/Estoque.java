@@ -19,6 +19,14 @@ public class Estoque {
 	public Estoque() {
 	}
 	
+	
+	
+	public Estoque(int idItem) {
+		this.idItem = idItem;
+	}
+
+
+
 	public Estoque(int idItem, Double precoItem, Integer quantidade, String nomeItem, String marcaItem,
 			String descricaoItem, Fornecedor forn) {
 		super();

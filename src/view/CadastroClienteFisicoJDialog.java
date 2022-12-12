@@ -44,18 +44,18 @@ public class CadastroClienteFisicoJDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private final CadastroClienteFisicoController controller;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			CadastroClienteFisicoJDialog dialog = new CadastroClienteFisicoJDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		try {
+//			CadastroClienteFisicoJDialog dialog = new CadastroClienteFisicoJDialog();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.

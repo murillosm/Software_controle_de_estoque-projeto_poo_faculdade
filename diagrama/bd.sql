@@ -183,8 +183,8 @@ CREATE TABLE estoque (
 
 CREATE TABLE venda (
     id_venda SERIAL PRIMARY KEY ,
-    valor_venda decimal(10,2) not null,
-    data_venda date not null,
+    valor_venda decimal(10,2),
+    data_venda date,
     idusuario integer,
     idcliente integer,
     FOREIGN KEY (idusuario)
@@ -193,19 +193,23 @@ CREATE TABLE venda (
         REFERENCES cliente (idcliente)
 );
 
-CREATE TABLE item_vendido (
-    id_venda SERIAL PRIMARY KEY,
-    quantidade integer not null,
-    id_item integer,
-    FOREIGN KEY (id_item)
-        REFERENCES estoque (id_item)
-);
-
-CREATE TABLE item_vendido2(
+/*CREATE TABLE item_vendido(
     id_venda integer not null,
 	id_item integer not null,
     quantidade integer not null,
 	CONSTRAINT pk_item_vendido PRIMARY KEY (id_venda, id_item),
+    FOREIGN KEY (id_item)
+        REFERENCES estoque (id_item)
+		ON DELETE CASCADE,
+	FOREIGN KEY (id_venda)
+        REFERENCES venda (id_venda)
+		ON DELETE CASCADE
+);*/
+
+CREATE TABLE item_vendido(
+    id_venda integer not null,
+	id_item integer not null,
+    quantidade integer not null,
     FOREIGN KEY (id_item)
         REFERENCES estoque (id_item)
 		ON DELETE CASCADE,
@@ -218,69 +222,4 @@ CREATE TABLE item_vendido2(
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-CREATE TABLE compra (
-                        codigo_compra integer PRIMARY KEY not null,
-                        data_compra date not null,
-                        valor_compra decimal(10,2) not null,
-                        fk_usuario_idusuario integer,
-                        fk_fornecedor_id_fornecedor integer,
-                        FOREIGN KEY (fk_usuario_idusuario)
-                            REFERENCES usuario (idusuario)
-                            ON DELETE CASCADE,
-                        FOREIGN KEY (fk_fornecedor_id_fornecedor)
-                            REFERENCES fornecedor (id_fornecedor)
-                            ON DELETE CASCADE
-);
 
-/*CREATE TABLE marca (
-                       id_marca integer PRIMARY KEY not null,
-                       nome_marca integer not null
-);*/
-
-/*CREATE TABLE item (
-                      id_item integer PRIMARY KEY not null,
-                      nome_item varchar(40) not null,
-                      modelo varchar(100),
-                      fk_modelo_cod_modelo integer,
-                      fk_marca_id_marca integer,
-                      FOREIGN KEY (fk_marca_id_marca)
-                          REFERENCES marca (id_marca)
-                          ON DELETE RESTRICT
-);*/
-
-CREATE TABLE item_compra (
-                             id_item_compra integer PRIMARY KEY not null,
-                             quantidade integer not null,
-                             preco_unitario decimal(10,2) not null,
-                             fk_compra_codigo_compra integer,
-                             fk_item_id_item integer,
-                             FOREIGN KEY (fk_compra_codigo_compra)
-                                 REFERENCES compra (codigo_compra)
-                                 ON DELETE RESTRICT,
-                             FOREIGN KEY (fk_item_id_item)
-                                 REFERENCES item (id_item)
-                                 ON DELETE CASCADE
-);
-
-
-
-CREATE TABLE reduz (
-                       fk_estoque_id_item integer,
-                       fk_id_item_venda integer,
-                       FOREIGN KEY (fk_estoque_id_item)
-                           REFERENCES estoque (id_item)
-                           ON DELETE RESTRICT,
-                       FOREIGN KEY (fk_id_item_venda)
-                           REFERENCES item_vendido(id_item_venda)
-                           ON DELETE RESTRICT
-);
-
-CREATE TABLE parcela (
-                         cod_parcelameto integer PRIMARY KEY,
-                         valor_parcelas decimal(20,2),
-                         quantidade_parcelar int,
-                         fk_venda_codigo_venda integer,
-                         FOREIGN KEY (fk_venda_codigo_venda)
-                             REFERENCES venda (codigo_venda)
-                             ON DELETE RESTRICT
-);

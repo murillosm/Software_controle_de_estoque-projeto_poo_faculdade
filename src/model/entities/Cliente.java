@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public abstract class Cliente {
 
-	private Integer idCliente;
+	private int idCliente;
 	private String nomeCliente;
 	private String foneCliente1;
 	private String foneCliente2;
@@ -43,7 +43,7 @@ public abstract class Cliente {
 	}
 //////////////////construtor\\\\\\\\\\\\\\\\\\\\\\\
 
-	public Cliente(Integer idCliente, String nomeCliente, String foneCliente1, String foneCliente2, String emailCliente,
+	public Cliente(int idCliente, String nomeCliente, String foneCliente1, String foneCliente2, String emailCliente,
 			Endereco enderecoCliente/* , Date cadastraC */) {
 		this.idCliente = idCliente;
 		this.nomeCliente = nomeCliente;
@@ -55,6 +55,10 @@ public abstract class Cliente {
 	}
 
 	public Cliente() {
+	}
+
+	public Cliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public Cliente(String nomeCliente, String foneCliente1, String foneCliente2, String emailCliente,
@@ -69,16 +73,17 @@ public abstract class Cliente {
 
 //////////////////get e set\\\\\\\\\\\\\\\\\\\\\\\
 
-	public Integer getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
 
 	public String getNomeCliente() {
 		return nomeCliente;
+	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public void setNomeCliente(String nomeCliente) {

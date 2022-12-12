@@ -22,6 +22,72 @@ public class VendasHelper implements Helper{
 		this.view = view;
 	}
 	
+	@Override
+	public void limparTela() {
+		view.getTxtData().setText("");
+		view.getTxtIDCliente().setText("");
+		view.getTxtIDProduto().setText("");
+		view.getTxtIDVenda().setText("");
+		view.getTxtValorTotal().setText("");
+		view.getTxtValorItem().setText("");
+		view.getTxtQuatidade().setText("");
+		view.getTxtPesquisaNome().setText("");
+		view.getTxtPesquisaProduto().setText("");
+	}
+	
+	public Estoque obterIDItems() {
+		String idProdutoString = view.getTxtIDProduto().getText();
+		int id = Integer.parseInt(idProdutoString);
+		//Estoque estoque = 
+		return new Estoque(id);
+	}
+	
+	public Venda obterItems() {
+		String idVendaString = view.getTxtIDVenda().getText();
+		int idVenda = Integer.parseInt(idVendaString);
+
+		//String idProdutoString = view.getTxtIDProduto().getText();
+		Estoque idProduto = obterIDItems();
+
+		String qString = view.getTxtQuatidade().getText();
+		int qtd = Integer.parseInt(qString);
+		
+		Venda venda = new Venda(idVenda, idProduto, qtd);
+		return venda;
+	}
+	
+	
+	@Override
+	public Venda obterModelo() {
+		
+		String idVendaString = view.getTxtIDVenda().getText();
+		int idVenda = Integer.parseInt(idVendaString);
+		
+		Usuario usuario = obterUsuario();
+		
+		String idString = view.getTxtIDCliente().getText();
+		int idCliente = Integer.parseInt(idString);
+		
+		String valorString = view.getTxtValorTotal().getText();
+		double valor = Double.parseDouble(valorString);
+		
+		String data = view.getTxtData().getText();
+		
+		Venda venda = new Venda(idVenda, usuario, idCliente, valor, data);
+		return venda;
+	}
+	
+	public Usuario obterUsuario() {
+		return (Usuario) view.getCbxUsuario().getSelectedItem();
+	}
+	
+	public void preencherUsuario(List<Usuario> usuarios) {
+		DefaultComboBoxModel cbxUsuarioModel  = (DefaultComboBoxModel) view.getCbxUsuario().getModel();
+		for (Usuario usuario: usuarios) {
+			view.getCbxUsuario().addItem(usuario);
+		}
+	}
+	
 	public void preencherTabelaFisica(ArrayList<ClientePessoaFisica> listClientes) {
 		DefaultTableModel tableModel = (DefaultTableModel) view.getTbPesquisa().getModel();
 		tableModel.setNumRows(0);
@@ -60,34 +126,19 @@ public class VendasHelper implements Helper{
 		}
 	}
 	
-	public void preencherUsuario(List<Usuario> usuarios) {
-		DefaultComboBoxModel cbxUsuarioModel  = (DefaultComboBoxModel) view.getCbxUsuario().getModel();
-		for (Usuario usuario: usuarios) {
-			view.getCbxUsuario().addItem(usuario);
+	public void preencherItensList(ArrayList<Venda> listVendas) {
+		DefaultTableModel tableModel = (DefaultTableModel) view.getTbVenda().getModel();
+		tableModel.setNumRows(0);
+
+		for (Venda venda : listVendas) {
+			tableModel.addRow(new Object[] {
+					venda.getIdVenda(),
+					venda.getProduto().getIdItem(),
+					venda.getQtd(),
+					venda.getProduto().getNomeItem()});
 		}
 	}
-	
-//	public void dadosJText(Estoque model) {
-//		view.getTxtId().setText(String.valueOf(model.getIdItem()));
-//		view.getTxtNomeItem().setText(model.getNomeItem());
-//		view.getTxtDescricao().setText(model.getDescricaoItem());
-//		view.getTxtQtd().setText(String.valueOf(model.getQuantidade()));
-//		view.getTxtValor().setText(String.valueOf(model.getPrecoItem()));
-//		view.getTxtMarca().setText(model.getMarcaItem());
-//		view.getCbxFornecedor().setSelectedItem(model.getForn());
-//	}
 
-	@Override
-	public Object obterModelo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void limparTela() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void tabelaCliente() {
 		view.getTbPesquisa().setModel(

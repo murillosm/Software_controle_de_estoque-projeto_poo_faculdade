@@ -48,26 +48,24 @@ import javax.swing.JFrame;
 public class CadastroClienteFrame extends JInternalFrame {
 
 	private static JDesktopPane desktopPaneClientes;
-	private static JComboBox cbxTipoPesquisa;
 	private static CadastroClienteFrame telaCadastroCliente;
-	private JTextField textField;
 	private ClienteController clienteController;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroClienteFrame frame = new CadastroClienteFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					CadastroClienteFrame frame = new CadastroClienteFrame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -115,30 +113,7 @@ public class CadastroClienteFrame extends JInternalFrame {
 		
 		JLabel label_1 = new JLabel("");
 		
-		cbxTipoPesquisa = new JComboBox();
-		cbxTipoPesquisa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		//cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CPF", "CNPJ", "ID"}));
-		
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.BOLD, 13));
-		textField.setColumns(10);
-		
 		JComboBox cbxTipoCliente = new JComboBox();
-		cbxTipoCliente.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					//String valorSelecionado = e.getItem().toString();
-					String tipo = cbxTipoCliente.getSelectedItem().toString().trim();
-					if (tipo.equals("Pessoa Fisica")) {
-						cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CPF", "ID"}));
-					}else 
-						if (tipo.equals("Pessoa Jurídica")) {
-							cbxTipoPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome", "CNPJ", "ID"}));
-					}
-				}	
-			}
-		});
 		cbxTipoCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tipo = cbxTipoCliente.getSelectedItem().toString().trim();
@@ -156,9 +131,6 @@ public class CadastroClienteFrame extends JInternalFrame {
 		cbxTipoCliente.setFont(new Font("Tahoma", Font.BOLD, 13));
 		cbxTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"Escolha um campo", "Pessoa Fisica", "Pessoa Jurídica"}));
 		
-		JButton btnPesquisar = new JButton("");
-		btnPesquisar.setIcon(new ImageIcon(CadastroClienteFrame.class.getResource("/view/imagens/icons/procurar.png")));
-		
 		JButton btnAddCliente = new JButton("");
 		btnAddCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -171,24 +143,14 @@ public class CadastroClienteFrame extends JInternalFrame {
 			gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
 					.addGap(10)
-					.addComponent(btnAddCliente, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addComponent(btnAddCliente, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-							.addGap(6)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 507, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-							.addGap(159)
-							.addComponent(lblCadastrosClientes, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
-							.addGap(398)
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))))
+					.addGap(384)
+					.addComponent(lblCadastrosClientes, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
+					.addGap(398)
+					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panelPesquisaConfg.setVerticalGroup(
 			gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
@@ -197,19 +159,12 @@ public class CadastroClienteFrame extends JInternalFrame {
 					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblCadastrosClientes)
 						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-							.addGap(7)
-							.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnAddCliente))
-						.addGroup(gl_panelPesquisaConfg.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panelPesquisaConfg.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING, gl_panelPesquisaConfg.createParallelGroup(Alignment.BASELINE)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-									.addComponent(cbxTipoPesquisa, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-								.addComponent(btnPesquisar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+					.addGap(55)
+					.addComponent(btnAddCliente))
+				.addGroup(Alignment.TRAILING, gl_panelPesquisaConfg.createSequentialGroup()
+					.addContainerGap(125, Short.MAX_VALUE)
+					.addComponent(cbxTipoCliente, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		panelPesquisaConfg.setLayout(gl_panelPesquisaConfg);
 		
@@ -236,15 +191,6 @@ public class CadastroClienteFrame extends JInternalFrame {
 	}
 
 
-	public JTextField getTextField() {
-		return textField;
-	}
-
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
 
 	public ClienteController getClienteController() {
 		return clienteController;
@@ -256,14 +202,6 @@ public class CadastroClienteFrame extends JInternalFrame {
 	}
 
 
-	public static JComboBox getCbxTipoPesquisa() {
-		return cbxTipoPesquisa;
-	}
-
-
-	public static void setCbxTipoPesquisaBox(JComboBox cbxTipoPesquisa) {
-		CadastroClienteFrame.cbxTipoPesquisa = cbxTipoPesquisa;
-	}
 	
 	
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Venda {
 
-	private int id;
+	private int idVenda;
 	private Usuario usuario;
-	private Cliente cliente;
+	private int cliente;
 	private Estoque produto;
 	private double valor;
 	private int qtd;
@@ -23,9 +23,36 @@ public class Venda {
 	public Venda() {
 	}
 
-	public Venda(int id, Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String data) {
+	public Venda(Estoque produto) {
+		this.produto = produto;
+	}
+	
+	
+
+	public Venda(int idVenda, Usuario usuario, int cliente, double valor, String data) {
 		super();
-		this.id = id;
+		this.idVenda = idVenda;
+		this.usuario = usuario;
+		this.cliente = cliente;
+		this.valor = valor;
+		try {
+			this.data = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Venda(int idVenda, Estoque produto, int qtd) {
+		super();
+		this.idVenda = idVenda;
+		this.produto = produto;
+		this.qtd = qtd;
+	}
+
+	public Venda(int idVenda, Usuario usuario, int cliente, Estoque produto, double valor, int qtd, String data) {
+		super();
+		this.idVenda = idVenda;
 		this.usuario = usuario;
 		this.cliente = cliente;
 		this.produto = produto;
@@ -40,7 +67,7 @@ public class Venda {
 		}
 	}
 
-	public Venda(Usuario usuario, Cliente cliente, Estoque produto, double valor, int qtd, String data) {
+	public Venda(Usuario usuario, int cliente, Estoque produto, double valor, int qtd, String data) {
 		super();
 		this.usuario = usuario;
 		this.cliente = cliente;
@@ -56,12 +83,12 @@ public class Venda {
 	}
 ////////////////get e set\\\\\\\\\\\\\\\
 
-	public int getId() {
-		return id;
+	public int getIdVenda() {
+		return idVenda;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdVenda(int id) {
+		this.idVenda = id;
 	}
 
 	public Usuario getUsuario() {
@@ -72,11 +99,11 @@ public class Venda {
 		this.usuario = usuario;
 	}
 
-	public Cliente getCliente() {
+	public int getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(int cliente) {
 		this.cliente = cliente;
 	}
 
@@ -128,7 +155,7 @@ public class Venda {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + idVenda;
 		return result;
 	}
 
@@ -141,14 +168,14 @@ public class Venda {
 		if (getClass() != obj.getClass())
 			return false;
 		Venda other = (Venda) obj;
-		if (id != other.id)
+		if (idVenda != other.idVenda)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Venda [id=" + id + ", usuario=" + usuario + ", cliente=" + cliente + ", produto=" + produto + ", valor="
+		return "Venda [id=" + idVenda + ", usuario=" + usuario + ", cliente=" + cliente + ", produto=" + produto + ", valor="
 				+ valor + ", qtd=" + qtd + ", dataString=" + data + ", data=" + data + ", item=" + item + "]";
 	}
 	
