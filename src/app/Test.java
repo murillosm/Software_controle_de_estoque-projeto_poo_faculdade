@@ -82,11 +82,7 @@ public class Test {
 //		//for (Estoque estoque : list) {
 //		System.out.println(list);
 //		//}
-		
-		List<Venda> list = vendasDao.findAllId();
-		for (Venda cliente : list) {
-			System.out.println(cliente);
-		}
+
 	}
 
 }

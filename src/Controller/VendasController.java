@@ -53,15 +53,15 @@ public class VendasController {
 			//Venda venda;
 			venda = helper.obterItems();
 			vendasDao.insertItemVenda(venda);
-			ListaItem();
-			helper.limparTela();
+			listaItem();
+			//helper.limparTela();
 			JOptionPane.showMessageDialog(null, "Item Cadastrado com sucesso!");
 		} catch (RuntimeException e) {
 			JOptionPane.showMessageDialog(null, "Alguns campos estão vazios", null, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	public void ListaItem() {
+	public void listaItem() {
 		String idVendaString = view.getTxtIDVenda().getText();
 		int idVenda = Integer.parseInt(idVendaString);
 		ArrayList<Venda> listVendas = (ArrayList<Venda>) vendasDao.ListItem(idVenda);
@@ -169,7 +169,7 @@ public class VendasController {
 		
 		int list = estoqueDao.conferirQuantidade(id,qtd);
 
-		if (list>qtd) {
+		if (list>=qtd) {
 			estoqueDao.updateQuantidade(id,qtd);
 			novoItem();
 		}else {

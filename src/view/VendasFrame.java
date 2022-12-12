@@ -163,8 +163,8 @@ public class VendasFrame extends JInternalFrame {
 		txtData.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				float valorTotal;
-				valorTotal = Float.parseFloat(txtValorItem.getText()) * Integer.parseInt(txtQuatidade.getText());
+				double valorTotal;
+				valorTotal = Double.parseDouble(txtValorItem.getText()) * Integer.parseInt(txtQuatidade.getText());
 				txtValorTotal.setText(String.valueOf(valorTotal));
 			}
 		});
@@ -205,7 +205,7 @@ public class VendasFrame extends JInternalFrame {
 		txtQuatidade.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				Double valorTotal;
+				double valorTotal;
 				valorTotal = Double.parseDouble(txtValorItem.getText()) * Integer.parseInt(txtQuatidade.getText());
 				txtValorTotal.setText(String.valueOf(valorTotal));
 			}
@@ -267,10 +267,10 @@ public class VendasFrame extends JInternalFrame {
 		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.baixaEstoque();
 				//controller.novoItem();
-				total = total + Float.parseFloat(txtValorTotal.getText()) * Integer.parseInt(txtQuatidade.getText());
+				total = total + Double.parseDouble(txtValorTotal.getText()) * Integer.parseInt(txtQuatidade.getText());
 				txtValorTotal.setText(String.valueOf(total));
+				controller.baixaEstoque();
 				
 			}
 		});
